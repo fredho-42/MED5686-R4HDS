@@ -1,0 +1,76 @@
+\usepackage{booktabs}
+
+\nonfrenchspacing
+\let\cleardoublepage\clearpage %removes all the blank pages before the chapters start.
+\usepackage[T1]{fontenc} % modern encoding
+\usepackage{multirow}
+\setcounter{secnumdepth}{3} % adds numbers for sub-sub sections
+\usepackage[dvipsnames,table]{xcolor}
+\usepackage{colortbl} % colour table cells 
+\usepackage{makecell} % cell formatting 
+\setlength {\marginparwidth}{1cm} 
+\usepackage{todonotes} % allow for notes
+\usepackage{tabularx} % size text
+\usepackage{lscape} % landscape pages
+\usepackage{parskip} % skips line after each paragraph 
+\setlength{\parskip}{1em plus 1em}% works for some areas, but struggling in others 
+%\setlength\parskip{12pt plus 1em} % paragraph spacing
+
+\usepackage{caption} % for image captions
+\usepackage{subcaption} % for image subcaptions
+\usepackage{sidecap} % for captions beside figures 
+\sidecaptionvpos{figure}{c}
+\usepackage{imakeidx}
+
+%\usepackage{subfig} % multiple images per figure, deemed as outdated to subcaption
+\usepackage[export]{adjustbox} % scale images to with of page
+\usepackage{array}
+\usepackage{longtable} % splits tables over multiple pages 
+\usepackage{siunitx} % for reporting SI units, particularly micromol
+\usepackage{comment} % allow for fast commenting out large bits of text
+
+\usepackage{amsmath} % for bracketed, piecewise equations
+% Comment out the next three lines of LaTeX if you wish to use Computer Modern fonts
+%   (this is the default for LaTeX)
+% Make sure that your TeX installation can produce good pdf with these fonts.
+% The following three lines are a good alternative if you don't use much mathematics
+\usepackage{mathptmx}  % uses Times for text and mathematics
+%\usepackage[scaled]{helvet} %  helvetica for sanserif, scaled 95% by default
+%\usepackage{courier}  % courier for typewriter font, pretty ugly but available
+% otherwise the six package offers more options and symbols
+% \usepackage{stix}  % uses Times for text and a range of fonts for mathematics
+% End of choices for fonts
+\usepackage{graphicx}  % standard package for importing graphics files
+\raggedbottom
+%\usepackage{cite}  % improves format of numerical citations, such as [1-3]
+\usepackage[top=1.8cm, bottom=1.8cm, left=1.5cm, right=1.5cm]{geometry}
+\usepackage[onehalfspacing]{setspace}  % gives one-and-a-half line spacing
+%\usepackage[singlespacing]{setspace}  % gives one-and-a-half line spacing
+% doublespacing is another option and can be changed in the text
+
+\usepackage{epigraph} % for quotes in thesis
+\usepackage{natbib} % for Harvard style bib
+\usepackage{breakcites} % allow for citations to flow across multiple lines 
+\usepackage{url} % should allow for URLs with special characters 
+%\usepackage{hyperref} % Commented out so Bookdown can safely inject its own links
+
+\usepackage{ragged2e} % for formatting bibliography ragged right side
+\usepackage{amssymb} % for symbols
+\usepackage[nobiblatex]{xurl}
+\usepackage{hyphenat}% for hyphens
+%\usepackage{afterpage}% to make image own thing
+\usepackage{float} % to help with floating figures
+
+\usepackage{xcolor}
+\definecolor{mysoftblue}{rgb}{0, 0.2, 0.5} % a calm blue for clickable links - define col here.
+\usepackage{framed}
+\usepackage[most]{tcolorbox} % to create coloured boxes around code and examples
+
+\captionsetup[figure]{hypcap=false}
+
+\newcommand{\highlight}[1]{\textbf{\textcolor{purple!80!black}{#1}}}
+\newenvironment{yellowbox}{\begin{tcolorbox}[colback=yellow!50!white]}{\end{tcolorbox}}
+\newenvironment{pinkbox}{\begin{tcolorbox}[colback=purple!30!white]}{\end{tcolorbox}}
+\definecolor{results}{cmyk}{0, 0, 0, 0.03}
+\usepackage{tocloft} % for changing certain text sizes
+\makeindex

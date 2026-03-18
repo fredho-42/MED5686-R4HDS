@@ -1,0 +1,31 @@
+# R and RStudio specific files
+.Rhistory
+.RData
+.Ruserdata
+.Rproj.user/
+
+# Bookdown & RMarkdown temporary/cache folders
+_bookdown_files/
+_main_files/
+libs/
+
+# LaTeX temporary and byproduct files
+*.log
+*.acn
+*.glo
+*.ist
+*.idx
+*.aux
+*.out
+*.toc
+*.fls
+*.fdb_latexmk
+*.ilg
+*.ind
+
+# The rogue test file from earlier
+R outupt.txt
+
+# Ignore all datasets but keep the data folder structure
+data/*
+!data/.gitkeep

@@ -1,0 +1,396 @@
+# Advanced Topics in Regression {#ch-6}
+
+Chapter \@ref(ch-5) introduced how to fit an **\acr{GLM}** for outcomes of different data types. However, there is still one common type of outcome that cannot be handled using **\acr{GLM}**: **survival outcome**. Survival outcome can be thought of an extension of a binary outcome. But instead of just a yes/no for a disease, it has two pieces of information:
+
+1.  The length of follow-up (thus the data have to be generated from a study design with some temporality); 
+2.  Whether the individual had the outcome by the end of follow-up: Yes (the individual had the event [e.g. disease]); No (the individual had not had the event, a.k.a **censored**).
+
+Because of this survival outcome is also sometimes called **time-to-event**.
+
+There are usually three ways where the follow-up end: 
+
+1.  End of observation: There is no more information about the presence of the event after that. This is the most common way of ending a follow-up. 
+2.  Observation of an event: In majority of scenarios, only the incident (i.e. first) event was of interest, and thus follow-up would end at the incident event, even though the actual observation could be longer. 
+3.  Occurrence of a **competing event**: Briefly, a competing event is one that would inhibit the observation of the main event of interest. A common competing event is death from other causes. For example, if one is interested in the incidence of heart diseases, dying from cancer is a competing event. Handling competing event is actually a very complex topic. In simplest term, if one is only interested in the **relative risk**, they can look at cause-specific \acr{HR}, where a competing event will end the follow-up. Please note that this approach, however, will provide a biased estimate for **absolute risk** (e.g. cumulative hazard) [@lau2009competing]. There is another method to handle competing event ('Fine and Grey subdistribution model'), but is outside the scope of this course. 
+
+::: yellowbox
+```{r setup-ch6, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(gtsummary)
+library(interactionR)
+library(car)
+library(mfp2)
+library(mgcv)
+library(survival)
+library(haven)
+```
+:::
+
+::: yellowbox
+```{r import-data}
+# Import datasets
+alertrct <- haven::read_dta('data/06-alert_rct.dta')
+usoc <- readr::read_csv('data/06-understanding_soc.csv') %>% 
+  mutate(
+    obesity=if_else(bmi >= 30, 1, 0), 
+    bmi_factor=case_when(
+      bmi <= 18.5 ~ 'Underweight', 
+      bmi <= 25 ~ 'Normal weight', 
+      bmi <= 30 ~ 'Overweight', 
+      bmi <= 999 ~ 'Obesity', 
+    ) %>% 
+      factor() %>% 
+      relevel('Normal weight')
+  )
+```
+:::
+
+## Survival Analysis
+
+Survival analysis specifically deals with time-to-event data. This is unique because it tracks both the duration of follow-up and the presence of the event at the end (disease/death).
+
+### Kaplan-Meier Estimator
+
+The \acr{KM} is a non-parametric method to estimate the survival function, i.e. how survival (or, disease-free, for disease outcomes) probability varies over time. 
+
+The code below shows the simplest form of \acr{KM} - estimating the \acr{MACE}-free probability for the all participants in the *Alert RCT*. Note that We use `Surv(time, event)` to create a survival object in R that combines follow-up time and event status. The `~ 1` indicates we are interested in the overall survival function for the entire sample. 
+
+Note that when calling the km1 object, it showed the data has 1000 participants with 109 \acr{MACE}. However, the median and corresponding \acr{CI} were both \acr{NA}. That is because to calculate median survival from this non-parametric method, at least 50% of the participants have to had developed the event. There are parametric models that could be used to extraplote beyond the observation, even though those usually would be regarded very reliable. 
+
+Calling `summary(km1, times=5)` asked R to produce the 5-year survival probability, which was 0.9. 
+
+::: yellowbox
+```{r km-survival}
+library(survival)
+# Produce survival function 
+km1 <- survfit(Surv(mace_t, mace_i) ~ 1, data=alertrct)
+km1
+summary(km1, times=5)
+```
+:::
+
+Instead of the table, one can also visualise the \acr{KM}, a Kaplan-Meier curve using the following command.  
+
+::: yellowbox
+```{r plot-km}
+# Plot survival function 
+plot(km1, main="Kaplan-Meier Curve", xlab="Time", ylab="Survival")
+```
+:::
+
+The plot showed that the longest follow-up was just over 6 years (as shown in the x-axis), and that by the end of the study there were still over 80% of the participants to be disease-free. 
+
+::: pinkbox
+What do you think `summary(km1, times=10)` will show?
+:::
+
+### Log-rank Test
+
+\acr{KM} is just an estimator but it could also be a basis to conduct simple comparison, e.g. by subgroup. This is specifically done via the **log-rank test**. The example below examined if the disease-free survival were different by randomised group (fluvastatin vs. placebo). 
+
+::: yellowbox
+```{r log-rank-test}
+# Standard log-rank test (rho=0)
+km2 <- survdiff(Surv(mace_t, mace_i) ~ randgrp, data=alertrct, rho=0)
+km2
+```
+:::
+
+The test p-value is 0.30, above the usual cut-off of statistical significance. But this could very well be due to lower statistical power than actually no difference. Note that in survival analysis, the number of events is the main driver of power. 
+
+::: pinkbox
+Do you know why `rho=0` is specified in the code above?
+
+Can you investigate by running `?survfit`?
+:::
+
+You can also plot the survival curves or, alternatively, Nelson-Aalan estimator for cumulative hazard by subgroups. Note the differences in arguments in the two plotting functions below. The `conf.int` indicates whether the 95% \acr{CI} are to be plotted. In the Nelson-Aalan plot because \acr{CI} were plotted, the syntax also included `lty=c(1, 2, 2, 1, 2, 2)` to ask R to use dashed lines for the \acr{CI}. The `fun='cumhaz'` asks R to specifically to plot the cumulative hazard. Without that, the default would be the plot the \acr{KM} estimator for survival. 
+
+::: yellowbox
+```{r plot-km-groups}
+km2 <- survfit(Surv(mace_t, mace_i) ~ randgrp, data=alertrct)
+plot(km2, conf.int = FALSE, ylab="Prob. of survival", xlab="Time in years", 
+     col=c('red', 'blue'))
+legend(0, 0.2, legend=c("Placebo", "Fluvastatin"), col=c("red", "blue"), 
+       lty=1, cex=0.8)
+
+plot(km2, conf.int = TRUE, ylab="Cumulative hazard", xlab="Time in years", 
+     col=c('red', 'blue'), lty=c(1, 2, 2, 1, 2, 2), fun="cumhaz")
+legend(0, 0.2, legend=c("Placebo", "Fluvastatin"), col=c("red", "blue"), 
+       lty=1, cex=0.8)
+```
+:::
+
+Note that hazard is very similar to incidence rate, so cumulative hazard can be thought of as the cumulative incidence rate. It is not equal to the probability of having the disease. It is actually similar to the **cumulative probability** of having the disease, and can be greater than 1 (probabilities are bounded by 0 and 1). 
+
+### Cox proportional hazard model
+
+The log-rank test can be thought of as the t-test for survival variables in that they shared the same limitations: not being able to quantify the difference, no inherent way to accommodate numeric predictor/exposure, and the lack of ability to adjust for covariates. For numeric, binary, and count outcomes, the \acr{GLM} provides a solution to these two limitations. Similarly, the \acr{Cox PH} model provides a solution for survival data. 
+
+\acr{Cox PH} model (a.k.a. Cox model or Cox regression) is semi-parametric in that it doesn't assumes the underlying survival / hazard function of the survival outcome (non-parametric part). However, it does assumes how the relative hazard varies by the exposure / predictors (the parametric part). 
+
+Below are examples to examine the assocation of Fluvastatin (compared with placebo) with \acr{MACE} in two adjustment models. 
+
+::: yellowbox
+```{r cox-models}
+cm1 <- coxph(Surv(mace_t, mace_i) ~ randgrp, data=alertrct)
+summary(cm1)
+
+cm2 <- coxph(Surv(mace_t, mace_i) ~ randgrp + age + female, data=alertrct)
+summary(cm2)
+```
+:::
+
+The \acr{HR} shown in the column of `exp(coef)` indicated Fluvastatin was associated with 16% lower hazard of \acr{MACE}, even though the difference is not statistically significant. Also note that age, after adjusted for sex and Fluvastatin, was associated with \acr{MACE}, with an \acr{HR} (95% \acr{CI}) of 1.04 (1.02-1.06). This suggests that each year of age was associated with 4% high hazard in MACE. 
+
+Alternatively, you can also use the `gtsummary::tbl_regression()` function to display the results from a Cox model: 
+
+
+::: yellowbox
+```{r cox-models-summary}
+tbl_merge(list(tbl_regression(cm1, exponentiate = T), 
+               tbl_regression(cm2, exponentiate = T)), 
+          tab_spanner = c('Unadjusted', 'Age and sex adjusted'))
+```
+:::
+
+#### Proportional hazard assumption
+
+One of the main assumption behind Cox model is the proportional hazard assumption. The proportional hazards assumption requires that the \acr{HR} remains constant over the entire follow-up. 
+
+
+For instance, if the placebo group is twice as likely to experience MACE **only** at year 6 (something supported by the \acr{KM} plot, albeit with \acr{CI} overlaps), the assumption is violated. 
+
+To formally examine this assumption, one can look at the Schoenfeld residuals with the syntax below. 
+
+::: yellowbox
+```{r schoenfeld, fig.width=9, fig.height=3}
+par(mfrow=c(1, 3))
+plot(cox.zph(cm2))
+
+cox.zph(cm2)
+```
+:::
+
+The first two lines plot the Schoenfeld residual for each included exposure/predictor in a 1x3 (1 row; 3 columns) layout. The third line calculate the p-values of a time-varying \acr{HR} (i.e. HR varies over time). However even though the p-value for `randgrp` is 0.25, the plot did show a tendency for HR to be lower towards the end of follow-up. 
+
+When the \acr{HR} is indeed time-varying, the HR estimated from Cox model becomes a weighted average of the time-varying HR, with the weight being the number of disease-free participants and number of events at a particular time. Some people argue that test for proportional hazard is unnecessary because it is almost always violated to some extent [@stensrud2020test]. However, there are actually more advanced methods to model time-varying \acr{HR}, which is outside the scope of this course. 
+
+::: pinkbox
+Please use the hip fracture data and examine if hip fracture hazard was associated with `protect` after adjusting for age and calcium.
+:::
+
+
+## Interaction and Effect Modification
+
+**Interaction** and **effect modification** were often used interchangeably in public health and medical literature, but, in fact, they refer to two distinct (but close related) concepts [@vanderweele2009distinction]. The confusion is partly stemmed from terminology. 'Interaction' can refer to both 'causal interaction' and 'statistical interaction' and it is often not made which was referred to explicitly.
+
+Effect modification involves a single exposure/intervention. It asks whether the causal effect of one primary exposure naturally varies across some population subgroups (e.g. biological sex or baseline employment). Because we are only assessing the effect of the primary exposure, we only need to adjust for the confounders of that specific exposure-outcome relationship. 
+
+On the other hand, a (causal) interaction is one that assumes two exposures/interventions to have causal effect on the outcome, and whether the two have synergistic (1 + 1 > 2) or antagonistic (1 + 1 < 2) effects. For example, prescribing both a weight-loss drug and an exercise programme to a patient with severe obesity could have better weight loss effect (e.g. BMI reduction = 20%) than the combination of individual intervention (e.g. BMI reduction = 5% in each intervention). Because we are making a causal claim about two simultaneous interventions, claiming causal interaction requires a much higher methodological bar: we must rigorously adjust for the confounders of both exposures. While subgroup analysis can be used to examine (causal) interaction, a more straightforward way is to examine the joint exposure variable. In the example, it would be a 4-level categorical variable: no interventions; weight-loss drug only; exercise programme only; both interventions, as this allows the examination of causal effects of both interventions as well as any synergistic/antagonistic effects. The way to quantify such synergistic/antagonistic effects is by examining **statistical interaction** (e.g. a product term in a regression model, or calculating the \acr{RERI}).
+
+When researchers observe different effect estimates across subgroups (e.g., a drug appearing more effective in women than in men) - an example of effect modification - they must first determine if this difference is mathematically real or simply random sampling noise. To do this, they also use tests of **statistical interaction**. However, while the mathematical test is the same, we should understand the conceptual difference between **effect modification** and **causal interaction** based on the causal assumption. 
+
+Below is a summary table to capture the distinction and statistical approach between the two: 
+
+The table below summarizes the key differences between the two causal concepts and how they dictate our analytical approach in R, even though both ultimately rely on the exact same statistical tests to confirm their findings.
+
+| Concept | Primary Goal | Analytical Approach | Statistical Confirmation |
+| :--- | :--- | :--- | :--- |
+| **Effect Modification** | Assess if the effect of *one* intervention varies across existing groups. | **Subgroup analysis:** Calculating estimates within specific subgroup. | Statistical interaction test (e.g., product term in model, RERI) |
+| **Causal Interaction** | Assess the joint, synergistic effect of *two* distinct interventions. | **Joint group analysis:** Comparing all combinations of exposures against a single reference group. | Statistical interaction test (e.g., product term in model, RERI) |
+
+Below is an example to examine effect modification using the longitudinal data from the Understanding Society study [@buck2012understanding]. Assume we are interested in estimating the potentially causal association between obesity (binary) with \acr{MW} at Wave 9 (continuous), adjusted for \acr{MW} at Wave 1, age, sex, and income. The syntax for linear regression model below should be quite familiar now: 
+
+::: yellowbox
+```{r simple-model}
+mod1 <- lm(mw9 ~ mw1 + age + sex + income + obesity, data=usoc)
+mod1 |> tbl_regression(intercept = T)
+```
+:::
+
+To examine if the association of obesity differs based on a person's income level, we include an (statistical) interaction term between income and obesity. In R, the `*` operator computes both the main effects and the interaction term simultaneously.
+
+::: yellowbox
+```{r with-interaction}
+mod2 <- lm(mw9 ~ mw1 + age + sex + income * obesity, data=usoc)
+mod2 |> tbl_regression(intercept = T)
+```
+:::
+
+::: pinkbox
+**Exercise:** Can you use the same data to examine if the association of age with \acr{MW} differ by sex. Can you interpret the interaction term? 
+:::
+
+### Additive Interaction
+
+In \acr{GLM}, an statistical interaction term can have different meaning depends entirely on the **link function** used in the model. 
+
+For a linear regression (which uses an **identity** link), the effects of predictors are naturally summed together. Therefore, an interaction term in a linear model tests for a departure from strict additivity (e.g. 1 + 1 > 2). However, when dealing with binary, count, or time-to-event outcomes, we typically use models like logistic regression (which uses a **logit** link), Poisson / \acr{NB}, or Cox proportional hazards (which use a **log** link). The primary reason these models are fitted with logit or log link functions is to ensure the model's predictions respect the natural mathematical boundaries of the outcome data. For example, a logit link forces all predicted probabilities to fall strictly between 0 and 1, while a log link ensures that predicted rates or hazards are always positive. If we were to use a standard linear (identity) link for a binary outcome, the model could predict mathematically impossible values, such as a negative probability of disease. However, as a side effect, the exposures' effect are then assumed to be multiplied (rather than added) with a logik and log link function. As a result, the statistical interaction product term in these \acr{GLM}s tests for a departure from a **multiplicative** relationship (e.g. 2 * 2 > 4).
+
+
+**Additive interaction** is sometimes thought to be  more relevant and preferred for public health decision-making. People intuitively assume the absolute risk or health burden of two independent exposures should simply add together. If the combined absolute risk is substantially larger than the sum of their individual excess risks, there is a synergistic additive interaction. This absolute scale is crucial for policymakers because it directly translates to the number of cases that could be prevented by intervening on specific target groups. 
+
+To illustrate how to test for additive interaction when the underlying model's link function is multiplicative, we will artificially create a binary 'poorer mental wellbeing' variable, defined as 1-SD below the population average. Suppose we want to examine whether obesity and lower income have an additive interaction on the risk of having poorer mental wellbeing.
+
+::: yellowbox
+```{r data-prep-interaction}
+usoc <- usoc |> 
+  mutate(pmw9=if_else(mw9 < 40, 1, 0))
+```
+:::
+
+To estimate \acr{RERI}, the most commonly used measure for additive interaction, we will need to have a model with both main effects and the multiplicative interaction term.
+
+::: yellowbox
+```{r additive-model}
+mod4 <- glm(pmw9 ~ age + sex + income * obesity, data=usoc, family=binomial)
+mod4 |> tbl_regression(intercept = T, exponentiate = T)
+```
+:::
+
+We can then call the `interactionR::interactionR()` function on the model. Note that to estimate RERI we need both 'main effects' to be risk factors, i.e. associated with higher risk of outcome (OR > 1 in this example). This is a technical limitation of RERI. The RERI estimated would be erronuous if one (or both) main effects are in the protective direction (e.g. OR < 1).
+
+::: yellowbox
+```{r reri-calc}
+library(interactionR)
+reri <- interactionR(mod4, exposure_names=c('income', 'obesity')) 
+reri$dframe
+```
+:::
+
+In our example this isn't a problem since the two main effects (obesity and lower income) are already risk factors so we don't need to recode. The results show that having obesity and lower income simultaneously was associated with 50.2% (RERI=0.5019) higher risk, in addition to the sum of the excess risk due to obesity and lower income individually. This can be verified with hand calculation from the first 4 lines in the output: $$RERI = (2.529 - 1) - (1.589 - 1) - (1.438 - 1) = 0.502$$.
+
+#### Recoding for calculating RERI
+
+As an example, examine the RERI of older age (a protective factor) and male with poorer mental wellbeing. `interactionR()` would complains about that with an error. But we can specify `recode=T` to ask the function to recode older variable to become 'younger'. When we use the `interactionR()`'s recode argument, we will need to make sure both variables (older and male) are coded as 0 and 1.
+
+The warning message indicates the new reference values after recoding. The findings shown are for older==0 compared to older==1 (i.e. younger, compared to older), and for male==0 compared to male==1 (i.e. female compared to older). Therefore, the RERI indicates that being a younger female was associated with disproportionately higher risk of poorer mental wellbeing, with an excess risk of 66.3% (RERI==0.6628).
+
+::: yellowbox
+```{r reri-recode}
+usoc <- usoc |> 
+  mutate(
+    older=if_else(age >= 60, 1, 0), 
+    male=if_else(sex=='Male', 1, 0))
+
+mod5 <- glm(pmw9 ~ older * male + income + obesity, data=usoc, family=binomial)
+mod5 |> tbl_regression(intercept = T, exponentiate = T)
+
+interactionR(mod5, exposure_names=c('older', 'male'), recode=T)$dframe
+```
+:::
+
+---
+
+## Multicollinearity
+
+Multicollinearity occurs when two or more independent variables in a regression model are highly correlated with each other. This overlap in variance (formally known as **covariance**) makes it extremely difficult for the model to isolate the individual effect of each independent variable, leading to artificially inflated standard errors and unstable coefficients.
+
+
+### Model with collinearity
+
+The model below erroneously included both BMI and BMI categories, making the interpretation difficult. 
+
+::: yellowbox
+```{r collin-model}
+mod_collin <- lm(mw9 ~ age + sex + income + bmi_factor + bmi, data=usoc)
+mod_collin |> tbl_regression(intercept = T)
+```
+:::
+
+### Correlation coefficient
+
+Simple correlation test showed very strong correlation between the two. Note that the code below have converted BMI categories from `factor` into `numeric` so that the ordinal nature is preserved. 
+
+::: yellowbox
+```{r cor-test}
+with(usoc, cor.test(bmi, as.numeric(bmi_factor), method='spearman'))
+```
+:::
+
+### Variance Inflation Factor
+
+There is a measure to quantify multicollinearity - \acr{VIF}, which can be calculated using the `car::vif()` function The VIF is not very large, even though the obvious concept problem in including both BMI categories and BMI. Generally, a VIF above 5 or 10 warrants close inspection.
+
+::: yellowbox
+```{r calc-vif}
+vif(mod_collin)
+```
+:::
+
+### Model without collinearity
+
+Removing BMI numeric variable could solve the problem easily. 
+
+::: yellowbox
+```{r mod-no-collin}
+mod_clean <- lm(mw9 ~ age + sex + income + bmi_factor, data=usoc)
+mod_clean |> tbl_regression(intercept = T)
+```
+:::
+
+---
+
+## Non-linearity
+
+Standard regression models typically assume a straightforward linear relationship between continuous expsures/predictors and the outcome. However, real-world biological and epidemiological data frequently exhibit non-linear trends, such as U-shaped or J-shaped curves, and are different ways to capture these non-linear associations [@ho2023non].
+
+### Model with categorical variable
+
+One conventional method to bypass non-linearity is to categorise the continuous variable, e.g. by using the BMI category variable.
+
+::: yellowbox
+```{r mod-categorical}
+mod_cat <- lm(mw9 ~ age + sex + income + bmi_factor, data=usoc)
+mod_cat |> tbl_regression(intercept = T)
+```
+:::
+
+This is the conventional method because it is straightforward to implement, but the problem is that it is also crude. This essentially assumes people within each category to have the same outcome, on average. Another problem is that many times the categorisation is arbitrary and could affect the conclusion. 
+
+### Model with quadratic term
+
+Another way would be to include mathematically function of the exposure/predictor, such as the quadratic form of BMI. Note that in the syntax below, the coefficients are rounded to nearest 4 significant figures, mainly because the coefficient for the quadratic form of BMI was very small. 
+
+::: yellowbox
+```{r mod-quad}
+mod_quad <- lm(mw9 ~ age + sex + income + bmi + I(bmi^2), data=usoc)
+mod_quad |> tbl_regression(intercept = T, estimate_fun=function(.x) style_sigfig(.x, digits=4))
+```
+:::
+
+### Model with fractional polynomials
+
+A more systematic approach to model nonlinearity using polynomial is by using The fractional polynomials. `mfp2::mfp2()` function  provide easy estimation of fractional polynomials. For `age`, `sex`, and `income` I have included `fp(xxx, 1)` to indicate we don't need to transform any of those variables. `1` indicates just use it as is. We didn't specify any numbers in `fp(bmi)` so that the function will estimate what powers to use. The `verbose==FALSE` suppress the technical reports. You can write down the explicit formula based on the fractional polynomials. Here: 
+
+$$MW = 49.902 + 1.539 \times age - 80.371 \times BMI^{-2} + 73.188 \times BMI^{-1} - 1.541 \times income + 1.187 \times sex$$
+
+The `fracplot()` function plots the estimated curve. `partial_only = T` suppresses the residuals / actual data points. `type = 'contrasts'` plots the coefficients (differences in MW) rather than the actual MW. 
+
+::: yellowbox
+```{r mod-fp}
+mod_fp <- mfp2(mw9 ~ fp(age, 1) + fp(sex, 1) + fp(income, 1) + fp(bmi), data=usoc, verbose=FALSE)
+print(mod_fp)
+summary(mod_fp)
+fracplot(mod_fp, terms = 'bmi', partial_only = T, type = 'contrasts')
+```
+:::
+
+The fractional polynomial curves suggest a sharp drop in MW in underweight and obesity range. 
+
+### Model with spline
+
+It should be noted that fractional polynomials are 'global' in the sense that the polynomial selected model the whole range of the exposure/predictor. One potential issue is that it is more vulnerable to the influence of outliers at the extreme end of the exposure/predictor. Instead, we can fit regression splines, which, in simplest term, are just smoothed piecewise polynomials. The `mgcv::gam()` function fits \acr{GAM}, including both 'normal' predictors, and splines. \acr{GAM} can be thought of as an extension of the \acr{GLM} by including splines. The `s(., bs='cs')` term in the regression formula fits a restricted cubic spline. Note that there is another package called `gam` which is NOT what we use here. 
+
+
+Plotting the `gam` object shows the spline. `abline()` was used to add a reference line. The results are consistent at the high BMI range, but different at the underweight range. Usually splines describe the curves better but the drawback is it doesn't provide any explicit formula. Here combining both results from fractional polynomials and splines, it showed we aren't too sure about the results in the underweight range, possibly due to the lack of data points. 
+
+::: yellowbox
+```{r mod-spline}
+mod_spline <- gam(mw9 ~ age + sex + income + s(bmi, bs='cs'), data=usoc)
+mod_spline |> tbl_regression()
+plot(mod_spline, scheme = 1, ylim=c(-12.5, 2))
+abline(h=0, lty=2, col='darkgrey')
+```
+:::

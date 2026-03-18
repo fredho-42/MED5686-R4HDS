@@ -1,0 +1,26 @@
+bookdown::gitbook:
+  css: style.css
+  config:
+    toc:
+      collapse: section
+      before: |
+        <li><a href="./">R for Health Data Science</a></li>
+    download: ["pdf"]
+  pandoc_args: [
+    "--metadata-file=_acronyms.yml",
+    !expr acronymsdown::add_filter()
+  ]
+bookdown::pdf_book:
+  includes:
+    in_header: preamble.tex
+  latex_engine: xelatex
+  citation_package: natbib
+  keep_tex: yes
+  pandoc_args: [
+    "--variable", "colorlinks=yes",
+    "--variable", "linkcolor=blue",
+    "--variable", "urlcolor=blue",
+    "--variable", "toccolor=blue",
+    "--metadata-file=_acronyms.yml",
+    !expr acronymsdown::add_filter()
+  ]

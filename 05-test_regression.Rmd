@@ -1,0 +1,423 @@
+# Hypothesis testing and regression modelling {#ch-5} 
+
+
+Before starting this chapter, make sure that you have the following R packages installed and loaded.
+
+::: {.yellowbox}
+```{r, eval=FALSE}
+#Install packages
+utils::install.packages("tidyverse")
+utils::install.packages("gt")
+utils::install.packages("gtsummary") 
+```
+:::
+
+::: {.yellowbox}
+```{r setup-ch5, message = FALSE, warning = FALSE}
+library(tidyverse)
+library(gt)
+library(gtsummary)
+
+rm(list=ls()); gc()
+```
+:::
+
+One primary aim of statistics is to make inferences, so that we can determine whether the association between the independent variable and the dependent variable (i.e., outcome) is true or could be due to chance. The independent variable may be an "exposure" (thought of as a potential cause), a "predictor" (which may or may not be causal), or a non-causal marker. Hypothesis testing is a common statistical method used to make such inferences. 
+
+In this chapter, we will use the data from Chapter \@ref(ch-3). To simplify things, we will only use the mean blood tests values, joined with the demographic table: 
+
+::: {.yellowbox}
+```{r}
+dat1 <- utils::read.csv("data/03-diabetic_demog.csv")
+dat2 <- utils::read.csv("data/03-diabetic_labs_final_with_missing.csv")
+
+dat2 <- dat2 %>% 
+  dplyr::summarise(
+    across(Chol:BUN, ~mean(.x, na.rm=T)), 
+    .by=id
+  )
+
+dat <- dat1 %>% 
+  dplyr::inner_join(dat2, by='id')
+
+head(dat)
+```
+:::
+
+Note that the `across()` function has not been introduced in this course, but it can be a handy way to perform the same transformation across multiple variables. Please consult its [help page](https://dplyr.tidyverse.org/reference/across.html) if you're interested.
+
+## Overview of test choices
+
+In statistics courses, you may have learned many different tests for various purposes. The following is a simplified summary of the tests that will be covered in this R course. Note that survival outcomes are taught in the Advanced Statistics course; how their analysis in R will be addressed in a later chapter.
+
+| Predictors | Nil | Binary | Categorical | Numeric | Multiple |
+|:---|:---:|:---:|:---:|:---:|:---:|
+| **Numeric outcome** | One-sample t-test | Two-sample t-test | Analysis of variance | Correlation coefficients | General linear model |
+| **Binary outcome** | One-sample proportion test | Two-sample proportion test | Chi-square test | Binary logistic model | Binary logistic model |
+| **Count outcome** | Count regression | Count regression | Count regression | Count regression | Count regression |
+| **Survival outcome** | Kaplan-Meier estimator | Log-rank test | Log-rank test | CoxPH model | CoxPH model |
+
+## Tests for one outcome variable
+
+Tests for one outcome variable but no predictor variable usually compare the outcome against a fixed benchmark. An example of this is to see if the average **\acr{BMI}** of the sample is significantly different from 30, the threshold for obesity.
+
+### One-sample t-test
+
+In R, all t-tests can be done with the `t.test()` function. In a one-sample t-test, we only need to specify the outcome variable, as well as the benchmark to test against (**`mu`**). Here, the benchmark is 30. 
+
+::: {.yellowbox}
+```{r}
+stats::t.test(dat$BMI, mu=30)
+```
+:::
+
+Here, the output in R shows that the mean **\acr{BMI}** of the sample was 31.4 (95% **\acr{CI}**: 30.5 - 32.4). The p-value of the test was 0.004, indicating the mean **\acr{BMI}** was significantly different from 30. 
+
+### Wilcoxon signed rank test {#sec:WilcoxonSignedRankTest}
+
+T-tests rely on the central limit theorem to work correctly. If the sample size is too small or the data are highly skewed, the results of those tests might not be reliable. The following shows how we can perform a Wilcoxon signed-rank test against a benchmark. The syntax is similar to that of a t-test: `wilcox.test()`.
+
+::: {.yellowbox}
+```{r}
+stats::wilcox.test(dat$BMI, mu=30)
+```
+:::
+
+The R output does not provide any estimates, but just a p-value, which is also very close to zero, indicating the same conclusion as the one-sample t-test.
+
+### One-sample proportion test {#sec:oneSamplePropTest}
+
+Similarly, one might also be interested in determining whether the proportion in the sample (e.g., the proportion of individuals with obesity) differs from a specific benchmark (e.g. 10%), which can be tested using the one-sample proportion test. The syntax for this is `prop.test()`. Both the number of diagnosed and the total number of observations need to be specified using **`x`** and **`n`**, respectively.
+
+::: {.yellowbox}
+```{r}
+dat <- dat %>%
+  dplyr::mutate(obesity=ifelse(BMI >= 30, 1, 0))
+stats::prop.test(x=sum(dat$obesity), n=length(dat$obesity), p=0.10)
+```
+:::
+
+Here, the output in R showed that the proportion (95% **\acr{CI}**) of obesity was 59.8% (52.4-66.8). The p-value of the test was <0.001, indicating the proportion of **\acr{DM}** was significantly different from 10%.
+
+## Tests for one outcome variable and one exposure/predictor
+
+### Independent two-sample t-test
+
+Note that in the code sample below, instead of specifying `dat$` before **\acr{BMI}** and Gender, the whole line of code was enclosed by a **`base::with(dat, ...)`** function. The `with()` function tells R to evaluate the `t.test()` function by finding the variables inside `dat`.
+
+::: {.yellowbox}
+```{r}
+base::with(dat, stats::t.test(BMI ~ Gender))
+```
+:::
+
+### Wilcoxon rank sum test
+
+When the sample size is too small (a common rule of thumb is n < 30) and/or the variable is highly skewed, the central limit theorem might not work well. In this scenario, using non-parametric tests, such as the Wilcoxon rank-sum test (`wilcox.test()`) could be an option.
+
+::: {.yellowbox}
+```{r}
+base::with(dat, stats::wilcox.test(BMI ~ Gender))
+```
+:::
+
+### Paired t-test
+
+The paired t-test is useful when a study has a matched design or when the data have repeated measures. To illustrate a paired t-test, we will use the data from Chapter \@ref(ch-3). The code below demonstrates how to convert long-format data into wide format, including total cholesterol.
+
+::: {.yellowbox}
+```{r}
+dat2 <- utils::read.csv("data/03-diabetic_labs_final_with_missing.csv")   
+dat2 <- dat2 %>% 
+  dplyr::group_by(id) %>%
+  dplyr::mutate(t=1:n()) %>%
+  dplyr::ungroup() %>%
+  dplyr::select(id, t, Chol) %>%
+  tidyr::pivot_wider(id_cols = id, names_from = t, names_prefix = "Chol_", 
+    values_from = Chol)
+head(dat2)
+```
+:::
+
+::: {.pinkbox}
+Can you deconstruct the code above and explain what it does in each step?
+:::
+
+Once the wide-format data are ready, it is very straightforward to conduct a paired t-test. Put the two vectors in and specify **`paired=T`**:
+
+::: {.yellowbox}
+```{r}
+base::with(dat2, stats::t.test(Chol_1, Chol_2, paired=T))
+```
+:::
+
+### Two-sample proportion test
+
+If the outcome variable is binary, we can perform the two-sample proportion test to examine the differences in proportion by a binary variable (i.e., gender). It is easiest to provide a 2x2 contingency table using the `table()` function.
+
+::: {.yellowbox}
+```{r}
+base::with(dat, stats::prop.test(base::table(Gender, obesity)))
+```
+:::
+
+### Chi-square test of independence {#sec:chiSqrd}
+
+When examining the association between two categorical variables, the Chi-square test of independence can be used. For illustrative purposes, we will create a new variable for **\acr{BMI}** categories.
+
+::: {.yellowbox}
+```{r}
+dat <- dat %>% 
+ dplyr::mutate(BMI_cat = dplyr::case_when(BMI >= 30 ~ 2, 
+                            BMI >= 25 ~ 1, 
+                            BMI >= 18.5 ~ 0, 
+                            BMI >= 0 ~ -1))
+head(dat)
+```
+:::
+
+::: {.pinkbox}
+Can you use R to check the validity of the **\acr{BMI}** category variable? Hint: check descriptive statistics and/or distribution of **\acr{BMI}** by **\acr{BMI}** categories. 
+:::
+
+::: {.yellowbox}
+```{r}
+base::with(dat, stats::chisq.test(Gender, BMI_cat))
+```
+:::
+
+Note that R threw a warning that the Chi-squared approximation may be incorrect due to lower cell counts.
+
+### Fisher exact test {#sec:fisherExact}
+
+Since the chi-square test was potentially violated, we can use the Fisher test, `fisher.test()`.
+
+::: {.yellowbox}
+```{r}
+base::with(dat, stats::fisher.test(Gender, BMI_cat))
+```
+:::
+
+Fisher's test can be computationally intensive. To overcome this, you can specify a larger workspace:
+
+::: {.yellowbox}
+```{r}
+base::with(dat, stats::fisher.test(Gender, BMI_cat, workspace = 1e8))
+```
+:::
+
+Or use simulation:
+
+::: {.yellowbox}
+```{r}
+base::with(dat, stats::fisher.test(Gender, BMI_cat, simulate.p.value = T))
+```
+:::
+
+### Correlation coefficient {#sec:pearson-Spearman}
+
+Pearson's correlation coefficients can be calculated using `cor.test()`:
+
+::: {.yellowbox}
+```{r}
+base::with(dat, stats::cor.test(BMI, Chol))
+```
+:::
+
+For ordinal variables, use Spearman's by including **`method = "spearman"`**.
+
+::: {.pinkbox}
+Attempt the following: 
+1. Conduct a formal statistical test to check whether total cholesterol is statistically different by diagnosis of diabetes.
+2. Create a binary variable to indicate high cholesterol (1 where **\acr{Chol}** >= 5 or 0 where **\acr{Chol}** < 5). Conduct a test to examine if there is an association between high cholesterol and **\acr{BMI}** categories.
+3. Is there a correlation between total cholesterol and **\acr{LDL}**? Can you use a plot to illustrate and conduct a formal statistical test to confirm?
+:::
+
+## Using `gtsummary` for "Table 1"
+
+In R, we can use the `gtsummary` package to help us with publication-quality tables. Suppose we want to show the characteristics of our study sample by gender:
+
+::: {.yellowbox}
+```{r}
+dat %>%
+  gtsummary::tbl_summary(by=Gender, include=2:10)
+```
+:::
+
+If we want to change it to mean and **\acr{SD}**:
+
+::: {.yellowbox}
+```{r}
+dat %>%
+  gtsummary::tbl_summary(by=Gender, include=2:10, 
+              statistic = list(all_continuous() ~ "{mean} ({sd})"))
+```
+:::
+
+To add p-values, use `add_p()`:
+
+::: {.yellowbox}
+```{r}
+dat %>%
+  gtsummary::tbl_summary(by=Gender, include=2:10, 
+              statistic = list(all_continuous() ~ "{mean} ({sd})")) %>%
+  gtsummary::add_p()
+```
+:::
+
+::: {.pinkbox}
+Can you create a characteristic table to display the demographic and biomarker values of the study sample overall, as well as by diabetes diagnosis? Please also add p-values for the differences by diabetes diagnosis.
+:::
+
+## General linear models
+
+General linear models describe a family of regression models for numeric outcomes and can be modelled using the `lm()` function in R. 
+
+### Simple linear regression {#sec:simpleLinearRegression}
+
+In R, regression models are most often specified using a "formula" notation containing a **`~`**. The left side is the outcome; the right side is the predictor.
+
+::: {.yellowbox}
+```{r}
+mod <- stats::lm(Chol ~ BMI, data = dat)
+base::summary(mod)
+```
+:::
+
+### Multiple regression
+
+Multiple regression can be done by adding **`+ variables`** on the right side of the formula.
+
+::: {.yellowbox}
+```{r}
+mod <- stats::lm(Chol ~ BMI + age + Gender, data = dat)
+base::summary(mod)
+```
+:::
+
+### Analysis of variance {#sec:anova}
+
+The **\acr{ANOVA}** model is a special case of the general linear model, used when the predictor is ordinal or categorical.
+
+::: {.yellowbox}
+```{r}
+mod <- stats::aov(Chol ~ BMI_cat, data = dat)
+base::summary(mod)
+```
+:::
+
+### Diagnostics
+
+In general linear models, diagnostics can be done easily by plotting the model object. We use `graphics::par(mfrow=c(2, 2))` to arrange plots in a 2x2 panel.
+
+::: {.yellowbox}
+```{r}
+graphics::par(mfrow=c(2, 2))
+graphics::plot(mod)
+```
+:::
+
+## Generalised linear models
+
+The \acr{GLM} is a even more general version of the general linear model. But the main difference is that general linear model only handles numeric outcomes, while the \acr{GLM} handles other types of outcome data. Note that because both model classes have the same acronyms and it could be confusing which 'GLM' people refer to. But in this ebook 'GLM' refers to generalised linear model. 
+
+### Binary outcomes
+
+Below is an example of a binary logistic regression using `family = "binomial"`.
+
+::: {.yellowbox}
+```{r}
+dat <- dat %>% 
+  dplyr::mutate(High_chol = base::ifelse(Chol >= 5, 1, 0))
+mod <- stats::glm(High_chol ~ BMI, data = dat, family = "binomial")
+base::summary(mod)
+```
+:::
+
+To calculate Odds Ratios (**\acr{OR}**) and CIs manually:
+
+::: {.yellowbox}
+```{r}
+base::data.frame(OR = base::exp(base::summary(mod)$coef[2, 1]), 
+           LCI=base::exp(stats::confint(mod)[2, 1]), 
+           UCI=base::exp(stats::confint(mod)[2, 2]), 
+           p=base::summary(mod)$coef[2, 4])
+```
+:::
+
+::: {.pinkbox}
+Can you deconstruct the code above and explain what each part does? Specifically why the indices **`[2, 1]`**, **`[2, 2]`**, **`[2, 4]`** were used?
+:::
+
+Alternatively, use `gtsummary`:
+
+::: {.yellowbox}
+```{r}
+mod %>% gtsummary::tbl_regression(exp = T)
+```
+:::
+
+### Count outcomes
+
+Poisson regression can be used for count outcomes using `family = "poisson"`.
+
+::: {.yellowbox}
+```{r}
+dat <- dat %>% 
+  dplyr::mutate(
+  n_lipid_rf = (Chol >= 5) + 
+             case_when(
+               Gender=='M' & HDL < 1 ~ 1, 
+               Gender=='F' & HDL < 1.2 ~ 1, 
+               .default = 0, 
+             ) + 
+             (TG >= 1.7) 
+  )
+graphics::hist(dat$n_lipid_rf)
+```
+:::
+
+::: {.yellowbox}
+```{r}
+mod <- stats::glm(n_lipid_rf ~ age + Gender + BMI, 
+    data = dat, family = "poisson")
+mod %>% gtsummary::tbl_regression(exp = T)
+```
+:::
+
+Check for overdispersion using the `performance` package:
+
+::: {.yellowbox}
+```{r}
+performance::check_overdispersion(mod)
+```
+:::
+
+If overdispersed, use Negative Binomial regression via the `MASS` package:
+
+::: {.yellowbox}
+```{r}
+mod <- MASS::glm.nb(n_lipid_rf ~ age + Gender + BMI, data = dat)
+mod %>% gtsummary::tbl_regression(exp=T)
+```
+:::
+
+### Sandwich estimator
+
+The sandwich estimator provides robust standard errors.
+
+::: {.yellowbox}
+```{r}
+mod <- stats::glm(n_lipid_rf ~ age + Gender + BMI, data = dat, family = "poisson")
+lmtest::coeftest(mod, vcov = sandwich::sandwich)
+```
+:::
+
+::: {.pinkbox}
+1. Can you test the association between total cholesterol (exposure) and diabetes diagnosis (outcome), adjusting for age and gender? 
+2. Create a new count variable on the number of metabolic risk factors: **\acr{BMI}** >= 30; total cholesterol >= 5; diabetes=1. Is there an association between age and gender with the number of metabolic risk factors? Please use an appropriate count regression to examine this. 
+:::
+
+## Summary
+
+In this chapter, you have learnt to perform common statistical tests and regression models in R. The coding of these is generally straightforward, but the proper use and interpretation of them will require subject, epidemiological, and statistical knowledge.

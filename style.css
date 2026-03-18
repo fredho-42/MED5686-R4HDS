@@ -1,0 +1,83 @@
+/* --- General Typography --- */
+p.caption {
+  color: #777;
+  margin-top: 10px;
+}
+
+p code, pre code {
+  white-space: inherit;
+}
+
+pre {
+  word-break: normal;
+  word-wrap: normal;
+}
+
+/* --- Consolidated Box Styles (Yellow & Pink) --- */
+.yellowbox, .pinkbox {
+  padding: 15px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  border: 5px solid;
+}
+
+.yellowbox {
+  background-color: #FFF2CC;
+  border-color: #FFD966;
+}
+
+.pinkbox {
+  background-color: #FCE4EC;
+  border-color: #F48FB1;
+}
+
+/* Fix for the extra spacing at the bottom of the boxes */
+.yellowbox > *:last-child, 
+.pinkbox > *:last-child {
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+/* --- Shared Elements inside Boxes --- */
+.yellowbox pre, .pinkbox pre,
+.yellowbox code, .pinkbox code {
+  line-height: 1.1 !important; 
+}
+
+.yellowbox pre, .pinkbox pre {
+  margin-top: 5px !important;
+  margin-bottom: 5px !important;
+}
+
+/* --- Specific Yellowbox R Output Formatting --- */
+.yellowbox pre.sourceCode {
+  margin-bottom: 0 !important;
+  border-bottom: none !important;
+}
+
+.yellowbox pre:not(.sourceCode) {
+  margin-top: 0 !important;
+  border-top: 2px dashed #d4a300 !important; /* The dashed line */
+  padding-top: 15px !important;              /* Space for the label */
+  padding-bottom: 15px !important;           /* ADD THIS: Space at the bottom */
+  position: relative;
+  background-color: #ffffff !important;      /* Contrast background */
+  overflow: visible !important;
+}
+
+.yellowbox pre:not(.sourceCode)::before {
+  content: "R OUTPUT";
+  position: absolute;
+  top: -0.7em;
+  line-height: 1.4em;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0 15px;
+  background: #FFF2CC;
+  color: #d4a300;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 1.2em;
+  font-weight: bold;
+  letter-spacing: 2px;
+}

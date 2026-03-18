@@ -1,0 +1,118 @@
+---
+title: "R for Health Data Science"
+author: 
+  - "Heather Waddell"
+  - "Alexandra Richards"
+  - "Clarisse de Vries"
+  - "Jocelyn Friday"
+  - "Frederick Ho"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+documentclass: book
+bibliography: [_references.bib, _packages.bib]
+biblio-style: agsm
+cover-image: images/W0-GlaLogo.png
+description: |
+  This is a companion ebook for the MED5686 - R for Health Data Science course 
+  in School of Health and Wellbeing, University of Glasgow.
+link-citations: yes
+github-repo: rstudio/bookdown-demo
+---
+
+# About This Ebook {-}
+
+![](images/00-GlaLogo.png){width="300px"}
+
+This is a companion ebook for the MED5686 - R for Health Data Science course in School of Health and Wellbeing, University of Glasgow.
+
+## How to Use This Ebook {-}
+
+::: yellowbox
+A box in this colour will often come in two sections: the top will be example
+code that you should be able to copy into your own R programme and run, and
+under the dashed line, the output of that code.
+:::
+
+::: pinkbox
+A box in this colour will include suggestions for things to try to help improve
+your understanding of the previous section.
+:::
+
+The following text formations have been used throughout the document to help
+with understanding:
+
+-   Bolded words, such as **this**, either refer to a specific R package, which
+    will have an associated glossary entry, or the word(s) will refer to a
+    specific concept.
+-   Monospace font words, such as `this`, indicate code. These words may or may
+    not be black.\
+-   Italicised words, such as *this*, indicate datasets that will be used
+    throughout this course.
+
+## Data Sets {- #sec:dataSets} 
+
+This document was built with the intention of acting as an introduction to R. To
+do that, it draws upon data provided and modified from the following sources:
+
+-   The '*02-hrqol_data.csv*' is a provided, simulated dataset used in 
+    Chapters \@ref(ch-2) to practice importing into R.
+-   The '*who*'[^index-1] dataset is an inbuilt dataset for the list of
+    countries and is used in Chapter \@ref(ch-3).
+-   The '*03-diabetic_demog.csv*' dataset is a provided dataset used in Chapter
+    \@ref(ch-3) and \@ref(ch-5) for merging.
+-   The '*03-diabetic_labs_final_with_missing.csv*' dataset is a provided dataset 
+    used in Chapters \@ref(ch-3) and \@ref(ch-5) for missing data and merging.
+-   The '*iris*' dataset is an inbuilt dataset for simple classifications and
+    used in Chapter \@ref(ch-4) for data visualisation.
+-   The '*06-alert_rct.dta*' dataset is a provided dataset on a real-world 
+    randomised controlled trial data [@holdaas2003effect] and used 
+    in \@ref(ch-6) for survival analysis
+-   The '*06-understanding_soc.csv*' dataset is a provided dataset on a 
+    observational, prospective cohort study [@buck2012understanding] used in 
+    Chapters \@ref(ch-6) and \@ref(ch-7) for various advanced topic in 
+    regression analysis, and causal inference.
+-   The '*07-iv.csv*' dataset is a provided dataset on a simulated intervention 
+    to practice instrumental variable analyss in  Chapter \@ref(ch-7).
+
+[^index-1]: The capitalisation here is to match the name of the dataset within
+    the survival package.
+
+The *03-diabetic_demog.csv* and *03-diabetic_labs_final_with_missing.csv* were 
+created by combining information from the diabetic dataset in the survival package 
+and the 'The Health Test by Blood Dataset' [@kaggleDM] for predicting the 
+development of \acr{DM}. The variables for *diabeticDemog* are described in 
+Table \@ref(tab:diabeticDemog) and the variables for *diabeticLabs* are described 
+in Table \@ref(tab:diabeticLabs). The provided datasets are available on the 
+course Moodle page.
+
+```{r diabeticDemog, echo=FALSE}
+tab_demog <- data.frame(
+  Variable = c("id", "age", "Gender", "BMI", "SIMD"),
+  Description = c("Patient id", "Age at diagnosis", "Patient's gender", "Patient BMI at baseline", "Patient SIMD quintile at baseline")
+)
+knitr::kable(tab_demog, caption = "A description of the variables available within the diabeticDemog dataset.")
+```
+
+It is important to note that sex and gender are not the same. In electronic
+patient records, biological sex is usually recorded and used for analysis. In
+this case, gender was used, since this is what @kaggleDM recorded in the 'The
+Health Test by Blood' dataset. \acr{SIMD} was added to the diabeticDemog dataset
+for some local flair. \acr{SIMD} is an area-based measurement of socioeconomic
+deprivation assigned to residents of Scotland according to where they live.
+Scottish residents' \acr{SIMD} status is calculated by the Scottish Government
+using thirty-one indicators from seven different aspects of deprivation: income,
+employment, health, education, housing, geographic access, and crime. The
+indicators are combined using a weighted sum to create a single index, providing
+a relative ranking for each small geographic area in Scotland. The areas average
+approximately 800 individuals [@Executive2012]. It is important to note that
+\acr{SIMD} can only measure the level of deprivation in an area, not an
+individual's level. The absence of deprivation should not necessarily be
+correlated with affluence [@Executive2012].
+
+```{r diabeticLabs, echo=FALSE}
+tab_labs <- data.frame(
+  Variable = c("id", "SampleDate", "SampleTime", "Chol", "TG", "HDL", "LDL", "Cr", "BUN"),
+  Description = c("Patient id", "The date the blood sample was taken", "The time on a 24-hour scale the blood sample was taken", "Cholesterol (mmol/L)", "Triglycerides (mmol/L)", "HDL (mmol/L)", "LDL (mmol/L)", "Serum creatinine (µmol/L)", "Blood urea nitrogen (mmol/L)")
+)
+knitr::kable(tab_labs, caption = "A description of the variables available within the diabeticLabs dataset.")
+```

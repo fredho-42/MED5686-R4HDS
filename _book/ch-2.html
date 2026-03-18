@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 2 Introduction and basic usage | R for Health Data Science</title>
+  <meta name="description" content="<p>This is a companion ebook for the MED5686 - R for Health Data Science course
+in School of Health and Wellbeing, University of Glasgow.</p>" />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 2 Introduction and basic usage | R for Health Data Science" />
+  <meta property="og:type" content="book" />
+  <meta property="og:image" content="/images/W0-GlaLogo.png" />
+  <meta property="og:description" content="<p>This is a companion ebook for the MED5686 - R for Health Data Science course
+in School of Health and Wellbeing, University of Glasgow.</p>" />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 2 Introduction and basic usage | R for Health Data Science" />
+  
+  <meta name="twitter:description" content="<p>This is a companion ebook for the MED5686 - R for Health Data Science course
+in School of Health and Wellbeing, University of Glasgow.</p>" />
+  <meta name="twitter:image" content="/images/W0-GlaLogo.png" />
+
+<meta name="author" content="Heather Waddell" />
+<meta name="author" content="Alexandra Richards" />
+<meta name="author" content="Clarisse de Vries" />
+<meta name="author" content="Jocelyn Friday" />
+<meta name="author" content="Frederick Ho" />
+
+
+<meta name="date" content="2026-03-18" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="ch-1.html"/>
+<link rel="next" href="ch-3.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">R for Health Data Science</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>About This Ebook</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#how-to-use-this-ebook"><i class="fa fa-check"></i>How to Use This Ebook</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#sec:dataSets"><i class="fa fa-check"></i>Data Sets</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="ch-1.html"><a href="ch-1.html"><i class="fa fa-check"></i><b>1</b> Welcome to R</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="ch-1.html"><a href="ch-1.html#coding-to-spot-and-prevent-errors"><i class="fa fa-check"></i><b>1.1</b> Coding to Spot and Prevent Errors</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="ch-1.html"><a href="ch-1.html#sec:UnitTesting"><i class="fa fa-check"></i><b>1.1.1</b> Unit Testing</a></li>
+<li class="chapter" data-level="1.1.2" data-path="ch-1.html"><a href="ch-1.html#sec:ErrorMessages"><i class="fa fa-check"></i><b>1.1.2</b> Understanding Error Messages</a></li>
+<li class="chapter" data-level="1.1.3" data-path="ch-1.html"><a href="ch-1.html#looking-inside-functions"><i class="fa fa-check"></i><b>1.1.3</b> Looking Inside Functions</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="ch-1.html"><a href="ch-1.html#help-im-stuck"><i class="fa fa-check"></i><b>1.2</b> Help I’m Stuck</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="ch-1.html"><a href="ch-1.html#sec:cheetSheets"><i class="fa fa-check"></i><b>1.2.1</b> Cheat Sheets</a></li>
+<li class="chapter" data-level="1.2.2" data-path="ch-1.html"><a href="ch-1.html#sec:RHelp"><i class="fa fa-check"></i><b>1.2.2</b> <code>help</code> Function in R</a></li>
+<li class="chapter" data-level="1.2.3" data-path="ch-1.html"><a href="ch-1.html#sec:RefManAndVignettes"><i class="fa fa-check"></i><b>1.2.3</b> Reference Manuals and Vignettes</a></li>
+<li class="chapter" data-level="1.2.4" data-path="ch-1.html"><a href="ch-1.html#sec:StackOverflow"><i class="fa fa-check"></i><b>1.2.4</b> Stack Overflow</a></li>
+<li class="chapter" data-level="1.2.5" data-path="ch-1.html"><a href="ch-1.html#sec:OtherUsefulResources"><i class="fa fa-check"></i><b>1.2.5</b> Other</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="ch-2.html"><a href="ch-2.html"><i class="fa fa-check"></i><b>2</b> Introduction and basic usage</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="ch-2.html"><a href="ch-2.html#what-are-r-and-rstudio"><i class="fa fa-check"></i><b>2.1</b> What are R and RStudio?</a></li>
+<li class="chapter" data-level="2.2" data-path="ch-2.html"><a href="ch-2.html#why-use-r"><i class="fa fa-check"></i><b>2.2</b> Why use R?</a></li>
+<li class="chapter" data-level="2.3" data-path="ch-2.html"><a href="ch-2.html#sec:UsingRStudio"><i class="fa fa-check"></i><b>2.3</b> Using R and RStudio</a></li>
+<li class="chapter" data-level="2.4" data-path="ch-2.html"><a href="ch-2.html#r-scripts"><i class="fa fa-check"></i><b>2.4</b> R scripts</a></li>
+<li class="chapter" data-level="2.5" data-path="ch-2.html"><a href="ch-2.html#sec:functions"><i class="fa fa-check"></i><b>2.5</b> R functions</a></li>
+<li class="chapter" data-level="2.6" data-path="ch-2.html"><a href="ch-2.html#sec:scope"><i class="fa fa-check"></i><b>2.6</b> Environment and scope</a></li>
+<li class="chapter" data-level="2.7" data-path="ch-2.html"><a href="ch-2.html#packages"><i class="fa fa-check"></i><b>2.7</b> Packages</a></li>
+<li class="chapter" data-level="2.8" data-path="ch-2.html"><a href="ch-2.html#sec:reservedWords"><i class="fa fa-check"></i><b>2.8</b> Reserved words</a></li>
+<li class="chapter" data-level="2.9" data-path="ch-2.html"><a href="ch-2.html#sec:ErrorVsWarning"><i class="fa fa-check"></i><b>2.9</b> Error vs warning messages</a></li>
+<li class="chapter" data-level="2.10" data-path="ch-2.html"><a href="ch-2.html#sec:WorkingDirectory"><i class="fa fa-check"></i><b>2.10</b> Working directory</a></li>
+<li class="chapter" data-level="2.11" data-path="ch-2.html"><a href="ch-2.html#import-data"><i class="fa fa-check"></i><b>2.11</b> Import data</a></li>
+<li class="chapter" data-level="2.12" data-path="ch-2.html"><a href="ch-2.html#export-data"><i class="fa fa-check"></i><b>2.12</b> Export data</a></li>
+<li class="chapter" data-level="2.13" data-path="ch-2.html"><a href="ch-2.html#sec:project"><i class="fa fa-check"></i><b>2.13</b> Project</a></li>
+<li class="chapter" data-level="2.14" data-path="ch-2.html"><a href="ch-2.html#sec:RMarkdown"><i class="fa fa-check"></i><b>2.14</b> R Markdown</a></li>
+<li class="chapter" data-level="2.15" data-path="ch-2.html"><a href="ch-2.html#sec:CodingTips"><i class="fa fa-check"></i><b>2.15</b> R coding tips</a>
+<ul>
+<li class="chapter" data-level="2.15.1" data-path="ch-2.html"><a href="ch-2.html#indentation"><i class="fa fa-check"></i><b>2.15.1</b> Indentation</a></li>
+<li class="chapter" data-level="2.15.2" data-path="ch-2.html"><a href="ch-2.html#commenting"><i class="fa fa-check"></i><b>2.15.2</b> Commenting</a></li>
+<li class="chapter" data-level="2.15.3" data-path="ch-2.html"><a href="ch-2.html#sec:NamingConventions"><i class="fa fa-check"></i><b>2.15.3</b> Naming conventions</a></li>
+<li class="chapter" data-level="2.15.4" data-path="ch-2.html"><a href="ch-2.html#sec:styleGuides"><i class="fa fa-check"></i><b>2.15.4</b> Style guides</a></li>
+</ul></li>
+<li class="chapter" data-level="2.16" data-path="ch-2.html"><a href="ch-2.html#referencesfurther-reading"><i class="fa fa-check"></i><b>2.16</b> References/further reading</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="ch-3.html"><a href="ch-3.html"><i class="fa fa-check"></i><b>3</b> Data Types &amp; Manipulation</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="ch-3.html"><a href="ch-3.html#sec:dataTypes"><i class="fa fa-check"></i><b>3.1</b> Data Types</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="ch-3.html"><a href="ch-3.html#sec:boolean"><i class="fa fa-check"></i><b>3.1.1</b> Logical (Booleans)</a></li>
+<li class="chapter" data-level="3.1.2" data-path="ch-3.html"><a href="ch-3.html#sec:numeric"><i class="fa fa-check"></i><b>3.1.2</b> Numeric</a></li>
+<li class="chapter" data-level="3.1.3" data-path="ch-3.html"><a href="ch-3.html#sec:character"><i class="fa fa-check"></i><b>3.1.3</b> Character</a></li>
+<li class="chapter" data-level="3.1.4" data-path="ch-3.html"><a href="ch-3.html#sec:complex"><i class="fa fa-check"></i><b>3.1.4</b> Complex</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="ch-3.html"><a href="ch-3.html#sec:builtInConstants"><i class="fa fa-check"></i><b>3.2</b> Important Built-in Constants</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="ch-3.html"><a href="ch-3.html#sec:infinite"><i class="fa fa-check"></i><b>3.2.1</b> Infinite</a></li>
+<li class="chapter" data-level="3.2.2" data-path="ch-3.html"><a href="ch-3.html#sec:missingData"><i class="fa fa-check"></i><b>3.2.2</b> Missing Data</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="ch-3.html"><a href="ch-3.html#sec:dataStructure"><i class="fa fa-check"></i><b>3.3</b> Data Structures</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="ch-3.html"><a href="ch-3.html#sec:vector"><i class="fa fa-check"></i><b>3.3.1</b> Vector</a></li>
+<li class="chapter" data-level="3.3.2" data-path="ch-3.html"><a href="ch-3.html#sec:list"><i class="fa fa-check"></i><b>3.3.2</b> List</a></li>
+<li class="chapter" data-level="3.3.3" data-path="ch-3.html"><a href="ch-3.html#sec:tibbleAnddataFrame"><i class="fa fa-check"></i><b>3.3.3</b> Data Frames and Tibble</a></li>
+<li class="chapter" data-level="3.3.4" data-path="ch-3.html"><a href="ch-3.html#sec:factor"><i class="fa fa-check"></i><b>3.3.4</b> Factor</a></li>
+<li class="chapter" data-level="3.3.5" data-path="ch-3.html"><a href="ch-3.html#sec:array"><i class="fa fa-check"></i><b>3.3.5</b> Array</a></li>
+<li class="chapter" data-level="3.3.6" data-path="ch-3.html"><a href="ch-3.html#sec:OtherDataTypes"><i class="fa fa-check"></i><b>3.3.6</b> Others</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="ch-3.html"><a href="ch-3.html#statistical-data-types"><i class="fa fa-check"></i><b>3.4</b> Statistical Data Types</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="ch-3.html"><a href="ch-3.html#sec:nominal"><i class="fa fa-check"></i><b>3.4.1</b> Nominal Data</a></li>
+<li class="chapter" data-level="3.4.2" data-path="ch-3.html"><a href="ch-3.html#sec:ordinal"><i class="fa fa-check"></i><b>3.4.2</b> Ordinal Data</a></li>
+<li class="chapter" data-level="3.4.3" data-path="ch-3.html"><a href="ch-3.html#sec:interval"><i class="fa fa-check"></i><b>3.4.3</b> Interval Data</a></li>
+<li class="chapter" data-level="3.4.4" data-path="ch-3.html"><a href="ch-3.html#sec:ratio"><i class="fa fa-check"></i><b>3.4.4</b> Ratio Data</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="ch-3.html"><a href="ch-3.html#sec:tidyverse"><i class="fa fa-check"></i><b>3.5</b> Tidyverse</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="ch-3.html"><a href="ch-3.html#sec:piping"><i class="fa fa-check"></i><b>3.5.1</b> Piping</a></li>
+<li class="chapter" data-level="3.5.2" data-path="ch-3.html"><a href="ch-3.html#sec:tidyData"><i class="fa fa-check"></i><b>3.5.2</b> Tidy Data</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="ch-3.html"><a href="ch-3.html#sec:dataTransformation"><i class="fa fa-check"></i><b>3.6</b> Data Transformation</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="ch-3.html"><a href="ch-3.html#sec:summary"><i class="fa fa-check"></i><b>3.6.1</b> Summaries</a></li>
+<li class="chapter" data-level="3.6.2" data-path="ch-3.html"><a href="ch-3.html#sec:mutating"><i class="fa fa-check"></i><b>3.6.2</b> Mutating</a></li>
+<li class="chapter" data-level="3.6.3" data-path="ch-3.html"><a href="ch-3.html#sec:groupingUnGrouping"><i class="fa fa-check"></i><b>3.6.3</b> Grouping and Ungrouping</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="ch-3.html"><a href="ch-3.html#sec:logicFlow"><i class="fa fa-check"></i><b>3.7</b> Logic Flow</a>
+<ul>
+<li class="chapter" data-level="3.7.1" data-path="ch-3.html"><a href="ch-3.html#sec:selecting"><i class="fa fa-check"></i><b>3.7.1</b> Selecting</a></li>
+<li class="chapter" data-level="3.7.2" data-path="ch-3.html"><a href="ch-3.html#sec:filtering"><i class="fa fa-check"></i><b>3.7.2</b> Filtering</a></li>
+<li class="chapter" data-level="3.7.3" data-path="ch-3.html"><a href="ch-3.html#sec:ifElse"><i class="fa fa-check"></i><b>3.7.3</b> If/Else</a></li>
+<li class="chapter" data-level="3.7.4" data-path="ch-3.html"><a href="ch-3.html#sec:CaseWhen"><i class="fa fa-check"></i><b>3.7.4</b> Multiple Comparisons</a></li>
+<li class="chapter" data-level="3.7.5" data-path="ch-3.html"><a href="ch-3.html#sec:loops"><i class="fa fa-check"></i><b>3.7.5</b> Loops</a></li>
+</ul></li>
+<li class="chapter" data-level="3.8" data-path="ch-3.html"><a href="ch-3.html#sec:merging"><i class="fa fa-check"></i><b>3.8</b> Merging datasets</a>
+<ul>
+<li class="chapter" data-level="3.8.1" data-path="ch-3.html"><a href="ch-3.html#the-mechanics"><i class="fa fa-check"></i><b>3.8.1</b> The Mechanics</a></li>
+</ul></li>
+<li class="chapter" data-level="3.9" data-path="ch-3.html"><a href="ch-3.html#sec:cautionaryTale"><i class="fa fa-check"></i><b>3.9</b> Cautionary Tale</a>
+<ul>
+<li class="chapter" data-level="3.9.1" data-path="ch-3.html"><a href="ch-3.html#sec:checkForUniqueness"><i class="fa fa-check"></i><b>3.9.1</b> Check for Uniqueness</a></li>
+<li class="chapter" data-level="3.9.2" data-path="ch-3.html"><a href="ch-3.html#sec:CartesianProduct"><i class="fa fa-check"></i><b>3.9.2</b> Cartesian product joins</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="ch-4.html"><a href="ch-4.html"><i class="fa fa-check"></i><b>4</b> Data Visualisation</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="ch-4.html"><a href="ch-4.html#basic-plotting"><i class="fa fa-check"></i><b>4.1</b> Basic plotting</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="ch-4.html"><a href="ch-4.html#data-layer"><i class="fa fa-check"></i><b>4.1.1</b> Data layer</a></li>
+<li class="chapter" data-level="4.1.2" data-path="ch-4.html"><a href="ch-4.html#plot-layers"><i class="fa fa-check"></i><b>4.1.2</b> Plot layer(s)</a></li>
+<li class="chapter" data-level="4.1.3" data-path="ch-4.html"><a href="ch-4.html#facets"><i class="fa fa-check"></i><b>4.1.3</b> Facets</a></li>
+<li class="chapter" data-level="4.1.4" data-path="ch-4.html"><a href="ch-4.html#making-it-all-look-pretty"><i class="fa fa-check"></i><b>4.1.4</b> Making it all look pretty</a></li>
+<li class="chapter" data-level="4.1.5" data-path="ch-4.html"><a href="ch-4.html#different-types-of-plots"><i class="fa fa-check"></i><b>4.1.5</b> Different Types of Plots</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="ch-4.html"><a href="ch-4.html#individualising-your-plots"><i class="fa fa-check"></i><b>4.2</b> Individualising your plots</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="ch-4.html"><a href="ch-4.html#colours"><i class="fa fa-check"></i><b>4.2.1</b> Colours</a></li>
+<li class="chapter" data-level="4.2.2" data-path="ch-4.html"><a href="ch-4.html#changing-the-position-of-the-legend"><i class="fa fa-check"></i><b>4.2.2</b> Changing the position of the legend</a></li>
+<li class="chapter" data-level="4.2.3" data-path="ch-4.html"><a href="ch-4.html#changing-the-font"><i class="fa fa-check"></i><b>4.2.3</b> Changing the Font</a></li>
+<li class="chapter" data-level="4.2.4" data-path="ch-4.html"><a href="ch-4.html#changing-the-font-but-in-facets"><i class="fa fa-check"></i><b>4.2.4</b> Changing the Font but in Facets</a></li>
+<li class="chapter" data-level="4.2.5" data-path="ch-4.html"><a href="ch-4.html#sec:CombiningPlots"><i class="fa fa-check"></i><b>4.2.5</b> Combining plots</a></li>
+<li class="chapter" data-level="4.2.6" data-path="ch-4.html"><a href="ch-4.html#saving-your-plot"><i class="fa fa-check"></i><b>4.2.6</b> Saving your plot</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="ch-4.html"><a href="ch-4.html#perfect-palmer-penguins-plot"><i class="fa fa-check"></i><b>4.3</b> Perfect Palmer Penguins Plot</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="ch-5.html"><a href="ch-5.html"><i class="fa fa-check"></i><b>5</b> Hypothesis testing and regression modelling</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="ch-5.html"><a href="ch-5.html#overview-of-test-choices"><i class="fa fa-check"></i><b>5.1</b> Overview of test choices</a></li>
+<li class="chapter" data-level="5.2" data-path="ch-5.html"><a href="ch-5.html#tests-for-one-outcome-variable"><i class="fa fa-check"></i><b>5.2</b> Tests for one outcome variable</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="ch-5.html"><a href="ch-5.html#one-sample-t-test"><i class="fa fa-check"></i><b>5.2.1</b> One-sample t-test</a></li>
+<li class="chapter" data-level="5.2.2" data-path="ch-5.html"><a href="ch-5.html#sec:WilcoxonSignedRankTest"><i class="fa fa-check"></i><b>5.2.2</b> Wilcoxon signed rank test</a></li>
+<li class="chapter" data-level="5.2.3" data-path="ch-5.html"><a href="ch-5.html#sec:oneSamplePropTest"><i class="fa fa-check"></i><b>5.2.3</b> One-sample proportion test</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="ch-5.html"><a href="ch-5.html#tests-for-one-outcome-variable-and-one-exposurepredictor"><i class="fa fa-check"></i><b>5.3</b> Tests for one outcome variable and one exposure/predictor</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="ch-5.html"><a href="ch-5.html#independent-two-sample-t-test"><i class="fa fa-check"></i><b>5.3.1</b> Independent two-sample t-test</a></li>
+<li class="chapter" data-level="5.3.2" data-path="ch-5.html"><a href="ch-5.html#wilcoxon-rank-sum-test"><i class="fa fa-check"></i><b>5.3.2</b> Wilcoxon rank sum test</a></li>
+<li class="chapter" data-level="5.3.3" data-path="ch-5.html"><a href="ch-5.html#paired-t-test"><i class="fa fa-check"></i><b>5.3.3</b> Paired t-test</a></li>
+<li class="chapter" data-level="5.3.4" data-path="ch-5.html"><a href="ch-5.html#two-sample-proportion-test"><i class="fa fa-check"></i><b>5.3.4</b> Two-sample proportion test</a></li>
+<li class="chapter" data-level="5.3.5" data-path="ch-5.html"><a href="ch-5.html#sec:chiSqrd"><i class="fa fa-check"></i><b>5.3.5</b> Chi-square test of independence</a></li>
+<li class="chapter" data-level="5.3.6" data-path="ch-5.html"><a href="ch-5.html#sec:fisherExact"><i class="fa fa-check"></i><b>5.3.6</b> Fisher exact test</a></li>
+<li class="chapter" data-level="5.3.7" data-path="ch-5.html"><a href="ch-5.html#sec:pearson-Spearman"><i class="fa fa-check"></i><b>5.3.7</b> Correlation coefficient</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="ch-5.html"><a href="ch-5.html#using-gtsummary-for-table-1"><i class="fa fa-check"></i><b>5.4</b> Using <code>gtsummary</code> for “Table 1”</a></li>
+<li class="chapter" data-level="5.5" data-path="ch-5.html"><a href="ch-5.html#general-linear-models"><i class="fa fa-check"></i><b>5.5</b> General linear models</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="ch-5.html"><a href="ch-5.html#sec:simpleLinearRegression"><i class="fa fa-check"></i><b>5.5.1</b> Simple linear regression</a></li>
+<li class="chapter" data-level="5.5.2" data-path="ch-5.html"><a href="ch-5.html#multiple-regression"><i class="fa fa-check"></i><b>5.5.2</b> Multiple regression</a></li>
+<li class="chapter" data-level="5.5.3" data-path="ch-5.html"><a href="ch-5.html#sec:anova"><i class="fa fa-check"></i><b>5.5.3</b> Analysis of variance</a></li>
+<li class="chapter" data-level="5.5.4" data-path="ch-5.html"><a href="ch-5.html#diagnostics"><i class="fa fa-check"></i><b>5.5.4</b> Diagnostics</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="ch-5.html"><a href="ch-5.html#generalised-linear-models"><i class="fa fa-check"></i><b>5.6</b> Generalised linear models</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="ch-5.html"><a href="ch-5.html#binary-outcomes"><i class="fa fa-check"></i><b>5.6.1</b> Binary outcomes</a></li>
+<li class="chapter" data-level="5.6.2" data-path="ch-5.html"><a href="ch-5.html#count-outcomes"><i class="fa fa-check"></i><b>5.6.2</b> Count outcomes</a></li>
+<li class="chapter" data-level="5.6.3" data-path="ch-5.html"><a href="ch-5.html#sandwich-estimator"><i class="fa fa-check"></i><b>5.6.3</b> Sandwich estimator</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="ch-5.html"><a href="ch-5.html#summary"><i class="fa fa-check"></i><b>5.7</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="ch-6.html"><a href="ch-6.html"><i class="fa fa-check"></i><b>6</b> Advanced Topics in Regression</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="ch-6.html"><a href="ch-6.html#survival-analysis"><i class="fa fa-check"></i><b>6.1</b> Survival Analysis</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="ch-6.html"><a href="ch-6.html#kaplan-meier-estimator"><i class="fa fa-check"></i><b>6.1.1</b> Kaplan-Meier Estimator</a></li>
+<li class="chapter" data-level="6.1.2" data-path="ch-6.html"><a href="ch-6.html#log-rank-test"><i class="fa fa-check"></i><b>6.1.2</b> Log-rank Test</a></li>
+<li class="chapter" data-level="6.1.3" data-path="ch-6.html"><a href="ch-6.html#cox-proportional-hazard-model"><i class="fa fa-check"></i><b>6.1.3</b> Cox proportional hazard model</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="ch-6.html"><a href="ch-6.html#interaction-and-effect-modification"><i class="fa fa-check"></i><b>6.2</b> Interaction and Effect Modification</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="ch-6.html"><a href="ch-6.html#additive-interaction"><i class="fa fa-check"></i><b>6.2.1</b> Additive Interaction</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="ch-6.html"><a href="ch-6.html#multicollinearity"><i class="fa fa-check"></i><b>6.3</b> Multicollinearity</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="ch-6.html"><a href="ch-6.html#model-with-collinearity"><i class="fa fa-check"></i><b>6.3.1</b> Model with collinearity</a></li>
+<li class="chapter" data-level="6.3.2" data-path="ch-6.html"><a href="ch-6.html#correlation-coefficient"><i class="fa fa-check"></i><b>6.3.2</b> Correlation coefficient</a></li>
+<li class="chapter" data-level="6.3.3" data-path="ch-6.html"><a href="ch-6.html#variance-inflation-factor"><i class="fa fa-check"></i><b>6.3.3</b> Variance Inflation Factor</a></li>
+<li class="chapter" data-level="6.3.4" data-path="ch-6.html"><a href="ch-6.html#model-without-collinearity"><i class="fa fa-check"></i><b>6.3.4</b> Model without collinearity</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="ch-6.html"><a href="ch-6.html#non-linearity"><i class="fa fa-check"></i><b>6.4</b> Non-linearity</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="ch-6.html"><a href="ch-6.html#model-with-categorical-variable"><i class="fa fa-check"></i><b>6.4.1</b> Model with categorical variable</a></li>
+<li class="chapter" data-level="6.4.2" data-path="ch-6.html"><a href="ch-6.html#model-with-quadratic-term"><i class="fa fa-check"></i><b>6.4.2</b> Model with quadratic term</a></li>
+<li class="chapter" data-level="6.4.3" data-path="ch-6.html"><a href="ch-6.html#model-with-fractional-polynomials"><i class="fa fa-check"></i><b>6.4.3</b> Model with fractional polynomials</a></li>
+<li class="chapter" data-level="6.4.4" data-path="ch-6.html"><a href="ch-6.html#model-with-spline"><i class="fa fa-check"></i><b>6.4.4</b> Model with spline</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="ch-7.html"><a href="ch-7.html"><i class="fa fa-check"></i><b>7</b> Causal Inference: Mediation and Instrumental Variables</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="ch-7.html"><a href="ch-7.html#data-preparation-for-causal-modeling"><i class="fa fa-check"></i><b>7.1</b> Data Preparation for Causal Modeling</a></li>
+<li class="chapter" data-level="7.2" data-path="ch-7.html"><a href="ch-7.html#mediation-analysis"><i class="fa fa-check"></i><b>7.2</b> Mediation Analysis</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="ch-7.html"><a href="ch-7.html#the-base-model-total-effect"><i class="fa fa-check"></i><b>7.2.1</b> The Base Model (Total Effect)</a></li>
+<li class="chapter" data-level="7.2.2" data-path="ch-7.html"><a href="ch-7.html#regression-adjustment-for-mediation"><i class="fa fa-check"></i><b>7.2.2</b> Regression Adjustment for Mediation</a></li>
+<li class="chapter" data-level="7.2.3" data-path="ch-7.html"><a href="ch-7.html#the-sobel-test"><i class="fa fa-check"></i><b>7.2.3</b> The Sobel Test</a></li>
+<li class="chapter" data-level="7.2.4" data-path="ch-7.html"><a href="ch-7.html#the-parametric-g-formula"><i class="fa fa-check"></i><b>7.2.4</b> The Parametric G-Formula</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="ch-7.html"><a href="ch-7.html#instrumental-variables-iv"><i class="fa fa-check"></i><b>7.3</b> Instrumental Variables (IV)</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="ch-7.html"><a href="ch-7.html#intention-to-treat-itt-vs.-per-protocol-pp"><i class="fa fa-check"></i><b>7.3.1</b> Intention-to-Treat (ITT) vs. Per-Protocol (PP)</a></li>
+<li class="chapter" data-level="7.3.2" data-path="ch-7.html"><a href="ch-7.html#iv-analysis-using-2-stage-least-squares"><i class="fa fa-check"></i><b>7.3.2</b> IV Analysis using 2-Stage Least Squares</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="list-of-abbreviations.html"><a href="list-of-abbreviations.html"><i class="fa fa-check"></i>List of abbreviations</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R for Health Data Science</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="ch-2" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">Chapter 2</span> Introduction and basic usage<a href="ch-2.html#ch-2" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="what-are-r-and-rstudio" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> What are R and RStudio?<a href="ch-2.html#what-are-r-and-rstudio" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>R is a programming language. Like any language, it gives you the ability to communicate, in this case with your computer. By writing R code, you can give your computer instructions to carry out.</p>
+<p>RStudio is an <strong><a href="list-of-abbreviations.html#acronyms_IDE">IDE</a></strong>. You can use R without RStudio, but RStudio provides a user-friendly method of using R to communicate with your computer. If you want to use R and RStudio on your computer or laptop, you first need to download and install them. You can download R from here: <a href="https://cloud.r-project.org/" class="uri">https://cloud.r-project.org/</a>, and RStudio from here: <a href="https://posit.co/download/rstudio-desktop/" class="uri">https://posit.co/download/rstudio-desktop/</a>. Make sure to select the version that matches your operating system (e.g., Windows, macOS, or Linux) when downloading.</p>
+</div>
+<div id="why-use-r" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> Why use R?<a href="ch-2.html#why-use-r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Many programmes and languages can be used for statistical analysis and data management, but there are several advantages to using and learning R.</p>
+<p>While R is not as feature-rich as Python and SAS, it is an all-rounder that can accomplish a wide variety of tasks, e.g., from managing data easily with dplyr and making beautiful graphs with ggplot2, to fitting <em>P</em>-splines in generalised additive models using mgcv and causal mediation analysis using CMAverse. If you are analysing big data with a lot of repetition, you can also speed things up with the (relatively) efficient parallel computing with furrr and doParallel (outside the scope of this course). R also has some capabilities as a general programming language, such as managing file systems (e.g., creating, moving, and deleting files). You can also use R to write replicable reports using <strong>R Markdown</strong> or <strong>Quarto</strong>, and interactive websites and dashboards using <code>shiny</code>. Lastly, R is free and open source, and it is one of the most widely used languages for statistics and data science. This makes it a valuable skill for careers such as data analyst or data scientist across many fields.</p>
+</div>
+<div id="sec:UsingRStudio" class="section level2 hasAnchor" number="2.3">
+<h2><span class="header-section-number">2.3</span> Using R and RStudio<a href="ch-2.html#sec:UsingRStudio" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The first time you open RStudio after installing it, it will look like this:</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:home-RStudio-screen"></span>
+<img src="images/02-RStudio%20screenshot%20-%20first.png" alt="Home RStudio Screen highlighting the console" width="100%" />
+<p class="caption">
+Figure 2.1: Home RStudio Screen highlighting the console
+</p>
+</div>
+<p>The large window on the left is called the <strong>console</strong> pane. In the console, you can type a command, which will appear next to the blue arrow (&gt;). If you press Enter, R will execute your command and display the result. Try running the following code and see what happens:</p>
+<div class="yellowbox">
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="ch-2.html#cb1-1" tabindex="-1"></a><span class="dv">2</span><span class="sc">+</span><span class="dv">2</span></span></code></pre></div>
+<pre><code>## [1] 4</code></pre>
+</div>
+<p>You can also assign a value to a variable, which allows you to reuse the value that is now stored in a. Try typing in your console:</p>
+<div class="yellowbox">
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="ch-2.html#cb3-1" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">3</span></span></code></pre></div>
+</div>
+<p>Next, look at the Environment pane in the top right. This pane shows you the variables you have created. You should be able to see that the value “3” is now associated with your variable “a”. Try typing in your console:</p>
+<div class="yellowbox">
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="ch-2.html#cb4-1" tabindex="-1"></a>a</span></code></pre></div>
+<pre><code>## [1] 3</code></pre>
+</div>
+<p>The console should return “3” to you. You could also create a vector of values, and assign this to a variable:</p>
+<div class="yellowbox">
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="ch-2.html#cb6-1" tabindex="-1"></a>v <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">8</span>)</span>
+<span id="cb6-2"><a href="ch-2.html#cb6-2" tabindex="-1"></a>v</span></code></pre></div>
+<pre><code>## [1] 1 5 8</code></pre>
+</div>
+</div>
+<div id="r-scripts" class="section level2 hasAnchor" number="2.4">
+<h2><span class="header-section-number">2.4</span> R scripts<a href="ch-2.html#r-scripts" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>For simple commands, you can use the console as shown above. However, for more complicated tasks, it will be easier to create an R script. You can create an R script by clicking on File &gt; New File &gt; R Script. This will open an R file in which you can write your code. RStudio should then look like this:</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:blank-R-script"></span>
+<img src="images/02-RStudio%20screenshot.png" alt="Home RStudio Screen highlighting a blank R script" width="100%" />
+<p class="caption">
+Figure 2.2: Home RStudio Screen highlighting a blank R script
+</p>
+</div>
+<p>The top left window is the empty script. Add the following code to your R script:</p>
+<div class="yellowbox">
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="ch-2.html#cb8-1" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb8-2"><a href="ch-2.html#cb8-2" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb8-3"><a href="ch-2.html#cb8-3" tabindex="-1"></a>c <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb8-4"><a href="ch-2.html#cb8-4" tabindex="-1"></a>(a<span class="sc">+</span>b)<span class="sc">*</span>c</span></code></pre></div>
+<pre><code>## [1] 65</code></pre>
+</div>
+<p>The calculation adds two numbers and then multiplies this sum by a third number. You can run the script line by line by pressing the Run button repeatedly. You can also run the entire script by pressing the Source button. You can use the drop-down menu next to the Source button and click on “Source with Echo” to ensure your code and its output are printed to the console. Once you have run the script, the Environment pane displays all the variables you created (a, b, c) along with their values.</p>
+<p>Once you have created a script, you can save it, so that you can reuse it again later. You can do this by clicking File &gt; Save or File &gt; Save As… and specifying a name for your script.</p>
+</div>
+<div id="sec:functions" class="section level2 hasAnchor" number="2.5">
+<h2><span class="header-section-number">2.5</span> R functions<a href="ch-2.html#sec:functions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>If you wanted to do the same calculation multiple times, but for different numbers, you could create something called a function. A function takes an input and uses it to produce an output by using the code defined within the function. Functions can be called multiple times, helping to avoid unnecessary code duplication.</p>
+<p>The following code defines the function <strong><code>sum_and_multiply()</code></strong>, and calls it with multiple different number combinations as inputs. <strong>Try it out!</strong></p>
+<div class="yellowbox">
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="ch-2.html#cb10-1" tabindex="-1"></a>sum_and_multiply <span class="ot">&lt;-</span> <span class="cf">function</span>(a, b, c) {</span>
+<span id="cb10-2"><a href="ch-2.html#cb10-2" tabindex="-1"></a>  (a<span class="sc">+</span>b)<span class="sc">*</span>c</span>
+<span id="cb10-3"><a href="ch-2.html#cb10-3" tabindex="-1"></a>}</span>
+<span id="cb10-4"><a href="ch-2.html#cb10-4" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="ch-2.html#cb10-5" tabindex="-1"></a><span class="fu">sum_and_multiply</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">10</span>)</span></code></pre></div>
+<pre><code>## [1] 60</code></pre>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="ch-2.html#cb12-1" tabindex="-1"></a><span class="fu">sum_and_multiply</span>(<span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## [1] 28</code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="ch-2.html#cb14-1" tabindex="-1"></a><span class="fu">sum_and_multiply</span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## [1] 12</code></pre>
+</div>
+<div class="pinkbox">
+<p>Now try writing your own function!</p>
+</div>
+<p>What if you now wanted to calculate the mean and the <strong><a href="list-of-abbreviations.html#acronyms_SD">standard deviation (SD)</a></strong> of a series of numbers? You could again write your own function. Alternatively, you can use existing functions. R has a large number of built-in functions that are ready to use. The functions <strong><code>mean()</code></strong> and <strong><code>sd()</code></strong> can be used to calculate the mean and standard deviation, respectively. You can use the <strong><code>help()</code></strong> function or place a “?” in front of your function. This will provide access to the documentation pages of that function and provide guidance on how to use it.</p>
+<div class="pinkbox">
+<p>Try this:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="ch-2.html#cb16-1" tabindex="-1"></a>utils<span class="sc">::</span><span class="fu">help</span>(mean)</span></code></pre></div>
+<p>and this:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="ch-2.html#cb17-1" tabindex="-1"></a>?sd</span></code></pre></div>
+<p>The documentation should have appeared in the bottom-right corner of RStudio. Did the documentation give enough information to use these two functions?</p>
+</div>
+<p>Here is one way in which you can calculate the mean and standard deviation of a series of numbers:</p>
+<div class="yellowbox">
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="ch-2.html#cb18-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">7</span>, <span class="dv">3</span>)</span>
+<span id="cb18-2"><a href="ch-2.html#cb18-2" tabindex="-1"></a>base<span class="sc">::</span><span class="fu">mean</span>(x)</span></code></pre></div>
+<pre><code>## [1] 3.75</code></pre>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="ch-2.html#cb20-1" tabindex="-1"></a>stats<span class="sc">::</span><span class="fu">sd</span>(x)</span></code></pre></div>
+<pre><code>## [1] 2.5</code></pre>
+</div>
+</div>
+<div id="sec:scope" class="section level2 hasAnchor" number="2.6">
+<h2><span class="header-section-number">2.6</span> Environment and scope<a href="ch-2.html#sec:scope" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The above examples have shown how to create and save data in R. By default, these data are stored in the <strong>global environment</strong>, which is accessible to all functions in R. However, variables created inside a function are generally only available within that function’s scope and are not accessible to other functions. Below is an example of calculating the area of a right-angled triangle:</p>
+<div class="yellowbox">
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="ch-2.html#cb22-1" tabindex="-1"></a>area <span class="ot">&lt;-</span> <span class="cf">function</span>(base, hypotenuse){</span>
+<span id="cb22-2"><a href="ch-2.html#cb22-2" tabindex="-1"></a>  x <span class="ot">&lt;-</span> base <span class="sc">*</span> hypotenuse</span>
+<span id="cb22-3"><a href="ch-2.html#cb22-3" tabindex="-1"></a>  <span class="fu">return</span>(x <span class="sc">/</span> <span class="dv">2</span>)</span>
+<span id="cb22-4"><a href="ch-2.html#cb22-4" tabindex="-1"></a>}</span>
+<span id="cb22-5"><a href="ch-2.html#cb22-5" tabindex="-1"></a></span>
+<span id="cb22-6"><a href="ch-2.html#cb22-6" tabindex="-1"></a><span class="fu">area</span>(<span class="dv">3</span>, <span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## [1] 3</code></pre>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="ch-2.html#cb24-1" tabindex="-1"></a>x</span></code></pre></div>
+<pre><code>## [1] 1 4 7 3</code></pre>
+</div>
+<p>Note: even though we have run the <strong><code>area()</code></strong> function, we can’t recall the value of x (which is defined and calculated inside that <strong><code>area()</code></strong> function. This is because the value of x was not saved in the global environment and is gone as long as the function call is finished. This concept is not necessary to understand to use R, however it is useful for anyone who may use functions in the future.</p>
+</div>
+<div id="packages" class="section level2 hasAnchor" number="2.7">
+<h2><span class="header-section-number">2.7</span> Packages<a href="ch-2.html#packages" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Base R encompasses all the functions and features included with R upon installation. The double-colon operator ‘::’ tells R to select definitions from the named package on the right. For example, mean and sd are examples of base R functions. Other R users have created their own functions and shared them online as installable packages, enabling others to use them for free. These are not part of base R and, therefore, need to be installed separately. Most R packages can be found on CRAN (<a href="https://cran.r-project.org/" class="uri">https://cran.r-project.org/</a>). To install a package from CRAN, you can use the install.packages function. Let’s say you wish to now calculate the <strong><a href="list-of-abbreviations.html#acronyms_SE">standard error (SE)</a></strong> of a series of numbers. You can calculate this by using a formula, but you can also use an already existing function. The package plotrix contains the function std.error, which can calculate this. plotrix is not part of base R, so needs to be installed.</p>
+<div class="pinkbox">
+<p>Try:</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="ch-2.html#cb26-1" tabindex="-1"></a>utils<span class="sc">::</span><span class="fu">install.packages</span>(<span class="st">&quot;plotrix&quot;</span>)</span></code></pre></div>
+</div>
+<p>To use a package you installed, you first need to load it with the <code>library()</code> function. You should then be able to use the std.error function:</p>
+<div class="yellowbox">
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="ch-2.html#cb27-1" tabindex="-1"></a>base<span class="sc">::</span><span class="fu">library</span>(plotrix)</span>
+<span id="cb27-2"><a href="ch-2.html#cb27-2" tabindex="-1"></a></span>
+<span id="cb27-3"><a href="ch-2.html#cb27-3" tabindex="-1"></a>plotrix<span class="sc">::</span><span class="fu">std.error</span>(x)</span></code></pre></div>
+<pre><code>## [1] 1.25</code></pre>
+</div>
+<div class="pinkbox">
+<p>Can you find a different function that is not part of base R, install the relevant package, and use it?</p>
+</div>
+</div>
+<div id="sec:reservedWords" class="section level2 hasAnchor" number="2.8">
+<h2><span class="header-section-number">2.8</span> Reserved words<a href="ch-2.html#sec:reservedWords" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>R has reserved words that have a special meaning within the language. You cannot use them as a function or a variable name. To find out what the reserved words are, you can type:</p>
+<div class="yellowbox">
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="ch-2.html#cb29-1" tabindex="-1"></a>?reserved</span></code></pre></div>
+</div>
+<p>From the list, you can see that “if” and “else” are reserved words. Try writing:</p>
+<div class="yellowbox">
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="ch-2.html#cb30-1" tabindex="-1"></a><span class="cf">if</span> <span class="ot">&lt;-</span> <span class="dv">3</span></span></code></pre></div>
+<pre><code>## Error in parse(text = input): &lt;text&gt;:1:4: unexpected assignment
+## 1: if &lt;-
+##        ^</code></pre>
+</div>
+<p>As expected, the R console will print an error, and will not have assigned the value “3” to “if”. R is case sensitive. This means that it distinguishes between if, If, iF, and IF. This means that you would be able to assign a value to If, iF, or IF. Try it:</p>
+<div class="yellowbox">
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="ch-2.html#cb32-1" tabindex="-1"></a>If <span class="ot">&lt;-</span> <span class="dv">3</span></span></code></pre></div>
+</div>
+<p>Now, the value of “3” should be assigned to If.</p>
+</div>
+<div id="sec:ErrorVsWarning" class="section level2 hasAnchor" number="2.9">
+<h2><span class="header-section-number">2.9</span> Error vs warning messages<a href="ch-2.html#sec:ErrorVsWarning" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In the previous section, the R console printed an error message and did not run the code. Running R code can also generate warning messages. The code will still run, but may not behave as expected. Here is an example of that code that runs, but will generate a warning message:</p>
+<div class="yellowbox">
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="ch-2.html#cb33-1" tabindex="-1"></a>v <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;1&quot;</span>, <span class="st">&quot;2&quot;</span>, <span class="st">&quot;3&quot;</span>)</span>
+<span id="cb33-2"><a href="ch-2.html#cb33-2" tabindex="-1"></a>base<span class="sc">::</span><span class="fu">mean</span>(v)</span></code></pre></div>
+<pre><code>## Warning in mean.default(v): argument is not numeric or logical: returning NA</code></pre>
+<pre><code>## [1] NA</code></pre>
+</div>
+<p>You may expect the output of the above code to be 2. However, the function mean expects its input to be a vector of numbers, not strings. Therefore, the code produces a warning message, and <strong><a href="list-of-abbreviations.html#acronyms_NA">not available (NA)</a></strong> as the output.</p>
+</div>
+<div id="sec:WorkingDirectory" class="section level2 hasAnchor" number="2.10">
+<h2><span class="header-section-number">2.10</span> Working directory<a href="ch-2.html#sec:WorkingDirectory" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>R allows you to read files from your computer and save files to it. How does R know where to read from or save to? You can provide a full file path. If no full path is provided, R assumes the file is located in the working directory. The working directory is the default location on your computer where R reads and saves files. To find out what your working directory is, type <code>getwd()</code>:</p>
+<div class="yellowbox">
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="ch-2.html#cb36-1" tabindex="-1"></a><span class="fu">getwd</span>()</span></code></pre></div>
+<pre><code>## [1] &quot;C:/Users/cresc/OneDrive - University of Glasgow/Teaching/MED5686 - R for Health Data Science/R4HDS_bookdown&quot;</code></pre>
+</div>
+<p>Are you happy with that working directory? If not, you can change it using <code>setwd()</code>:</p>
+<div class="yellowbox">
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="ch-2.html#cb38-1" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">&#39;path&#39;</span>)</span></code></pre></div>
+</div>
+<p>To demonstrate the working directory, you can create a simple text file called “R output.txt” by using the command <code>writeLines()</code>. Please note that the command will overwrite any existing text file with the same name.</p>
+<div class="yellowbox">
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="ch-2.html#cb39-1" tabindex="-1"></a>base<span class="sc">::</span><span class="fu">writeLines</span>(<span class="st">&quot;Hello World&quot;</span>, <span class="st">&quot;R output.txt&quot;</span>)</span></code></pre></div>
+</div>
+<p>Open your file explorer and navigate to your working directory. You should be able to find the file <code>R output.txt</code>, with the line <code>Hello World</code> within it.</p>
+<p>Please note: you can also set your working directory by clicking Session &gt; Set Working Directory &gt; Choose Directory (or source file location).</p>
+</div>
+<div id="import-data" class="section level2 hasAnchor" number="2.11">
+<h2><span class="header-section-number">2.11</span> Import data<a href="ch-2.html#import-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The examples above used data that were input directly into R’s console. However, real-world data analysis typically utilises data stored in files on either local or network drives. In those scenarios, you will need to import the data from the files into R. The exact functions used to import data depend on the data format. One of the most common formats of data is a <strong><a href="list-of-abbreviations.html#acronyms_CSV">comma separated value (CSV)</a></strong> file, and we will use that as an example. Please download <strong>02-hrqol_data.csv</strong> from Moodle, and place it in a convenient folder. For example, if you have put the data file in <strong><code>C:/Users/ABC/R_course/Data</code></strong>, then you can import the data using <code>read.csv()</code>:</p>
+<div class="yellowbox">
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="ch-2.html#cb40-1" tabindex="-1"></a>dat <span class="ot">&lt;-</span> utils<span class="sc">::</span><span class="fu">read.csv</span>(<span class="st">&quot;./data/02-hrqol_data.csv&quot;</span>)</span></code></pre></div>
+</div>
+<p>Note that the code not only imports the data, but also stores the imported data in a data frame object called <strong><code>dat</code></strong> (see Section <a href="ch-3.html#sec:dataFrame">3.3.3.1</a>). It is common practice to store the imported data in an object, because without doing so, you cannot interact with the data after loading it.</p>
+<p>Below is a table showing common data formats and some functions to import them:</p>
+<table>
+<caption><span id="tab:data-import">Table 2.1: </span>Functions to import data into R</caption>
+<colgroup>
+<col width="47%" />
+<col width="15%" />
+<col width="36%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">File format (file name extension)</th>
+<th align="left">base R</th>
+<th align="left">Using additional packages</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">CSV (.csv)</td>
+<td align="left">read.csv</td>
+<td align="left">read_csv</td>
+</tr>
+<tr class="even">
+<td align="left">TSV (.tsv)</td>
+<td align="left">read.table</td>
+<td align="left">read_tsv</td>
+</tr>
+<tr class="odd">
+<td align="left">TXT (.txt)</td>
+<td align="left">read.delim</td>
+<td align="left">read_delim</td>
+</tr>
+<tr class="even">
+<td align="left">Excel data file (.xlsx / .xls)</td>
+<td align="left"></td>
+<td align="left">read_excel</td>
+</tr>
+<tr class="odd">
+<td align="left">STATA data file (.dta)</td>
+<td align="left"></td>
+<td align="left">read_dta</td>
+</tr>
+<tr class="even">
+<td align="left">SPSS data file (.sav)</td>
+<td align="left"></td>
+<td align="left">read_sav</td>
+</tr>
+<tr class="odd">
+<td align="left">SAS data file (.sas7bdat)</td>
+<td align="left"></td>
+<td align="left">read_sas</td>
+</tr>
+</tbody>
+</table>
+<p>If you haven’t installed those additional packages (readr, readxl, haven), the code on the right column won’t work. You must install the package as described in the above section before running the code. Also note that the readr in the read_csv command means that the read_csv function is in the readr package specifically.</p>
+</div>
+<div id="export-data" class="section level2 hasAnchor" number="2.12">
+<h2><span class="header-section-number">2.12</span> Export data<a href="ch-2.html#export-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>If you have made changes to the data in R and want to export a copy to a local or network drive. You can export data in a similar way with <code>write.csv()</code>:</p>
+<div class="yellowbox">
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="ch-2.html#cb41-1" tabindex="-1"></a>utils<span class="sc">::</span><span class="fu">write.csv</span>(dat <span class="sc">*</span> <span class="dv">2</span>, <span class="st">&#39;C:/Users/ABC/R_course/Data/test_data_new.csv&#39;</span>)</span></code></pre></div>
+</div>
+<p>As with data import, R can export data in various formats using different packages.The corresponding functions are listed in the table below:</p>
+<table>
+<caption><span id="tab:data-export">Table 2.2: </span>Functions to export data from R</caption>
+<colgroup>
+<col width="47%" />
+<col width="16%" />
+<col width="36%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">File format (file name extension)</th>
+<th align="left">Base R</th>
+<th align="left">Using additional packages</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">CSV (.csv)</td>
+<td align="left">write.csv</td>
+<td align="left">write_csv</td>
+</tr>
+<tr class="even">
+<td align="left">TSV (.tsv)</td>
+<td align="left">write.table</td>
+<td align="left">write_tsv</td>
+</tr>
+<tr class="odd">
+<td align="left">TXT (.txt)</td>
+<td align="left">writeLines</td>
+<td align="left">write_delim</td>
+</tr>
+<tr class="even">
+<td align="left">Excel data file (.xlsx)</td>
+<td align="left"></td>
+<td align="left">write_xlsx</td>
+</tr>
+<tr class="odd">
+<td align="left">STATA data file (.dta)</td>
+<td align="left"></td>
+<td align="left">write_dta</td>
+</tr>
+<tr class="even">
+<td align="left">SPSS data file (.sav)</td>
+<td align="left"></td>
+<td align="left">write_sav</td>
+</tr>
+<tr class="odd">
+<td align="left">SAS data file (.sas7bdat)</td>
+<td align="left"></td>
+<td align="left">write_sas</td>
+</tr>
+</tbody>
+</table>
+<p>Be aware that some data formats may not correspond to the standard extension. For example, a data formatted as <strong><a href="list-of-abbreviations.html#acronyms_TSV">tab separated value (TSV)</a></strong> could have an extension of ‘.txt’. If the imported data doesn’t make sense (e.g., only one column), please review the imported data and determine if a different function should be used instead. Also note that the Excel data requires a different package for export than it did for import (writexl).</p>
+</div>
+<div id="sec:project" class="section level2 hasAnchor" number="2.13">
+<h2><span class="header-section-number">2.13</span> Project<a href="ch-2.html#sec:project" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The <strong>Project</strong> functionality in R is a good way to manage different projects. For example, you can use one project for all scripts for this course and another project for your <strong><a href="list-of-abbreviations.html#acronyms_MPH">Master’s of Public Health (MPH)</a></strong> project (if you decide to use R for it).</p>
+<p>The main advantage of using the <strong>project</strong> functionality is that the <strong>working directory</strong> is set automatically to your project folder, and it could be easier to import data or scripts into R without using absolute paths. For example, if you have a project folder <strong><code>"C:/Users/ABC/R_course/"</code></strong> for this course, and the data ‘02-hrqol_data.csv’ located in the <strong><code>"C:/Users/ABC/R_course/Data/02-hrqol_data.csv"</code></strong>, you can either read in the data using an absolute path:</p>
+<div class="yellowbox">
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="ch-2.html#cb42-1" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;C:/Users/ABC/R_course/data/02-hrqol_data.csv&quot;</span>)</span></code></pre></div>
+</div>
+<p>Or using a relative path, if your working directory is set correctly (or if you use the Project function):</p>
+<div class="yellowbox">
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="ch-2.html#cb43-1" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/02-hrqol_data.csv&quot;</span>)</span></code></pre></div>
+</div>
+<p>Similarly, you can use a relative path when you export files.</p>
+<p>To create an R Project, you can click on the project button in the top-right corner of your RStudio.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:project-menu"></span>
+<img src="images/02-R_project_1.png" alt="Project Menu in RStudio" width="75%" />
+<p class="caption">
+Figure 2.3: Project Menu in RStudio
+</p>
+</div>
+<p>You then can create a project by clicking the <strong>New Project…</strong> button, which then gives you an option to create a new project by creating a new folder (which would be empty) or to create a new project based on an existing folder (where there may already be data and other relevant files in it). In Figure <a href="ch-2.html#fig:project-menu">2.3</a>, you can also see that all recent projects that you have used are listed there, which could be handy to switch between ongoing projects.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:new-project-wizard"></span>
+<img src="images/02-R_project_2.png" alt="Options to create a new project" width="75%" />
+<p class="caption">
+Figure 2.4: Options to create a new project
+</p>
+</div>
+</div>
+<div id="sec:RMarkdown" class="section level2 hasAnchor" number="2.14">
+<h2><span class="header-section-number">2.14</span> R Markdown<a href="ch-2.html#sec:RMarkdown" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>R Markdown enables you to combine code, code output, images, and plain text into one document (Word, <strong><a href="list-of-abbreviations.html#acronyms_PDF">portable document format (PDF)</a></strong> or <strong><a href="list-of-abbreviations.html#acronyms_HTML">hypertext markup language (HTML)</a></strong>). R Markdown lets you directly produce a nicely formatted report, without needing to copy and paste the results of your analysis into a separate document.</p>
+<p>Using R Markdown can be more efficient, transparent, and supports the reproducibility of your work. To use R Markdown you first need to install the rmarkdown package.</p>
+<div class="yellowbox">
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="ch-2.html#cb44-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&#39;rmarkdown&#39;</span>)</span></code></pre></div>
+</div>
+<p>If you would like to create a <strong><a href="list-of-abbreviations.html#acronyms_PDF">PDF</a></strong> or Word document using R Markdown, you will also need to have a version of LaTeX installed on your computer. If you do not yet have a version of LaTeX installed on your computer, tinytex (<a href="https://yihui.org/tinytex/" class="uri">https://yihui.org/tinytex/</a>) is a good choice. You can install rmarkdown and tinytex with the following commands:</p>
+<div class="yellowbox">
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="ch-2.html#cb45-1" tabindex="-1"></a>utils<span class="sc">::</span><span class="fu">install.packages</span>(<span class="st">&#39;tinytex&#39;</span>)</span>
+<span id="cb45-2"><a href="ch-2.html#cb45-2" tabindex="-1"></a>tinytex<span class="sc">::</span><span class="fu">install_tinytex</span>()</span></code></pre></div>
+</div>
+<p>You can create an R Markdown document by clicking New File &gt; R Markdown… Give the document a title and add your name in the ‘Author box’, and click on ‘OK’. This will create an R Markdown file. Save this file in your working directory. You can now knit it by clicking on the ‘Knit’ button. Wait for it to finish and have a look at the output.</p>
+<p>You can also run the code sections (“chunks”) without ‘knitting’ the document by pressing the green arrow in each chunk. Have a look at the Run drop-down menu for other Run options.</p>
+<div class="pinkbox">
+<p>Try adding some code and text of your own to your R Markdown file, run your code chunks, and knit the file to get a feel for how it works.</p>
+</div>
+</div>
+<div id="sec:CodingTips" class="section level2 hasAnchor" number="2.15">
+<h2><span class="header-section-number">2.15</span> R coding tips<a href="ch-2.html#sec:CodingTips" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The above examples are relatively simple. However, if you start writing more complicated and larger pieces of code, consistently formatting your code will help its readability, maintainability, and help you spot errors. Below are some tips for writing your R code.</p>
+<div id="indentation" class="section level3 hasAnchor" number="2.15.1">
+<h3><span class="header-section-number">2.15.1</span> Indentation<a href="ch-2.html#indentation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Compare these two code snippets:</p>
+<div class="yellowbox">
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="ch-2.html#cb46-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb46-2"><a href="ch-2.html#cb46-2" tabindex="-1"></a></span>
+<span id="cb46-3"><a href="ch-2.html#cb46-3" tabindex="-1"></a><span class="cf">if</span>(x <span class="sc">%%</span> <span class="dv">2</span> <span class="sc">==</span> <span class="dv">0</span>) {</span>
+<span id="cb46-4"><a href="ch-2.html#cb46-4" tabindex="-1"></a>base<span class="sc">::</span><span class="fu">print</span>(<span class="st">&quot;Even number&quot;</span>)</span>
+<span id="cb46-5"><a href="ch-2.html#cb46-5" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (x <span class="sc">%%</span> <span class="dv">2</span> <span class="sc">==</span> <span class="dv">1</span>) {</span>
+<span id="cb46-6"><a href="ch-2.html#cb46-6" tabindex="-1"></a>base<span class="sc">::</span><span class="fu">print</span>(<span class="st">&quot;Odd number&quot;</span>)</span>
+<span id="cb46-7"><a href="ch-2.html#cb46-7" tabindex="-1"></a>} <span class="cf">else</span></span>
+<span id="cb46-8"><a href="ch-2.html#cb46-8" tabindex="-1"></a>base<span class="sc">::</span><span class="fu">print</span>(<span class="st">&quot;Number is neither even nor odd&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;Odd number&quot;</code></pre>
+</div>
+<div class="yellowbox">
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="ch-2.html#cb48-1" tabindex="-1"></a><span class="cf">if</span>(x <span class="sc">%%</span> <span class="dv">2</span> <span class="sc">==</span> <span class="dv">0</span>) {</span>
+<span id="cb48-2"><a href="ch-2.html#cb48-2" tabindex="-1"></a>  base<span class="sc">::</span><span class="fu">print</span>(<span class="st">&quot;Even number&quot;</span>)</span>
+<span id="cb48-3"><a href="ch-2.html#cb48-3" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (x <span class="sc">%%</span> <span class="dv">2</span> <span class="sc">==</span> <span class="dv">1</span>) {</span>
+<span id="cb48-4"><a href="ch-2.html#cb48-4" tabindex="-1"></a>  base<span class="sc">::</span><span class="fu">print</span>(<span class="st">&quot;Odd number&quot;</span>)</span>
+<span id="cb48-5"><a href="ch-2.html#cb48-5" tabindex="-1"></a>} <span class="cf">else</span></span>
+<span id="cb48-6"><a href="ch-2.html#cb48-6" tabindex="-1"></a>  base<span class="sc">::</span><span class="fu">print</span>(<span class="st">&quot;Number is neither even nor odd&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;Odd number&quot;</code></pre>
+</div>
+<p>The first code snippet does not use indentation (spaces at the beginning of a line of code), while the second does. Consistent use of indentation can aid readability.</p>
+</div>
+<div id="commenting" class="section level3 hasAnchor" number="2.15.2">
+<h3><span class="header-section-number">2.15.2</span> Commenting<a href="ch-2.html#commenting" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>For the code above, you may have inferred that it tells you whether a number is even or odd (or neither). However, you may not understand how it does that. Adding comments to your code can help explain to others how it works. It will also help you to understand your own code if you need to use or edit it in the future. You can add comments by using the “#” symbol. See below how the added comments help to clarify what the code does and how it accomplishes this.</p>
+<div class="yellowbox">
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="ch-2.html#cb50-1" tabindex="-1"></a><span class="co"># the following code determines whether a number is even, odd, or neither</span></span>
+<span id="cb50-2"><a href="ch-2.html#cb50-2" tabindex="-1"></a><span class="co"># it does this by using the modulo (%%) operator</span></span>
+<span id="cb50-3"><a href="ch-2.html#cb50-3" tabindex="-1"></a><span class="co"># the modulo operator returns the remainder of a division</span></span>
+<span id="cb50-4"><a href="ch-2.html#cb50-4" tabindex="-1"></a><span class="co"># the remainder of an even number divided by 2 is 0</span></span>
+<span id="cb50-5"><a href="ch-2.html#cb50-5" tabindex="-1"></a><span class="co"># the remainder of an odd number divided by 2 is 1</span></span>
+<span id="cb50-6"><a href="ch-2.html#cb50-6" tabindex="-1"></a><span class="co"># the remainder of a decimal number divided by 2 is always another decimal number</span></span>
+<span id="cb50-7"><a href="ch-2.html#cb50-7" tabindex="-1"></a><span class="co"># therefore, for a decimal number, the else condition would hold</span></span>
+<span id="cb50-8"><a href="ch-2.html#cb50-8" tabindex="-1"></a></span>
+<span id="cb50-9"><a href="ch-2.html#cb50-9" tabindex="-1"></a><span class="cf">if</span>(x <span class="sc">%%</span> <span class="dv">2</span> <span class="sc">==</span> <span class="dv">0</span>) {</span>
+<span id="cb50-10"><a href="ch-2.html#cb50-10" tabindex="-1"></a>  base<span class="sc">::</span><span class="fu">print</span>(<span class="st">&quot;Even number&quot;</span>)</span>
+<span id="cb50-11"><a href="ch-2.html#cb50-11" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (x <span class="sc">%%</span> <span class="dv">2</span> <span class="sc">==</span> <span class="dv">1</span>) {</span>
+<span id="cb50-12"><a href="ch-2.html#cb50-12" tabindex="-1"></a>  base<span class="sc">::</span><span class="fu">print</span>(<span class="st">&quot;Odd number&quot;</span>)</span>
+<span id="cb50-13"><a href="ch-2.html#cb50-13" tabindex="-1"></a>} <span class="cf">else</span></span>
+<span id="cb50-14"><a href="ch-2.html#cb50-14" tabindex="-1"></a>  base<span class="sc">::</span><span class="fu">print</span>(<span class="st">&quot;Number is neither even nor odd&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;Odd number&quot;</code></pre>
+</div>
+<div class="pinkbox">
+<p>Try adding relevant comments to the function you wrote previously.</p>
+</div>
+</div>
+<div id="sec:NamingConventions" class="section level3 hasAnchor" number="2.15.3">
+<h3><span class="header-section-number">2.15.3</span> Naming conventions<a href="ch-2.html#sec:NamingConventions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Being consistent with how you name your variables and functions can further improve your code’s readability. Try to choose names that are short and meaningful.</p>
+<div class="yellowbox">
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="ch-2.html#cb52-1" tabindex="-1"></a><span class="co"># short, but not informative</span></span>
+<span id="cb52-2"><a href="ch-2.html#cb52-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="st">&quot;December&quot;</span></span>
+<span id="cb52-3"><a href="ch-2.html#cb52-3" tabindex="-1"></a></span>
+<span id="cb52-4"><a href="ch-2.html#cb52-4" tabindex="-1"></a><span class="co"># informative, but long</span></span>
+<span id="cb52-5"><a href="ch-2.html#cb52-5" tabindex="-1"></a>twelfth_month_of_the_year <span class="ot">&lt;-</span> <span class="st">&quot;December&quot;</span></span>
+<span id="cb52-6"><a href="ch-2.html#cb52-6" tabindex="-1"></a></span>
+<span id="cb52-7"><a href="ch-2.html#cb52-7" tabindex="-1"></a><span class="co"># both short and informative</span></span>
+<span id="cb52-8"><a href="ch-2.html#cb52-8" tabindex="-1"></a>month_12 <span class="ot">&lt;-</span> <span class="st">&quot;December&quot;</span></span></code></pre></div>
+</div>
+<div class="pinkbox">
+<p>Did the function you wrote previously have a short and meaningful name? If not, change it.</p>
+</div>
+<p>It is also best not to reuse existing function names. Reusing a function name will overwrite the original function. Here is an example:</p>
+<div class="yellowbox">
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="ch-2.html#cb53-1" tabindex="-1"></a>c <span class="ot">&lt;-</span> <span class="cf">function</span>(a, b, c) {</span>
+<span id="cb53-2"><a href="ch-2.html#cb53-2" tabindex="-1"></a>  (a<span class="sc">+</span>b)<span class="sc">*</span>c</span>
+<span id="cb53-3"><a href="ch-2.html#cb53-3" tabindex="-1"></a>}</span></code></pre></div>
+</div>
+<p>The above code will overwrite the base R function c, which combines values into a vector (this will be covered further in Section <a href="ch-3.html#sec:vector">3.3.1</a>). If you were to use c again, it would refer to the function in the above yellow box.</p>
+</div>
+<div id="sec:styleGuides" class="section level3 hasAnchor" number="2.15.4">
+<h3><span class="header-section-number">2.15.4</span> Style guides<a href="ch-2.html#sec:styleGuides" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The above sections provide a few tips on how to improve the readability of your code. For further ideas/guidance on how to write and format your code, you can refer to a style guide. Here is an example of a style guide: <a href="https://style.tidyverse.org/">Tidyverse Style Guide</a>. Have a look!</p>
+</div>
+</div>
+<div id="referencesfurther-reading" class="section level2 hasAnchor" number="2.16">
+<h2><span class="header-section-number">2.16</span> References/further reading<a href="ch-2.html#referencesfurther-reading" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ol style="list-style-type: decimal">
+<li><a href="https://rstudio-education.github.io/hopr/" class="uri">https://rstudio-education.github.io/hopr/</a></li>
+<li><a href="https://intro2r.com/" class="uri">https://intro2r.com/</a></li>
+<li><a href="https://docs.posit.co/ide/user/" class="uri">https://docs.posit.co/ide/user/</a></li>
+</ol>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="ch-1.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="ch-3.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["_main.pdf"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "section"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

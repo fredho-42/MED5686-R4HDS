@@ -1,0 +1,98 @@
+---
+acronyms:
+  loa_title: ""
+  insert_loa: false
+  keys:
+    - shortname: ACM
+      longname: all-cause mortality
+    - shortname: UK
+      longname: United Kingdom
+    - shortname: KM
+      longname: Kaplan-Meier estimator
+    - shortname: CIF
+      longname: cumulative incidence function
+    - shortname: Cox PH
+      longname: Cox proportional hazards
+    - shortname: SIMD
+      longname: Scottish Index of Multiple Deprivation
+    - shortname: BMI
+      longname: body mass index
+    - shortname: ANOVA
+      longname: analysis of variance
+    - shortname: GLM
+      longname: generalised linear model
+    - shortname: NB
+      longname: negative binomial
+    - shortname: CSV
+      longname: comma separated value
+    - shortname: PDF
+      longname: portable document format
+    - shortname: IDE
+      longname: integrated development environment
+    - shortname: LDL
+      longname: low-density lipoprotein
+    - shortname: HDL
+      longname: high-density lipoprotein
+    - shortname: OR
+      longname: odds ratio
+    - shortname: 95% CI
+      longname: 95% confidence interval
+    - shortname: CI
+      longname: confidence interval
+    - shortname: NaN
+      longname: not a number
+    - shortname: IQR
+      longname: interquartile range
+    - shortname: SD
+      longname: standard deviation
+    - shortname: SE
+      longname: standard error
+    - shortname: NA
+      longname: not available
+    - shortname: DPI
+      longname: dots per inch
+    - shortname: MRE
+      longname: minimal reproducible example
+    - shortname: MWE
+      longname: minimal working example
+    - shortname: TXT
+      longname: text file document
+    - shortname: TSV
+      longname: tab separated value
+    - shortname: MPH
+      longname: Master's of Public Health
+    - shortname: IRR
+      longname: incidence rate ratio
+    - shortname: DM
+      longname: diabetes mellitus
+    - shortname: TG
+      longname: triglycerides
+    - shortname: Cr
+      longname: serum creatinine
+    - shortname: Chol
+      longname: cholesterol
+    - shortname: BUN
+      longname: blood urea nitrogen
+    - shortname: HTML
+      longname: hypertext markup language
+    - shortname: HRQoL
+      longname: health-related quality of life
+    - shortname: WHO
+      longname: World Health Organization
+    - shortname: LCI
+      longname: lower confidence interval
+    - shortname: UCI
+      longname: upper confidence interval
+    - shortname: HR
+      longname: hazard ratio
+    - shortname: MACE
+      longname: major adverse cardiovascular event
+    - shortname: MW
+      longname: mental well-being
+    - shortname: VIF
+      longname: variance inflation factor
+    - shortname: GAM
+      longname: generalised additive model
+    - shortname: RERI
+      longname: relative excess risk due to additive interaction
+---

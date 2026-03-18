@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 4 Data Visualisation | R for Health Data Science</title>
+  <meta name="description" content="<p>This is a companion ebook for the MED5686 - R for Health Data Science course
+in School of Health and Wellbeing, University of Glasgow.</p>" />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 4 Data Visualisation | R for Health Data Science" />
+  <meta property="og:type" content="book" />
+  <meta property="og:image" content="/images/W0-GlaLogo.png" />
+  <meta property="og:description" content="<p>This is a companion ebook for the MED5686 - R for Health Data Science course
+in School of Health and Wellbeing, University of Glasgow.</p>" />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 4 Data Visualisation | R for Health Data Science" />
+  
+  <meta name="twitter:description" content="<p>This is a companion ebook for the MED5686 - R for Health Data Science course
+in School of Health and Wellbeing, University of Glasgow.</p>" />
+  <meta name="twitter:image" content="/images/W0-GlaLogo.png" />
+
+<meta name="author" content="Heather Waddell" />
+<meta name="author" content="Alexandra Richards" />
+<meta name="author" content="Clarisse de Vries" />
+<meta name="author" content="Jocelyn Friday" />
+<meta name="author" content="Frederick Ho" />
+
+
+<meta name="date" content="2026-03-18" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="ch-3.html"/>
+<link rel="next" href="ch-5.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">R for Health Data Science</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>About This Ebook</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#how-to-use-this-ebook"><i class="fa fa-check"></i>How to Use This Ebook</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#sec:dataSets"><i class="fa fa-check"></i>Data Sets</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="ch-1.html"><a href="ch-1.html"><i class="fa fa-check"></i><b>1</b> Welcome to R</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="ch-1.html"><a href="ch-1.html#coding-to-spot-and-prevent-errors"><i class="fa fa-check"></i><b>1.1</b> Coding to Spot and Prevent Errors</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="ch-1.html"><a href="ch-1.html#sec:UnitTesting"><i class="fa fa-check"></i><b>1.1.1</b> Unit Testing</a></li>
+<li class="chapter" data-level="1.1.2" data-path="ch-1.html"><a href="ch-1.html#sec:ErrorMessages"><i class="fa fa-check"></i><b>1.1.2</b> Understanding Error Messages</a></li>
+<li class="chapter" data-level="1.1.3" data-path="ch-1.html"><a href="ch-1.html#looking-inside-functions"><i class="fa fa-check"></i><b>1.1.3</b> Looking Inside Functions</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="ch-1.html"><a href="ch-1.html#help-im-stuck"><i class="fa fa-check"></i><b>1.2</b> Help I’m Stuck</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="ch-1.html"><a href="ch-1.html#sec:cheetSheets"><i class="fa fa-check"></i><b>1.2.1</b> Cheat Sheets</a></li>
+<li class="chapter" data-level="1.2.2" data-path="ch-1.html"><a href="ch-1.html#sec:RHelp"><i class="fa fa-check"></i><b>1.2.2</b> <code>help</code> Function in R</a></li>
+<li class="chapter" data-level="1.2.3" data-path="ch-1.html"><a href="ch-1.html#sec:RefManAndVignettes"><i class="fa fa-check"></i><b>1.2.3</b> Reference Manuals and Vignettes</a></li>
+<li class="chapter" data-level="1.2.4" data-path="ch-1.html"><a href="ch-1.html#sec:StackOverflow"><i class="fa fa-check"></i><b>1.2.4</b> Stack Overflow</a></li>
+<li class="chapter" data-level="1.2.5" data-path="ch-1.html"><a href="ch-1.html#sec:OtherUsefulResources"><i class="fa fa-check"></i><b>1.2.5</b> Other</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="ch-2.html"><a href="ch-2.html"><i class="fa fa-check"></i><b>2</b> Introduction and basic usage</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="ch-2.html"><a href="ch-2.html#what-are-r-and-rstudio"><i class="fa fa-check"></i><b>2.1</b> What are R and RStudio?</a></li>
+<li class="chapter" data-level="2.2" data-path="ch-2.html"><a href="ch-2.html#why-use-r"><i class="fa fa-check"></i><b>2.2</b> Why use R?</a></li>
+<li class="chapter" data-level="2.3" data-path="ch-2.html"><a href="ch-2.html#sec:UsingRStudio"><i class="fa fa-check"></i><b>2.3</b> Using R and RStudio</a></li>
+<li class="chapter" data-level="2.4" data-path="ch-2.html"><a href="ch-2.html#r-scripts"><i class="fa fa-check"></i><b>2.4</b> R scripts</a></li>
+<li class="chapter" data-level="2.5" data-path="ch-2.html"><a href="ch-2.html#sec:functions"><i class="fa fa-check"></i><b>2.5</b> R functions</a></li>
+<li class="chapter" data-level="2.6" data-path="ch-2.html"><a href="ch-2.html#sec:scope"><i class="fa fa-check"></i><b>2.6</b> Environment and scope</a></li>
+<li class="chapter" data-level="2.7" data-path="ch-2.html"><a href="ch-2.html#packages"><i class="fa fa-check"></i><b>2.7</b> Packages</a></li>
+<li class="chapter" data-level="2.8" data-path="ch-2.html"><a href="ch-2.html#sec:reservedWords"><i class="fa fa-check"></i><b>2.8</b> Reserved words</a></li>
+<li class="chapter" data-level="2.9" data-path="ch-2.html"><a href="ch-2.html#sec:ErrorVsWarning"><i class="fa fa-check"></i><b>2.9</b> Error vs warning messages</a></li>
+<li class="chapter" data-level="2.10" data-path="ch-2.html"><a href="ch-2.html#sec:WorkingDirectory"><i class="fa fa-check"></i><b>2.10</b> Working directory</a></li>
+<li class="chapter" data-level="2.11" data-path="ch-2.html"><a href="ch-2.html#import-data"><i class="fa fa-check"></i><b>2.11</b> Import data</a></li>
+<li class="chapter" data-level="2.12" data-path="ch-2.html"><a href="ch-2.html#export-data"><i class="fa fa-check"></i><b>2.12</b> Export data</a></li>
+<li class="chapter" data-level="2.13" data-path="ch-2.html"><a href="ch-2.html#sec:project"><i class="fa fa-check"></i><b>2.13</b> Project</a></li>
+<li class="chapter" data-level="2.14" data-path="ch-2.html"><a href="ch-2.html#sec:RMarkdown"><i class="fa fa-check"></i><b>2.14</b> R Markdown</a></li>
+<li class="chapter" data-level="2.15" data-path="ch-2.html"><a href="ch-2.html#sec:CodingTips"><i class="fa fa-check"></i><b>2.15</b> R coding tips</a>
+<ul>
+<li class="chapter" data-level="2.15.1" data-path="ch-2.html"><a href="ch-2.html#indentation"><i class="fa fa-check"></i><b>2.15.1</b> Indentation</a></li>
+<li class="chapter" data-level="2.15.2" data-path="ch-2.html"><a href="ch-2.html#commenting"><i class="fa fa-check"></i><b>2.15.2</b> Commenting</a></li>
+<li class="chapter" data-level="2.15.3" data-path="ch-2.html"><a href="ch-2.html#sec:NamingConventions"><i class="fa fa-check"></i><b>2.15.3</b> Naming conventions</a></li>
+<li class="chapter" data-level="2.15.4" data-path="ch-2.html"><a href="ch-2.html#sec:styleGuides"><i class="fa fa-check"></i><b>2.15.4</b> Style guides</a></li>
+</ul></li>
+<li class="chapter" data-level="2.16" data-path="ch-2.html"><a href="ch-2.html#referencesfurther-reading"><i class="fa fa-check"></i><b>2.16</b> References/further reading</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="ch-3.html"><a href="ch-3.html"><i class="fa fa-check"></i><b>3</b> Data Types &amp; Manipulation</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="ch-3.html"><a href="ch-3.html#sec:dataTypes"><i class="fa fa-check"></i><b>3.1</b> Data Types</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="ch-3.html"><a href="ch-3.html#sec:boolean"><i class="fa fa-check"></i><b>3.1.1</b> Logical (Booleans)</a></li>
+<li class="chapter" data-level="3.1.2" data-path="ch-3.html"><a href="ch-3.html#sec:numeric"><i class="fa fa-check"></i><b>3.1.2</b> Numeric</a></li>
+<li class="chapter" data-level="3.1.3" data-path="ch-3.html"><a href="ch-3.html#sec:character"><i class="fa fa-check"></i><b>3.1.3</b> Character</a></li>
+<li class="chapter" data-level="3.1.4" data-path="ch-3.html"><a href="ch-3.html#sec:complex"><i class="fa fa-check"></i><b>3.1.4</b> Complex</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="ch-3.html"><a href="ch-3.html#sec:builtInConstants"><i class="fa fa-check"></i><b>3.2</b> Important Built-in Constants</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="ch-3.html"><a href="ch-3.html#sec:infinite"><i class="fa fa-check"></i><b>3.2.1</b> Infinite</a></li>
+<li class="chapter" data-level="3.2.2" data-path="ch-3.html"><a href="ch-3.html#sec:missingData"><i class="fa fa-check"></i><b>3.2.2</b> Missing Data</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="ch-3.html"><a href="ch-3.html#sec:dataStructure"><i class="fa fa-check"></i><b>3.3</b> Data Structures</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="ch-3.html"><a href="ch-3.html#sec:vector"><i class="fa fa-check"></i><b>3.3.1</b> Vector</a></li>
+<li class="chapter" data-level="3.3.2" data-path="ch-3.html"><a href="ch-3.html#sec:list"><i class="fa fa-check"></i><b>3.3.2</b> List</a></li>
+<li class="chapter" data-level="3.3.3" data-path="ch-3.html"><a href="ch-3.html#sec:tibbleAnddataFrame"><i class="fa fa-check"></i><b>3.3.3</b> Data Frames and Tibble</a></li>
+<li class="chapter" data-level="3.3.4" data-path="ch-3.html"><a href="ch-3.html#sec:factor"><i class="fa fa-check"></i><b>3.3.4</b> Factor</a></li>
+<li class="chapter" data-level="3.3.5" data-path="ch-3.html"><a href="ch-3.html#sec:array"><i class="fa fa-check"></i><b>3.3.5</b> Array</a></li>
+<li class="chapter" data-level="3.3.6" data-path="ch-3.html"><a href="ch-3.html#sec:OtherDataTypes"><i class="fa fa-check"></i><b>3.3.6</b> Others</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="ch-3.html"><a href="ch-3.html#statistical-data-types"><i class="fa fa-check"></i><b>3.4</b> Statistical Data Types</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="ch-3.html"><a href="ch-3.html#sec:nominal"><i class="fa fa-check"></i><b>3.4.1</b> Nominal Data</a></li>
+<li class="chapter" data-level="3.4.2" data-path="ch-3.html"><a href="ch-3.html#sec:ordinal"><i class="fa fa-check"></i><b>3.4.2</b> Ordinal Data</a></li>
+<li class="chapter" data-level="3.4.3" data-path="ch-3.html"><a href="ch-3.html#sec:interval"><i class="fa fa-check"></i><b>3.4.3</b> Interval Data</a></li>
+<li class="chapter" data-level="3.4.4" data-path="ch-3.html"><a href="ch-3.html#sec:ratio"><i class="fa fa-check"></i><b>3.4.4</b> Ratio Data</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="ch-3.html"><a href="ch-3.html#sec:tidyverse"><i class="fa fa-check"></i><b>3.5</b> Tidyverse</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="ch-3.html"><a href="ch-3.html#sec:piping"><i class="fa fa-check"></i><b>3.5.1</b> Piping</a></li>
+<li class="chapter" data-level="3.5.2" data-path="ch-3.html"><a href="ch-3.html#sec:tidyData"><i class="fa fa-check"></i><b>3.5.2</b> Tidy Data</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="ch-3.html"><a href="ch-3.html#sec:dataTransformation"><i class="fa fa-check"></i><b>3.6</b> Data Transformation</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="ch-3.html"><a href="ch-3.html#sec:summary"><i class="fa fa-check"></i><b>3.6.1</b> Summaries</a></li>
+<li class="chapter" data-level="3.6.2" data-path="ch-3.html"><a href="ch-3.html#sec:mutating"><i class="fa fa-check"></i><b>3.6.2</b> Mutating</a></li>
+<li class="chapter" data-level="3.6.3" data-path="ch-3.html"><a href="ch-3.html#sec:groupingUnGrouping"><i class="fa fa-check"></i><b>3.6.3</b> Grouping and Ungrouping</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="ch-3.html"><a href="ch-3.html#sec:logicFlow"><i class="fa fa-check"></i><b>3.7</b> Logic Flow</a>
+<ul>
+<li class="chapter" data-level="3.7.1" data-path="ch-3.html"><a href="ch-3.html#sec:selecting"><i class="fa fa-check"></i><b>3.7.1</b> Selecting</a></li>
+<li class="chapter" data-level="3.7.2" data-path="ch-3.html"><a href="ch-3.html#sec:filtering"><i class="fa fa-check"></i><b>3.7.2</b> Filtering</a></li>
+<li class="chapter" data-level="3.7.3" data-path="ch-3.html"><a href="ch-3.html#sec:ifElse"><i class="fa fa-check"></i><b>3.7.3</b> If/Else</a></li>
+<li class="chapter" data-level="3.7.4" data-path="ch-3.html"><a href="ch-3.html#sec:CaseWhen"><i class="fa fa-check"></i><b>3.7.4</b> Multiple Comparisons</a></li>
+<li class="chapter" data-level="3.7.5" data-path="ch-3.html"><a href="ch-3.html#sec:loops"><i class="fa fa-check"></i><b>3.7.5</b> Loops</a></li>
+</ul></li>
+<li class="chapter" data-level="3.8" data-path="ch-3.html"><a href="ch-3.html#sec:merging"><i class="fa fa-check"></i><b>3.8</b> Merging datasets</a>
+<ul>
+<li class="chapter" data-level="3.8.1" data-path="ch-3.html"><a href="ch-3.html#the-mechanics"><i class="fa fa-check"></i><b>3.8.1</b> The Mechanics</a></li>
+</ul></li>
+<li class="chapter" data-level="3.9" data-path="ch-3.html"><a href="ch-3.html#sec:cautionaryTale"><i class="fa fa-check"></i><b>3.9</b> Cautionary Tale</a>
+<ul>
+<li class="chapter" data-level="3.9.1" data-path="ch-3.html"><a href="ch-3.html#sec:checkForUniqueness"><i class="fa fa-check"></i><b>3.9.1</b> Check for Uniqueness</a></li>
+<li class="chapter" data-level="3.9.2" data-path="ch-3.html"><a href="ch-3.html#sec:CartesianProduct"><i class="fa fa-check"></i><b>3.9.2</b> Cartesian product joins</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="ch-4.html"><a href="ch-4.html"><i class="fa fa-check"></i><b>4</b> Data Visualisation</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="ch-4.html"><a href="ch-4.html#basic-plotting"><i class="fa fa-check"></i><b>4.1</b> Basic plotting</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="ch-4.html"><a href="ch-4.html#data-layer"><i class="fa fa-check"></i><b>4.1.1</b> Data layer</a></li>
+<li class="chapter" data-level="4.1.2" data-path="ch-4.html"><a href="ch-4.html#plot-layers"><i class="fa fa-check"></i><b>4.1.2</b> Plot layer(s)</a></li>
+<li class="chapter" data-level="4.1.3" data-path="ch-4.html"><a href="ch-4.html#facets"><i class="fa fa-check"></i><b>4.1.3</b> Facets</a></li>
+<li class="chapter" data-level="4.1.4" data-path="ch-4.html"><a href="ch-4.html#making-it-all-look-pretty"><i class="fa fa-check"></i><b>4.1.4</b> Making it all look pretty</a></li>
+<li class="chapter" data-level="4.1.5" data-path="ch-4.html"><a href="ch-4.html#different-types-of-plots"><i class="fa fa-check"></i><b>4.1.5</b> Different Types of Plots</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="ch-4.html"><a href="ch-4.html#individualising-your-plots"><i class="fa fa-check"></i><b>4.2</b> Individualising your plots</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="ch-4.html"><a href="ch-4.html#colours"><i class="fa fa-check"></i><b>4.2.1</b> Colours</a></li>
+<li class="chapter" data-level="4.2.2" data-path="ch-4.html"><a href="ch-4.html#changing-the-position-of-the-legend"><i class="fa fa-check"></i><b>4.2.2</b> Changing the position of the legend</a></li>
+<li class="chapter" data-level="4.2.3" data-path="ch-4.html"><a href="ch-4.html#changing-the-font"><i class="fa fa-check"></i><b>4.2.3</b> Changing the Font</a></li>
+<li class="chapter" data-level="4.2.4" data-path="ch-4.html"><a href="ch-4.html#changing-the-font-but-in-facets"><i class="fa fa-check"></i><b>4.2.4</b> Changing the Font but in Facets</a></li>
+<li class="chapter" data-level="4.2.5" data-path="ch-4.html"><a href="ch-4.html#sec:CombiningPlots"><i class="fa fa-check"></i><b>4.2.5</b> Combining plots</a></li>
+<li class="chapter" data-level="4.2.6" data-path="ch-4.html"><a href="ch-4.html#saving-your-plot"><i class="fa fa-check"></i><b>4.2.6</b> Saving your plot</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="ch-4.html"><a href="ch-4.html#perfect-palmer-penguins-plot"><i class="fa fa-check"></i><b>4.3</b> Perfect Palmer Penguins Plot</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="ch-5.html"><a href="ch-5.html"><i class="fa fa-check"></i><b>5</b> Hypothesis testing and regression modelling</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="ch-5.html"><a href="ch-5.html#overview-of-test-choices"><i class="fa fa-check"></i><b>5.1</b> Overview of test choices</a></li>
+<li class="chapter" data-level="5.2" data-path="ch-5.html"><a href="ch-5.html#tests-for-one-outcome-variable"><i class="fa fa-check"></i><b>5.2</b> Tests for one outcome variable</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="ch-5.html"><a href="ch-5.html#one-sample-t-test"><i class="fa fa-check"></i><b>5.2.1</b> One-sample t-test</a></li>
+<li class="chapter" data-level="5.2.2" data-path="ch-5.html"><a href="ch-5.html#sec:WilcoxonSignedRankTest"><i class="fa fa-check"></i><b>5.2.2</b> Wilcoxon signed rank test</a></li>
+<li class="chapter" data-level="5.2.3" data-path="ch-5.html"><a href="ch-5.html#sec:oneSamplePropTest"><i class="fa fa-check"></i><b>5.2.3</b> One-sample proportion test</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="ch-5.html"><a href="ch-5.html#tests-for-one-outcome-variable-and-one-exposurepredictor"><i class="fa fa-check"></i><b>5.3</b> Tests for one outcome variable and one exposure/predictor</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="ch-5.html"><a href="ch-5.html#independent-two-sample-t-test"><i class="fa fa-check"></i><b>5.3.1</b> Independent two-sample t-test</a></li>
+<li class="chapter" data-level="5.3.2" data-path="ch-5.html"><a href="ch-5.html#wilcoxon-rank-sum-test"><i class="fa fa-check"></i><b>5.3.2</b> Wilcoxon rank sum test</a></li>
+<li class="chapter" data-level="5.3.3" data-path="ch-5.html"><a href="ch-5.html#paired-t-test"><i class="fa fa-check"></i><b>5.3.3</b> Paired t-test</a></li>
+<li class="chapter" data-level="5.3.4" data-path="ch-5.html"><a href="ch-5.html#two-sample-proportion-test"><i class="fa fa-check"></i><b>5.3.4</b> Two-sample proportion test</a></li>
+<li class="chapter" data-level="5.3.5" data-path="ch-5.html"><a href="ch-5.html#sec:chiSqrd"><i class="fa fa-check"></i><b>5.3.5</b> Chi-square test of independence</a></li>
+<li class="chapter" data-level="5.3.6" data-path="ch-5.html"><a href="ch-5.html#sec:fisherExact"><i class="fa fa-check"></i><b>5.3.6</b> Fisher exact test</a></li>
+<li class="chapter" data-level="5.3.7" data-path="ch-5.html"><a href="ch-5.html#sec:pearson-Spearman"><i class="fa fa-check"></i><b>5.3.7</b> Correlation coefficient</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="ch-5.html"><a href="ch-5.html#using-gtsummary-for-table-1"><i class="fa fa-check"></i><b>5.4</b> Using <code>gtsummary</code> for “Table 1”</a></li>
+<li class="chapter" data-level="5.5" data-path="ch-5.html"><a href="ch-5.html#general-linear-models"><i class="fa fa-check"></i><b>5.5</b> General linear models</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="ch-5.html"><a href="ch-5.html#sec:simpleLinearRegression"><i class="fa fa-check"></i><b>5.5.1</b> Simple linear regression</a></li>
+<li class="chapter" data-level="5.5.2" data-path="ch-5.html"><a href="ch-5.html#multiple-regression"><i class="fa fa-check"></i><b>5.5.2</b> Multiple regression</a></li>
+<li class="chapter" data-level="5.5.3" data-path="ch-5.html"><a href="ch-5.html#sec:anova"><i class="fa fa-check"></i><b>5.5.3</b> Analysis of variance</a></li>
+<li class="chapter" data-level="5.5.4" data-path="ch-5.html"><a href="ch-5.html#diagnostics"><i class="fa fa-check"></i><b>5.5.4</b> Diagnostics</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="ch-5.html"><a href="ch-5.html#generalised-linear-models"><i class="fa fa-check"></i><b>5.6</b> Generalised linear models</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="ch-5.html"><a href="ch-5.html#binary-outcomes"><i class="fa fa-check"></i><b>5.6.1</b> Binary outcomes</a></li>
+<li class="chapter" data-level="5.6.2" data-path="ch-5.html"><a href="ch-5.html#count-outcomes"><i class="fa fa-check"></i><b>5.6.2</b> Count outcomes</a></li>
+<li class="chapter" data-level="5.6.3" data-path="ch-5.html"><a href="ch-5.html#sandwich-estimator"><i class="fa fa-check"></i><b>5.6.3</b> Sandwich estimator</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="ch-5.html"><a href="ch-5.html#summary"><i class="fa fa-check"></i><b>5.7</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="ch-6.html"><a href="ch-6.html"><i class="fa fa-check"></i><b>6</b> Advanced Topics in Regression</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="ch-6.html"><a href="ch-6.html#survival-analysis"><i class="fa fa-check"></i><b>6.1</b> Survival Analysis</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="ch-6.html"><a href="ch-6.html#kaplan-meier-estimator"><i class="fa fa-check"></i><b>6.1.1</b> Kaplan-Meier Estimator</a></li>
+<li class="chapter" data-level="6.1.2" data-path="ch-6.html"><a href="ch-6.html#log-rank-test"><i class="fa fa-check"></i><b>6.1.2</b> Log-rank Test</a></li>
+<li class="chapter" data-level="6.1.3" data-path="ch-6.html"><a href="ch-6.html#cox-proportional-hazard-model"><i class="fa fa-check"></i><b>6.1.3</b> Cox proportional hazard model</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="ch-6.html"><a href="ch-6.html#interaction-and-effect-modification"><i class="fa fa-check"></i><b>6.2</b> Interaction and Effect Modification</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="ch-6.html"><a href="ch-6.html#additive-interaction"><i class="fa fa-check"></i><b>6.2.1</b> Additive Interaction</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="ch-6.html"><a href="ch-6.html#multicollinearity"><i class="fa fa-check"></i><b>6.3</b> Multicollinearity</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="ch-6.html"><a href="ch-6.html#model-with-collinearity"><i class="fa fa-check"></i><b>6.3.1</b> Model with collinearity</a></li>
+<li class="chapter" data-level="6.3.2" data-path="ch-6.html"><a href="ch-6.html#correlation-coefficient"><i class="fa fa-check"></i><b>6.3.2</b> Correlation coefficient</a></li>
+<li class="chapter" data-level="6.3.3" data-path="ch-6.html"><a href="ch-6.html#variance-inflation-factor"><i class="fa fa-check"></i><b>6.3.3</b> Variance Inflation Factor</a></li>
+<li class="chapter" data-level="6.3.4" data-path="ch-6.html"><a href="ch-6.html#model-without-collinearity"><i class="fa fa-check"></i><b>6.3.4</b> Model without collinearity</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="ch-6.html"><a href="ch-6.html#non-linearity"><i class="fa fa-check"></i><b>6.4</b> Non-linearity</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="ch-6.html"><a href="ch-6.html#model-with-categorical-variable"><i class="fa fa-check"></i><b>6.4.1</b> Model with categorical variable</a></li>
+<li class="chapter" data-level="6.4.2" data-path="ch-6.html"><a href="ch-6.html#model-with-quadratic-term"><i class="fa fa-check"></i><b>6.4.2</b> Model with quadratic term</a></li>
+<li class="chapter" data-level="6.4.3" data-path="ch-6.html"><a href="ch-6.html#model-with-fractional-polynomials"><i class="fa fa-check"></i><b>6.4.3</b> Model with fractional polynomials</a></li>
+<li class="chapter" data-level="6.4.4" data-path="ch-6.html"><a href="ch-6.html#model-with-spline"><i class="fa fa-check"></i><b>6.4.4</b> Model with spline</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="ch-7.html"><a href="ch-7.html"><i class="fa fa-check"></i><b>7</b> Causal Inference: Mediation and Instrumental Variables</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="ch-7.html"><a href="ch-7.html#data-preparation-for-causal-modeling"><i class="fa fa-check"></i><b>7.1</b> Data Preparation for Causal Modeling</a></li>
+<li class="chapter" data-level="7.2" data-path="ch-7.html"><a href="ch-7.html#mediation-analysis"><i class="fa fa-check"></i><b>7.2</b> Mediation Analysis</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="ch-7.html"><a href="ch-7.html#the-base-model-total-effect"><i class="fa fa-check"></i><b>7.2.1</b> The Base Model (Total Effect)</a></li>
+<li class="chapter" data-level="7.2.2" data-path="ch-7.html"><a href="ch-7.html#regression-adjustment-for-mediation"><i class="fa fa-check"></i><b>7.2.2</b> Regression Adjustment for Mediation</a></li>
+<li class="chapter" data-level="7.2.3" data-path="ch-7.html"><a href="ch-7.html#the-sobel-test"><i class="fa fa-check"></i><b>7.2.3</b> The Sobel Test</a></li>
+<li class="chapter" data-level="7.2.4" data-path="ch-7.html"><a href="ch-7.html#the-parametric-g-formula"><i class="fa fa-check"></i><b>7.2.4</b> The Parametric G-Formula</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="ch-7.html"><a href="ch-7.html#instrumental-variables-iv"><i class="fa fa-check"></i><b>7.3</b> Instrumental Variables (IV)</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="ch-7.html"><a href="ch-7.html#intention-to-treat-itt-vs.-per-protocol-pp"><i class="fa fa-check"></i><b>7.3.1</b> Intention-to-Treat (ITT) vs. Per-Protocol (PP)</a></li>
+<li class="chapter" data-level="7.3.2" data-path="ch-7.html"><a href="ch-7.html#iv-analysis-using-2-stage-least-squares"><i class="fa fa-check"></i><b>7.3.2</b> IV Analysis using 2-Stage Least Squares</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="list-of-abbreviations.html"><a href="list-of-abbreviations.html"><i class="fa fa-check"></i>List of abbreviations</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R for Health Data Science</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="ch-4" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">Chapter 4</span> Data Visualisation<a href="ch-4.html#ch-4" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p><img src="images/04-ggplot_Logo.png" alt="" width="50%" style="display: block; margin: auto;" /></p>
+<p>Before starting this chapter, make sure that you have the following R packages installed and loaded.</p>
+<div class="yellowbox">
+<div class="sourceCode" id="cb315"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb315-1"><a href="ch-4.html#cb315-1" tabindex="-1"></a><span class="co">#Install packages</span></span>
+<span id="cb315-2"><a href="ch-4.html#cb315-2" tabindex="-1"></a>utils<span class="sc">::</span><span class="fu">install.packages</span>(<span class="st">&quot;ggplot2&quot;</span>) <span class="co">#also installed via tidyverse</span></span>
+<span id="cb315-3"><a href="ch-4.html#cb315-3" tabindex="-1"></a>utils<span class="sc">::</span><span class="fu">install.packages</span>(<span class="st">&quot;patchwork&quot;</span>)</span>
+<span id="cb315-4"><a href="ch-4.html#cb315-4" tabindex="-1"></a>utils<span class="sc">::</span><span class="fu">install.packages</span>(<span class="st">&quot;dplyr&quot;</span>) <span class="co">#also installed via tidyverse</span></span>
+<span id="cb315-5"><a href="ch-4.html#cb315-5" tabindex="-1"></a>utils<span class="sc">::</span><span class="fu">install.packages</span>(<span class="st">&quot;viridis&quot;</span>)</span></code></pre></div>
+</div>
+<p>Remember you only need to install package once in a computer. And after they’re installed you can load them into the current R session:</p>
+<div class="yellowbox">
+<div class="sourceCode" id="cb316"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb316-1"><a href="ch-4.html#cb316-1" tabindex="-1"></a><span class="co">#Load packages</span></span>
+<span id="cb316-2"><a href="ch-4.html#cb316-2" tabindex="-1"></a>base<span class="sc">::</span><span class="fu">library</span>(ggplot2)</span>
+<span id="cb316-3"><a href="ch-4.html#cb316-3" tabindex="-1"></a>base<span class="sc">::</span><span class="fu">library</span>(patchwork)</span>
+<span id="cb316-4"><a href="ch-4.html#cb316-4" tabindex="-1"></a>base<span class="sc">::</span><span class="fu">library</span>(dplyr)</span>
+<span id="cb316-5"><a href="ch-4.html#cb316-5" tabindex="-1"></a>base<span class="sc">::</span><span class="fu">library</span>(viridis)</span></code></pre></div>
+<pre><code>## Loading required package: viridisLite</code></pre>
+<div class="sourceCode" id="cb318"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb318-1"><a href="ch-4.html#cb318-1" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list=</span><span class="fu">ls</span>()); <span class="fu">gc</span>()</span></code></pre></div>
+<pre><code>##           used  (Mb) gc trigger  (Mb) max used (Mb)
+## Ncells 2447607 130.8    4433328 236.8  3930301  210
+## Vcells 4343404  33.2   10146329  77.5  8388598   64</code></pre>
+</div>
+<div id="basic-plotting" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Basic plotting<a href="ch-4.html#basic-plotting" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>There are two main methods for creating plots in R. We will be using the package ggplot2, which uses the grammar of graphics (a framework for building plots from components such as data, aesthetics, and facets), and we will be using some built-in data sets to start plotting.</p>
+<p>The data set we are using for this walk-through is called iris and documents the sepal and petal length and width of three different species of iris. It is one of a number of built-in datasets that come with every installation of R, and it looks like this:</p>
+<div class="yellowbox">
+<div class="sourceCode" id="cb320"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb320-1"><a href="ch-4.html#cb320-1" tabindex="-1"></a>utils<span class="sc">::</span><span class="fu">data</span>(iris)  </span>
+<span id="cb320-2"><a href="ch-4.html#cb320-2" tabindex="-1"></a>utils<span class="sc">::</span><span class="fu">head</span>(iris) </span></code></pre></div>
+<pre><code>##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 1          5.1         3.5          1.4         0.2  setosa
+## 2          4.9         3.0          1.4         0.2  setosa
+## 3          4.7         3.2          1.3         0.2  setosa
+## 4          4.6         3.1          1.5         0.2  setosa
+## 5          5.0         3.6          1.4         0.2  setosa
+## 6          5.4         3.9          1.7         0.4  setosa</code></pre>
+</div>
+<div class="pinkbox">
+<p><strong>Explore the data:</strong>
+1. What is the range of Sepal.Length?
+2. What is the mean of Sepal.Width?
+3. What are the names of the three different iris species?</p>
+</div>
+<p>There are many options for how we can plot parts of this data frame, but our first example will be a scatter plot comparing sepal length and sepal width. Each plot should be considered as being made up of a number of layers, so we will build the plot layer by layer.</p>
+<div id="data-layer" class="section level3 hasAnchor" number="4.1.1">
+<h3><span class="header-section-number">4.1.1</span> Data layer<a href="ch-4.html#data-layer" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The first line of any plot using ggplot2 starts with a call to ggplot. This can either be stand-alone as ggplot or we can define some of the key inputs for the plot. With a few exceptions, it is useful to include the dataset within this call to ggplot (either <strong><code>ggplot(dataname)</code></strong> or <strong><code>ggplot(data = dataname)</code></strong>). Beyond that, we can also specify some of the aesthetics of the graph - for example, what data is plotted on the x and y axes, and whether there is a grouping that we want to distinguish within the plot by colour, shape, or shading.</p>
+<p>We are using the iris dataset and will plot the sepal length against the sepal width in this example, so our code line to set up the base canvas for the plot uses <strong><code>data = iris</code></strong> and <strong><code>aes(x = Sepal.Length, y = Sepal.Width)</code></strong>. Both versions of the code below produce the same plot:</p>
+<div class="yellowbox">
+<p>Code example 1:</p>
+<div class="sourceCode" id="cb322"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb322-1"><a href="ch-4.html#cb322-1" tabindex="-1"></a>ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length, <span class="at">y =</span> Sepal.Width))</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-97-1.png" alt="" width="672" /></p>
+<p>Code example 2:</p>
+<div class="sourceCode" id="cb323"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb323-1"><a href="ch-4.html#cb323-1" tabindex="-1"></a>ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(<span class="at">data =</span> iris, <span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length, <span class="at">y =</span> Sepal.Width))</span></code></pre></div>
+</div>
+<div class="pinkbox">
+<p><strong>Try it yourself:</strong>
+1. What happens if you remove one of the x or y values in the <strong><code>aes</code></strong> argument?
+2. What happens if you remove the <strong><code>aes</code></strong> function call entirely? (don’t forget to remove the comma after <strong><code>iris</code></strong>)
+3. What happens when you just call ggplot?</p>
+</div>
+<p>It would be possible to add further aesthetics here, but we will cover those further down.</p>
+</div>
+<div id="plot-layers" class="section level3 hasAnchor" number="4.1.2">
+<h3><span class="header-section-number">4.1.2</span> Plot layer(s)<a href="ch-4.html#plot-layers" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Now we have a canvas for our plot, but there are no data on it. We use <strong>geoms</strong> to represent the data points. We will demonstrate more examples of these later, but the geom function required to make a scatter plot is <code>geom_point()</code>. To use this, we need to have declared an x-value and a y-value as an aesthetic, as we did in Step 1. Then we simply add the function to our base canvas:</p>
+<div class="yellowbox">
+<div class="sourceCode" id="cb324"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb324-1"><a href="ch-4.html#cb324-1" tabindex="-1"></a>ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length, <span class="at">y =</span> Sepal.Width)) <span class="sc">+</span></span>
+<span id="cb324-2"><a href="ch-4.html#cb324-2" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-99-1.png" alt="" width="672" /></p>
+</div>
+<p>We can see that there are two groupings in this plot. Since the dataset contains three species of iris, it would be helpful to determine if these groupings are between some of the species or if it’s a coincidence. A nice way to do that is by colouring the points according to the species. This would be another aesthetic variable which can either be called in the first call to ggplot or as an argument passed to <strong><code>aes</code></strong> within <code>geom_point()</code>, we have used the latter below:</p>
+<div class="yellowbox">
+<div class="sourceCode" id="cb325"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb325-1"><a href="ch-4.html#cb325-1" tabindex="-1"></a>ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length, <span class="at">y =</span> Sepal.Width)) <span class="sc">+</span></span>
+<span id="cb325-2"><a href="ch-4.html#cb325-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> Species))</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-100-1.png" alt="" width="672" /></p>
+</div>
+<p><strong>NOTE: The difference between aesthetics and other ways of formatting</strong></p>
+<p>Above, we have defined a secondary aesthetic, specific to <code>geom_point()</code> that says “make the colours of the points be defined by their species”. This aesthetic is defined as such because it looks into the dataset for the solution. We could, alternatively, say that we wanted all points to be orange. Orange is not a specific attribute of the dataset, and therefore, we don’t specify it as an aesthetic; instead, it is included within the main <code>geom_point()</code> function call.</p>
+<div class="yellowbox">
+<div class="sourceCode" id="cb326"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb326-1"><a href="ch-4.html#cb326-1" tabindex="-1"></a>ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length, <span class="at">y =</span> Sepal.Width)) <span class="sc">+</span></span>
+<span id="cb326-2"><a href="ch-4.html#cb326-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">colour =</span> <span class="st">&quot;orange&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-101-1.png" alt="" width="672" /></p>
+</div>
+<p>We can see that all points have turned orange, regardless of the underlying species data in this case.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:points-symbols"></span>
+<img src="images/04-points-symbols.png" alt="An illustration of the different point shapes commonly used in R. The default is number 19, but this can be changed using the `shape = x` parameter, where x is the shape number." width="40%" />
+<p class="caption">
+Figure 4.1: An illustration of the different point shapes commonly used in R. The default is number 19, but this can be changed using the <code>shape = x</code> parameter, where x is the shape number.
+</p>
+</div>
+<p>We could decide that we do not want filled circles as our points. There are 25 different shapes (see Figure <a href="ch-4.html#fig:points-symbols">4.1</a>). The default is number 19, which is a single-coloured dot, but we could choose any of the shapes - for example, shape number 3 is a plus sign.</p>
+<div class="yellowbox">
+<div class="sourceCode" id="cb327"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb327-1"><a href="ch-4.html#cb327-1" tabindex="-1"></a>ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length, <span class="at">y =</span> Sepal.Width)) <span class="sc">+</span></span>
+<span id="cb327-2"><a href="ch-4.html#cb327-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> Species), <span class="at">shape =</span> <span class="dv">3</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-102-1.png" alt="" width="672" /></p>
+</div>
+<p>It is also possible to make the shape change depending on data within the dataset as an aesthetic or to use any single letter or character from your keyboard instead of one of the preset shapes (try these as an exercise). Finally, the size of each point is not fixed and can be changed in a similar way. As a default, the points are size 1.5, but it is possible to change that number to any positive number. Below, we show an example where we have increased the point size to 3.</p>
+<div class="yellowbox">
+<div class="sourceCode" id="cb328"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb328-1"><a href="ch-4.html#cb328-1" tabindex="-1"></a>ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length, <span class="at">y =</span> Sepal.Width)) <span class="sc">+</span></span>
+<span id="cb328-2"><a href="ch-4.html#cb328-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> Species), <span class="at">size =</span> <span class="dv">3</span>)</span></code></pre></div>
+</div>
+<div class="pinkbox">
+<p><strong>Editing the plot layer:</strong>
+1. What happens if you make size an aesthetic based on petal width?
+2. Shapes 21-25 can take two colours, a “colour” for the edges and a “fill” for the centre. Can you work out how to add your choice of fill?
+3. Can you change the shape of the points based on the species of iris?
+4. Try to make all the shapes a letter of your choice - remember to include the character within quotation marks.</p>
+</div>
+</div>
+<div id="facets" class="section level3 hasAnchor" number="4.1.3">
+<h3><span class="header-section-number">4.1.3</span> Facets<a href="ch-4.html#facets" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Facets split the single graph into separate but linked graphs by a given grouping. For larger datasets, this can be split into a grid by two different groupings, but for our example, we will just split by the different iris species, like we have done by colour. We can either define this split by defining which grouping sets the rows and/or columns, using <strong><code>cols = vars(group)</code></strong> / <strong><code>rows = vars(group)</code></strong>, or it can be defined with an equation <strong><code>.~ group</code></strong> / <strong><code>group~.</code></strong> / <strong><code>group1~ group2</code></strong>. See Table <a href="ch-3.html#tab:precedence">3.2</a> for tilde definition and will be covered further in Section <a href="ch-5.html#sec:simpleLinearRegression">5.5.1</a>. Examples of both options for the iris dataset are below:</p>
+<div class="yellowbox">
+<p>Example 1</p>
+<div class="sourceCode" id="cb329"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb329-1"><a href="ch-4.html#cb329-1" tabindex="-1"></a>ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length, <span class="at">y =</span> Sepal.Width)) <span class="sc">+</span></span>
+<span id="cb329-2"><a href="ch-4.html#cb329-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> Species), <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb329-3"><a href="ch-4.html#cb329-3" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="at">cols =</span> <span class="fu">vars</span>(Species))</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-104-1.png" alt="" width="672" /></p>
+<p>Example 2</p>
+<div class="sourceCode" id="cb330"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb330-1"><a href="ch-4.html#cb330-1" tabindex="-1"></a>ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length, <span class="at">y =</span> Sepal.Width)) <span class="sc">+</span></span>
+<span id="cb330-2"><a href="ch-4.html#cb330-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> Species), <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb330-3"><a href="ch-4.html#cb330-3" tabindex="-1"></a>  <span class="fu">facet_grid</span>(.<span class="sc">~</span>Species)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-105-1.png" alt="" width="672" /></p>
+</div>
+<div class="pinkbox">
+<p><strong>Facet options:</strong>
+1. What happens if you set <strong><code>scales = "free_x"</code></strong> or <strong><code>scales = "free_y"</code></strong> or <strong><code>scales = "free"</code></strong>?
+2. What happens if you try the same arguments with <strong><code>space</code></strong>?
+3. Is <strong><code>cols = vars(Species)</code></strong> equivalent to <strong><code>.~Species</code></strong> or <strong><code>Species~.</code></strong>?</p>
+</div>
+</div>
+<div id="making-it-all-look-pretty" class="section level3 hasAnchor" number="4.1.4">
+<h3><span class="header-section-number">4.1.4</span> Making it all look pretty<a href="ch-4.html#making-it-all-look-pretty" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="background-and-theme" class="section level4 hasAnchor" number="4.1.4.1">
+<h4><span class="header-section-number">4.1.4.1</span> Background and theme<a href="ch-4.html#background-and-theme" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>All plots up to this point were created using ggplot’s default theme. You can change this to alter the plot background. Below, I will give you a few examples of this. You can also click here to explore more of the themes: <a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="uri">https://ggplot2.tidyverse.org/reference/ggtheme.html</a>. Below is the first plot, which shows the default theme for ggplot2 graphs.</p>
+<div class="yellowbox">
+<div class="sourceCode" id="cb331"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb331-1"><a href="ch-4.html#cb331-1" tabindex="-1"></a>ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length, <span class="at">y =</span> Sepal.Width)) <span class="sc">+</span></span>
+<span id="cb331-2"><a href="ch-4.html#cb331-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> Species), <span class="at">size =</span> <span class="dv">3</span>) </span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-106-1.png" alt="" width="672" /></p>
+</div>
+<p>Below is the second plot, which shows the black and white theme for ggplot2 graphs. The plot now has a white background with grid markers.</p>
+<div class="yellowbox">
+<div class="sourceCode" id="cb332"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb332-1"><a href="ch-4.html#cb332-1" tabindex="-1"></a>ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length, <span class="at">y =</span> Sepal.Width)) <span class="sc">+</span></span>
+<span id="cb332-2"><a href="ch-4.html#cb332-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> Species), <span class="at">size =</span> <span class="dv">3</span>)<span class="sc">+</span></span>
+<span id="cb332-3"><a href="ch-4.html#cb332-3" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-107-1.png" alt="" width="672" /></p>
+</div>
+<p>Below is the third plot, which illustrates the classic theme for ggplot2 graphs. The plot now has a white background and no grid markers.</p>
+<div class="yellowbox">
+<div class="sourceCode" id="cb333"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb333-1"><a href="ch-4.html#cb333-1" tabindex="-1"></a>ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length, <span class="at">y =</span> Sepal.Width)) <span class="sc">+</span></span>
+<span id="cb333-2"><a href="ch-4.html#cb333-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> Species), <span class="at">size =</span> <span class="dv">3</span>)<span class="sc">+</span></span>
+<span id="cb333-3"><a href="ch-4.html#cb333-3" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-108-1.png" alt="" width="672" /></p>
+</div>
+<p>Below is the fourth plot, which shows the dark theme for ggplot2 graphs.</p>
+<div class="yellowbox">
+<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb334-1"><a href="ch-4.html#cb334-1" tabindex="-1"></a>ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length, <span class="at">y =</span> Sepal.Width)) <span class="sc">+</span></span>
+<span id="cb334-2"><a href="ch-4.html#cb334-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> Species), <span class="at">size =</span> <span class="dv">3</span>)<span class="sc">+</span></span>
+<span id="cb334-3"><a href="ch-4.html#cb334-3" tabindex="-1"></a>  <span class="fu">theme_dark</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-109-1.png" alt="" width="672" /></p>
+</div>
+<p>Below is the fifth plot, which shows all of the themes we have covered so far - this includes the default, bw, classic and dark. These were plotted together using another R package that we will discuss further on.</p>
+<div class="yellowbox">
+<div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb335-1"><a href="ch-4.html#cb335-1" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb335-2"><a href="ch-4.html#cb335-2" tabindex="-1"></a>p_base<span class="ot">&lt;-</span> ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length,<span class="at">y =</span> Sepal.Width))<span class="sc">+</span></span>
+<span id="cb335-3"><a href="ch-4.html#cb335-3" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> Species), <span class="at">size =</span> <span class="dv">3</span>)</span>
+<span id="cb335-4"><a href="ch-4.html#cb335-4" tabindex="-1"></a></span>
+<span id="cb335-5"><a href="ch-4.html#cb335-5" tabindex="-1"></a><span class="co"># shows all of the plots together using Patchwork Package</span></span>
+<span id="cb335-6"><a href="ch-4.html#cb335-6" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> p_base <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">&quot;Default Theme&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb335-7"><a href="ch-4.html#cb335-7" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span>
+<span id="cb335-8"><a href="ch-4.html#cb335-8" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> p_base <span class="sc">+</span> <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">&quot;Theme_bw()&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb335-9"><a href="ch-4.html#cb335-9" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;right&quot;</span>)</span>
+<span id="cb335-10"><a href="ch-4.html#cb335-10" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> p_base <span class="sc">+</span> <span class="fu">theme_classic</span>() <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">&quot;Theme_classic()&quot;</span>)<span class="sc">+</span> </span>
+<span id="cb335-11"><a href="ch-4.html#cb335-11" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span>
+<span id="cb335-12"><a href="ch-4.html#cb335-12" tabindex="-1"></a>p4 <span class="ot">&lt;-</span> p_base <span class="sc">+</span> <span class="fu">theme_dark</span>() <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">&quot;Theme_dark()&quot;</span>)<span class="sc">+</span> </span>
+<span id="cb335-13"><a href="ch-4.html#cb335-13" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;right&quot;</span>)</span>
+<span id="cb335-14"><a href="ch-4.html#cb335-14" tabindex="-1"></a></span>
+<span id="cb335-15"><a href="ch-4.html#cb335-15" tabindex="-1"></a><span class="co"># patchwork</span></span>
+<span id="cb335-16"><a href="ch-4.html#cb335-16" tabindex="-1"></a>(p1<span class="sc">|</span>p2)<span class="sc">/</span>(p3<span class="sc">|</span>p4)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-110-1.png" alt="" width="672" /></p>
+</div>
+<p>Below is a plot that highlights how you can manually change the panel background, plot background and other elements, including the line colour (major and minor), and the axes text colour.</p>
+<div class="yellowbox">
+<div class="sourceCode" id="cb336"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb336-1"><a href="ch-4.html#cb336-1" tabindex="-1"></a>ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(Sepal.Length, Sepal.Width)) <span class="sc">+</span></span>
+<span id="cb336-2"><a href="ch-4.html#cb336-2" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb336-3"><a href="ch-4.html#cb336-3" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb336-4"><a href="ch-4.html#cb336-4" tabindex="-1"></a>    <span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">&quot;hotpink&quot;</span>),</span>
+<span id="cb336-5"><a href="ch-4.html#cb336-5" tabindex="-1"></a>    <span class="at">plot.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">&quot;skyblue&quot;</span>),</span>
+<span id="cb336-6"><a href="ch-4.html#cb336-6" tabindex="-1"></a>    <span class="at">panel.grid.major =</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">&quot;brown&quot;</span>,</span>
+<span id="cb336-7"><a href="ch-4.html#cb336-7" tabindex="-1"></a>                                    <span class="at">linewidth =</span> <span class="dv">1</span>),</span>
+<span id="cb336-8"><a href="ch-4.html#cb336-8" tabindex="-1"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">&quot;limegreen&quot;</span>, </span>
+<span id="cb336-9"><a href="ch-4.html#cb336-9" tabindex="-1"></a>                                    <span class="at">linewidth =</span> <span class="fl">0.5</span>),</span>
+<span id="cb336-10"><a href="ch-4.html#cb336-10" tabindex="-1"></a>    <span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">&quot;purple&quot;</span>)</span>
+<span id="cb336-11"><a href="ch-4.html#cb336-11" tabindex="-1"></a>  )</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-111-1.png" alt="" width="672" /></p>
+</div>
+<div class="pinkbox">
+<p><strong>Background and theme options:</strong>
+1. Look up other themes. What is your favourite theme which you might use by default?
+2. Can you use the different theme options in the last example to make a theme based on your favourite film (ours may draw inspiration from Barbie)?</p>
+</div>
+</div>
+<div id="renaming-axes" class="section level4 hasAnchor" number="4.1.4.2">
+<h4><span class="header-section-number">4.1.4.2</span> Renaming axes<a href="ch-4.html#renaming-axes" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>By default, ggplot2 uses the column names used in the aesthetic calls to name the axes; however, that is not always the most useful. In our examples so far, the x-axis has been labelled <strong><code>"Sepal.Length"</code></strong> and the y-axis has been labelled <strong><code>"Sepal.Width"</code></strong>. Whilst this is sufficient to describe the data, it could be more descriptive. We can easily rename the axes in ggplot2 using the <strong><code>labs</code></strong> layer. Within <strong><code>labs</code></strong> we can change either of the axes, and we can also add a title to the plot and adjust the title of the legend. Note that to change the title of the legend, you have to refer to it as the aesthetic (e.g. <strong><code>colour</code></strong> or <strong><code>fill</code></strong>).</p>
+<p>You can also use additional functions to make further edits. Here we will demonstrate the function <code>scale_x_continuous()</code> which can change aspects of the x-axis. It has an analogous function (<code>scale_y_continuous()</code>) that does the same for the y-axis. We are defining three aspects within <code>scale_x_continuous()</code>: the breaks, the labels, and the limits. The breaks tell ggplot2 where to place the tick labels. Without any further adjustment, the numbers in breaks will define both the position and the label for each tick. Labels adjust what is written at each tick mark. We have changed the labels from integer numbers to <strong><code>"four, five, six, seven, and eight"</code></strong>. The limits enable us to define how long we want the axes to be. This can be wider than the data, meaning that there is empty space outside of the data, or can be thinner than the data, meaning some data are not visualised. In the following, we have slightly extended the axes in both directions using <strong><code>limits = c(3.5,8.5)</code></strong>.</p>
+<div class="yellowbox">
+<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb337-1"><a href="ch-4.html#cb337-1" tabindex="-1"></a>ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length, <span class="at">y =</span> Sepal.Width))<span class="sc">+</span></span>
+<span id="cb337-2"><a href="ch-4.html#cb337-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> Species))<span class="sc">+</span></span>
+<span id="cb337-3"><a href="ch-4.html#cb337-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Sepal Dimensions in Iris Dataset&quot;</span>,</span>
+<span id="cb337-4"><a href="ch-4.html#cb337-4" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Sepal Length (cm)&quot;</span>,</span>
+<span id="cb337-5"><a href="ch-4.html#cb337-5" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Sepal Width (cm)&quot;</span>, </span>
+<span id="cb337-6"><a href="ch-4.html#cb337-6" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">&quot;Iris Species&quot;</span>)<span class="sc">+</span></span>
+<span id="cb337-7"><a href="ch-4.html#cb337-7" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>),</span>
+<span id="cb337-8"><a href="ch-4.html#cb337-8" tabindex="-1"></a>                     <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Four&quot;</span>, <span class="st">&quot;Five&quot;</span>, <span class="st">&quot;Six&quot;</span>, <span class="st">&quot;Seven&quot;</span>, <span class="st">&quot;Eight&quot;</span>),</span>
+<span id="cb337-9"><a href="ch-4.html#cb337-9" tabindex="-1"></a>                     <span class="at">limits =</span> <span class="fu">c</span>(<span class="fl">3.5</span>,<span class="fl">8.5</span>)) <span class="sc">+</span> </span>
+<span id="cb337-10"><a href="ch-4.html#cb337-10" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-112-1.png" alt="" width="672" /></p>
+</div>
+<div class="pinkbox">
+<p><strong>Axes options:</strong>
+1. Can you shrink the x-axis so that only data between 5 and 7cm are shown?
+2. Can you increase the y-axis to include negative numbers?
+3. Can you change the title of the plot and the legend?</p>
+</div>
+</div>
+</div>
+<div id="different-types-of-plots" class="section level3 hasAnchor" number="4.1.5">
+<h3><span class="header-section-number">4.1.5</span> Different Types of Plots<a href="ch-4.html#different-types-of-plots" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Here we have several types of plots that are useful for visualising different types of data.</p>
+<div id="histogram" class="section level4 hasAnchor" number="4.1.5.1">
+<h4><span class="header-section-number">4.1.5.1</span> Histogram<a href="ch-4.html#histogram" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Histograms are useful for showing the distribution of a single numeric variable. This version shows the bars side by side by species within each bin, making it easier to directly compare counts for each species.</p>
+<div class="pinkbox">
+<p><strong>Layout in histograms:</strong>
+Look at the plot below
+1. What happens if you change the <strong><code>position</code></strong> argument from ‘dodge’ to ‘stack’?
+2. Change the <strong><code>binwidth</code></strong> to values between 0.2 and 1.5 - what is the most useful binwidth?
+3. If you change the <strong><code>position</code></strong> from ‘dodge’ to ‘identity’ the bars should all overlap - can you change the alpha value or the fill and colour values to make it clearer how they overlap?</p>
+</div>
+<div class="yellowbox">
+<div class="sourceCode" id="cb338"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb338-1"><a href="ch-4.html#cb338-1" tabindex="-1"></a>ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length, <span class="at">fill =</span> Species)) <span class="sc">+</span> </span>
+<span id="cb338-2"><a href="ch-4.html#cb338-2" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="fl">0.6</span>, </span>
+<span id="cb338-3"><a href="ch-4.html#cb338-3" tabindex="-1"></a>                 <span class="at">color =</span> <span class="st">&#39;black&#39;</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>, <span class="at">position =</span> <span class="st">&#39;dodge&#39;</span>)<span class="sc">+</span></span>
+<span id="cb338-4"><a href="ch-4.html#cb338-4" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Dodged Histogram of Sepal Length by Species&quot;</span>)<span class="sc">+</span></span>
+<span id="cb338-5"><a href="ch-4.html#cb338-5" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>, <span class="at">face =</span> <span class="st">&quot;bold&quot;</span>))</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-113-1.png" alt="" width="672" /></p>
+</div>
+</div>
+<div id="box-plots" class="section level4 hasAnchor" number="4.1.5.2">
+<h4><span class="header-section-number">4.1.5.2</span> Box plots<a href="ch-4.html#box-plots" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Box plots are great for visualising the spread of data and identifying outliers in continuous data across categories.</p>
+<div class="yellowbox">
+<div class="sourceCode" id="cb339"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb339-1"><a href="ch-4.html#cb339-1" tabindex="-1"></a>ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Species, </span>
+<span id="cb339-2"><a href="ch-4.html#cb339-2" tabindex="-1"></a>                          <span class="at">y =</span> Sepal.Length, </span>
+<span id="cb339-3"><a href="ch-4.html#cb339-3" tabindex="-1"></a>                          <span class="at">fill =</span> Species))<span class="sc">+</span></span>
+<span id="cb339-4"><a href="ch-4.html#cb339-4" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">color =</span> <span class="st">&#39;black&#39;</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>)<span class="sc">+</span></span>
+<span id="cb339-5"><a href="ch-4.html#cb339-5" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Boxplot of Sepal Length by Species&quot;</span>)<span class="sc">+</span></span>
+<span id="cb339-6"><a href="ch-4.html#cb339-6" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>, <span class="at">face =</span> <span class="st">&quot;bold&quot;</span>))</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-114-1.png" alt="" width="672" /></p>
+</div>
+<div class="pinkbox">
+<p><strong>Layout in box plots:</strong>
+1. Can you make the lines in the box plot turn the same colour as the box fill? Why is this not the best of ideas?
+2. If you decide the lines are too thin, you can add in an argument (not an aesthetic) to <strong><code>geom_boxplot</code></strong> called <strong><code>linewidth</code></strong>.</p>
+</div>
+</div>
+<div id="scatter-plots" class="section level4 hasAnchor" number="4.1.5.3">
+<h4><span class="header-section-number">4.1.5.3</span> Scatter plots<a href="ch-4.html#scatter-plots" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>These are ideal for showing relationships between two continuous variables.</p>
+<div class="yellowbox">
+<div class="sourceCode" id="cb340"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb340-1"><a href="ch-4.html#cb340-1" tabindex="-1"></a>ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length, <span class="at">y =</span> Sepal.Width)) <span class="sc">+</span></span>
+<span id="cb340-2"><a href="ch-4.html#cb340-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> Species), <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb340-3"><a href="ch-4.html#cb340-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Scatter plot of Sepal Length/Width by Species&quot;</span>)<span class="sc">+</span></span>
+<span id="cb340-4"><a href="ch-4.html#cb340-4" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>, <span class="at">face =</span> <span class="st">&quot;bold&quot;</span>))</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-115-1.png" alt="" width="672" /></p>
+</div>
+</div>
+<div id="bar-charts" class="section level4 hasAnchor" number="4.1.5.4">
+<h4><span class="header-section-number">4.1.5.4</span> Bar Charts<a href="ch-4.html#bar-charts" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Bar charts are used for comparing quantities across discrete categories.</p>
+<div class="yellowbox">
+<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb341-1"><a href="ch-4.html#cb341-1" tabindex="-1"></a>iris_means <span class="ot">&lt;-</span> stats<span class="sc">::</span><span class="fu">aggregate</span>(Sepal.Length <span class="sc">~</span> Species, </span>
+<span id="cb341-2"><a href="ch-4.html#cb341-2" tabindex="-1"></a>                               <span class="at">data =</span> iris, <span class="at">FUN =</span> mean)</span>
+<span id="cb341-3"><a href="ch-4.html#cb341-3" tabindex="-1"></a></span>
+<span id="cb341-4"><a href="ch-4.html#cb341-4" tabindex="-1"></a>ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(iris_means, <span class="fu">aes</span>(<span class="at">x =</span> Species, </span>
+<span id="cb341-5"><a href="ch-4.html#cb341-5" tabindex="-1"></a>                                <span class="at">y =</span> Sepal.Length, </span>
+<span id="cb341-6"><a href="ch-4.html#cb341-6" tabindex="-1"></a>                                <span class="at">fill =</span> Species)) <span class="sc">+</span></span>
+<span id="cb341-7"><a href="ch-4.html#cb341-7" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">color =</span> <span class="st">&#39;black&#39;</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb341-8"><a href="ch-4.html#cb341-8" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Mean Sepal Length per Species&quot;</span>, </span>
+<span id="cb341-9"><a href="ch-4.html#cb341-9" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Mean Sepal Length&quot;</span>) <span class="sc">+</span></span>
+<span id="cb341-10"><a href="ch-4.html#cb341-10" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>, <span class="at">face =</span> <span class="st">&quot;bold&quot;</span>))</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-116-1.png" alt="" width="672" /></p>
+</div>
+</div>
+<div id="bar-charts-with-error-bars" class="section level4 hasAnchor" number="4.1.5.5">
+<h4><span class="header-section-number">4.1.5.5</span> Bar Charts with Error Bars<a href="ch-4.html#bar-charts-with-error-bars" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Here we include error bars. Error bars are graphical representations of the variability or uncertainty in the data. They provide insights into the precision of measurements or the confidence in estimates like means. In bar charts, adding error bars can help people to understand the range within which the true value likely falls.</p>
+<p>For example, when plotting the mean Sepal Length by species in the iris dataset, we can add error bars to show the <strong><a href="list-of-abbreviations.html#acronyms_SD">SD</a></strong> or <strong><a href="list-of-abbreviations.html#acronyms_SE">SE</a></strong> within each species group.</p>
+<div class="yellowbox">
+<div class="sourceCode" id="cb342"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb342-1"><a href="ch-4.html#cb342-1" tabindex="-1"></a>base<span class="sc">::</span><span class="fu">library</span>(dplyr)</span>
+<span id="cb342-2"><a href="ch-4.html#cb342-2" tabindex="-1"></a>iris_summary <span class="ot">&lt;-</span> iris <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">group_by</span>(Species) <span class="sc">%&gt;%</span> </span>
+<span id="cb342-3"><a href="ch-4.html#cb342-3" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">mean_sepal =</span> base<span class="sc">::</span><span class="fu">mean</span>(Sepal.Length),</span>
+<span id="cb342-4"><a href="ch-4.html#cb342-4" tabindex="-1"></a>                   <span class="at">se_sepal =</span> stats<span class="sc">::</span><span class="fu">sd</span>(Sepal.Length) <span class="sc">/</span>base<span class="sc">::</span><span class="fu">sqrt</span>(<span class="fu">n</span>()))</span></code></pre></div>
+</div>
+<div class="yellowbox">
+<div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb343-1"><a href="ch-4.html#cb343-1" tabindex="-1"></a>ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(iris_summary, <span class="fu">aes</span>(<span class="at">x =</span> Species, <span class="at">y =</span> mean_sepal, <span class="at">fill =</span> Species)) <span class="sc">+</span> </span>
+<span id="cb343-2"><a href="ch-4.html#cb343-2" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">color =</span> <span class="st">&#39;black&#39;</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span> </span>
+<span id="cb343-3"><a href="ch-4.html#cb343-3" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> mean_sepal <span class="sc">-</span> se_sepal, </span>
+<span id="cb343-4"><a href="ch-4.html#cb343-4" tabindex="-1"></a>                    <span class="at">ymax =</span> mean_sepal <span class="sc">+</span> se_sepal), </span>
+<span id="cb343-5"><a href="ch-4.html#cb343-5" tabindex="-1"></a>                <span class="at">width =</span> <span class="fl">0.2</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
+<span id="cb343-6"><a href="ch-4.html#cb343-6" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Mean Sepal Length per Species with **</span><span class="sc">\a</span><span class="st">cr{SE}**&quot;</span>, </span>
+<span id="cb343-7"><a href="ch-4.html#cb343-7" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Mean Sepal Length&quot;</span>) <span class="sc">+</span></span>
+<span id="cb343-8"><a href="ch-4.html#cb343-8" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>, <span class="at">face =</span> <span class="st">&quot;bold&quot;</span>))</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-118-1.png" alt="" width="672" /></p>
+</div>
+</div>
+<div id="sec:facetedPlots" class="section level4 hasAnchor" number="4.1.5.6">
+<h4><span class="header-section-number">4.1.5.6</span> Faceted Plots<a href="ch-4.html#sec:facetedPlots" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Here, we can break the data into subsets and plot each subset in its own panel for comparison.</p>
+<div class="yellowbox">
+<div class="sourceCode" id="cb344"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb344-1"><a href="ch-4.html#cb344-1" tabindex="-1"></a>ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length, <span class="at">y =</span> Sepal.Width, <span class="at">fill =</span> Species))<span class="sc">+</span> </span>
+<span id="cb344-2"><a href="ch-4.html#cb344-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">shape =</span> <span class="dv">21</span>, <span class="at">color =</span> <span class="st">&#39;black&#39;</span>, <span class="at">size =</span> <span class="dv">2</span>)<span class="sc">+</span></span>
+<span id="cb344-3"><a href="ch-4.html#cb344-3" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>Species)<span class="sc">+</span></span>
+<span id="cb344-4"><a href="ch-4.html#cb344-4" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Sepal Length vs Width by Species&quot;</span>, </span>
+<span id="cb344-5"><a href="ch-4.html#cb344-5" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Sepal Length&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Sepal Width&quot;</span>)<span class="sc">+</span></span>
+<span id="cb344-6"><a href="ch-4.html#cb344-6" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>, <span class="at">face =</span> <span class="st">&quot;bold&quot;</span>),</span>
+<span id="cb344-7"><a href="ch-4.html#cb344-7" tabindex="-1"></a>        <span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>))</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-119-1.png" alt="" width="672" /></p>
+</div>
+</div>
+<div id="viridis-colour-palettes" class="section level4 hasAnchor" number="4.1.5.7">
+<h4><span class="header-section-number">4.1.5.7</span> Viridis Colour Palettes<a href="ch-4.html#viridis-colour-palettes" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>This is an example of how you can use a colour palette in R. Further examples using the <code>viridis</code> package can be found here.</p>
+<div class="yellowbox">
+<div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb345-1"><a href="ch-4.html#cb345-1" tabindex="-1"></a><span class="co">#base::library(ggplot2)</span></span>
+<span id="cb345-2"><a href="ch-4.html#cb345-2" tabindex="-1"></a><span class="co">#base::library(viridis)</span></span>
+<span id="cb345-3"><a href="ch-4.html#cb345-3" tabindex="-1"></a>ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length, <span class="at">y =</span> Sepal.Width, <span class="at">fill =</span> Species)) <span class="sc">+</span></span>
+<span id="cb345-4"><a href="ch-4.html#cb345-4" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">shape =</span> <span class="dv">21</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb345-5"><a href="ch-4.html#cb345-5" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> Species) <span class="sc">+</span></span>
+<span id="cb345-6"><a href="ch-4.html#cb345-6" tabindex="-1"></a>  <span class="fu">scale_fill_viridis</span>(<span class="at">option =</span> <span class="st">&quot;plasma&quot;</span>, <span class="at">discrete =</span> T) <span class="sc">+</span>  </span>
+<span id="cb345-7"><a href="ch-4.html#cb345-7" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Sepal Length vs Width by Species with Viridis Palette&quot;</span>,</span>
+<span id="cb345-8"><a href="ch-4.html#cb345-8" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Sepal Length&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Sepal Width&quot;</span>)  <span class="sc">+</span></span>
+<span id="cb345-9"><a href="ch-4.html#cb345-9" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">18</span>, <span class="at">face =</span> <span class="st">&quot;bold&quot;</span>),</span>
+<span id="cb345-10"><a href="ch-4.html#cb345-10" tabindex="-1"></a>        <span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>, <span class="at">size =</span> <span class="dv">12</span>))</span></code></pre></div>
+</div>
+</div>
+</div>
+</div>
+<div id="individualising-your-plots" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> Individualising your plots<a href="ch-4.html#individualising-your-plots" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="colours" class="section level3 hasAnchor" number="4.2.1">
+<h3><span class="header-section-number">4.2.1</span> Colours<a href="ch-4.html#colours" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We have already shown an example of the viridis colour palette. This set of palettes is designed to be printer and colour-blind friendly. In the example above, we used the “plasma” palette for a discrete selection of data, but all palettes are continuous, and the default for the functions <code>scale_fill_viridis()</code> and <code>scale_colour_viridis()</code> are for continuous data. More details on the different palettes available through viridis are available here: <a href="https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html#the-color-scales" class="uri">https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html#the-color-scales</a>.</p>
+<p>Another similar package that provides different palettes is RColorBrewer. Within ggplot, this can be called, similar to viridis, with the functions <code>scale_colour_brewer()</code> and <code>scale_fill_brewer()</code>. More information about the colour palettes from RColorBrewer are available here: <a href="https://colorbrewer2.org" class="uri">https://colorbrewer2.org</a></p>
+<p>Sometimes, you just want to define your own palette for plots, and there are many different packages and resources to help select colours. Some of our favourites include:</p>
+<ol style="list-style-type: decimal">
+<li>MetBrewer (<a href="https://www.blakerobertmills.com/my-work/met-brewer" class="uri">https://www.blakerobertmills.com/my-work/met-brewer</a>) - palettes based on objects in the Metropolitan Museum of Art in New York</li>
+<li>coolors (<a href="https://coolors.co/generate" class="uri">https://coolors.co/generate</a>) - generates new palettes with the click of a space bar</li>
+<li>PNWColors (<a href="https://github.com/jakelawlor/PNWColors" class="uri">https://github.com/jakelawlor/PNWColors</a>) - palettes based on Washington state and the Pacific Northwest of the USA</li>
+<li>WesAnderson (<a href="https://github.com/karthik/wesanderson" class="uri">https://github.com/karthik/wesanderson</a>) - palettes based on Wes Anderson films</li>
+</ol>
+<p>It is also worth checking that any palettes you choose are colour-blind friendly. RColorBrewer, viridis, and coolors all are, or have options to easily check, but if you are selecting from other packages or choosing colours by hand, you can use the package colorblindcheck.</p>
+<p>To colour sections with your own colours, not from a palette, you need to first define your palette and then use <code>scale_fill_manual()</code> or <code>scale_colour_manual()</code>, as shown below:</p>
+<div class="yellowbox">
+<div class="sourceCode" id="cb346"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb346-1"><a href="ch-4.html#cb346-1" tabindex="-1"></a>SpecCols <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">setosa =</span> <span class="st">&quot;#A3D9FF&quot;</span>, <span class="at">versicolor =</span> <span class="st">&quot;#7E6B8F&quot;</span>, <span class="at">virginica =</span> <span class="st">&quot;#96E6B3&quot;</span>)</span>
+<span id="cb346-2"><a href="ch-4.html#cb346-2" tabindex="-1"></a>ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length, <span class="at">y =</span> Sepal.Width, <span class="at">colour =</span> Species)) <span class="sc">+</span></span>
+<span id="cb346-3"><a href="ch-4.html#cb346-3" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size  =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb346-4"><a href="ch-4.html#cb346-4" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> SpecCols) <span class="sc">+</span>  </span>
+<span id="cb346-5"><a href="ch-4.html#cb346-5" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Sepal Length&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Sepal Width&quot;</span>)  <span class="sc">+</span></span>
+<span id="cb346-6"><a href="ch-4.html#cb346-6" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
+<span id="cb346-7"><a href="ch-4.html#cb346-7" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">18</span>, <span class="at">face =</span> <span class="st">&quot;bold&quot;</span>),</span>
+<span id="cb346-8"><a href="ch-4.html#cb346-8" tabindex="-1"></a>        <span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>, <span class="at">size =</span> <span class="dv">12</span>))</span></code></pre></div>
+</div>
+<p>If you use a named list (as above), the colours will match the names provided, regardless of the order in which they are listed. However, if you provide only a list of hex values, R will match up to the order of the groupings (automatically in alphabetical order).</p>
+<div class="pinkbox">
+<p><strong>Playing around with colours:</strong>
+1. Can you create your own palette and apply it to one of the other plot types shown above?
+2. What constitutes a good palette, what constitutes a bad palette?
+3. Try to use colour as a continuous variable for one of the width or length measurements with a viridis palette. Do you have a favourite?</p>
+</div>
+</div>
+<div id="changing-the-position-of-the-legend" class="section level3 hasAnchor" number="4.2.2">
+<h3><span class="header-section-number">4.2.2</span> Changing the position of the legend<a href="ch-4.html#changing-the-position-of-the-legend" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The legend automatically appears on the right side of the plot, but is movable. There are four built-in arguments: <strong><code>"top"</code></strong>, <strong><code>"bottom"</code></strong>, <strong><code>"left"</code></strong>, and <strong><code>"right"</code></strong>. The resulting layout of each of those is shown below.</p>
+<div class="yellowbox">
+<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb347-1"><a href="ch-4.html#cb347-1" tabindex="-1"></a>a <span class="ot">=</span> ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length, <span class="at">y =</span> Sepal.Width)) <span class="sc">+</span></span>
+<span id="cb347-2"><a href="ch-4.html#cb347-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> Species))</span>
+<span id="cb347-3"><a href="ch-4.html#cb347-3" tabindex="-1"></a></span>
+<span id="cb347-4"><a href="ch-4.html#cb347-4" tabindex="-1"></a>(a <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;left&quot;</span>) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">&quot;Left&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb347-5"><a href="ch-4.html#cb347-5" tabindex="-1"></a>  (a <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;right&quot;</span>) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">&quot;Right&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb347-6"><a href="ch-4.html#cb347-6" tabindex="-1"></a>  (a <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;top&quot;</span>) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">&quot;Top&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb347-7"><a href="ch-4.html#cb347-7" tabindex="-1"></a>  (a <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">&quot;Bottom&quot;</span>)) </span></code></pre></div>
+</div>
+<p>We have used <strong><code>theme(legend.position(...))</code></strong> for these position changes, but it is also possible to use <strong><code>guides(colour = guide_legend(position = "bottom"))</code></strong>. Using the function guides, it is also possible to define a position of <strong><code>"inside"</code></strong>. This moves the legend from outside the plot to inside the plot, defaulting to the centre. To adjust the position, assume the plot is a 1x1 box with corners at (0,0), (1,0), (1,1), and (0,1). The position of the inside legend can be anywhere within that box, regardless of the data the plot is showing. Defining that position uses the <strong><code>theme(legend.position.inside=c(...))</code></strong> function.</p>
+<div class="yellowbox">
+<div class="sourceCode" id="cb348"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb348-1"><a href="ch-4.html#cb348-1" tabindex="-1"></a>a <span class="ot">=</span> ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length, <span class="at">y =</span> Sepal.Width)) <span class="sc">+</span></span>
+<span id="cb348-2"><a href="ch-4.html#cb348-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> Species)) <span class="sc">+</span></span>
+<span id="cb348-3"><a href="ch-4.html#cb348-3" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">colour =</span> <span class="fu">guide_legend</span>(<span class="at">position =</span> <span class="st">&quot;inside&quot;</span>))</span>
+<span id="cb348-4"><a href="ch-4.html#cb348-4" tabindex="-1"></a></span>
+<span id="cb348-5"><a href="ch-4.html#cb348-5" tabindex="-1"></a>(a <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position.inside =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>)) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">&quot;bottom left&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb348-6"><a href="ch-4.html#cb348-6" tabindex="-1"></a>  (a <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position.inside =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>)) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">&quot;top right&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb348-7"><a href="ch-4.html#cb348-7" tabindex="-1"></a>  (a <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position.inside =</span> <span class="fu">c</span>(<span class="fl">0.5</span>,<span class="fl">0.5</span>)) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">&quot;middle&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb348-8"><a href="ch-4.html#cb348-8" tabindex="-1"></a>  (a <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position.inside =</span> <span class="fu">c</span>(<span class="fl">0.3</span>, <span class="fl">0.8</span>)) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">&quot;upper left&quot;</span>)) </span></code></pre></div>
+</div>
+</div>
+<div id="changing-the-font" class="section level3 hasAnchor" number="4.2.3">
+<h3><span class="header-section-number">4.2.3</span> Changing the Font<a href="ch-4.html#changing-the-font" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>To make your plots easier to read, you can alter your font, font style, and size. I will give you some examples below. These can also be applied to the facets; click below for more information:</p>
+<p><a href="https://www.datanovia.com/en/blog/how-to-change-ggplot-facet-labels/" class="uri">https://www.datanovia.com/en/blog/how-to-change-ggplot-facet-labels/</a></p>
+<p>I have changed the following:
+1. The title to <strong>bold, italic and the font serif</strong>.
+2. The x-axis title to just <strong>bold and the font sans</strong>.
+3. The y-axis title to just <strong>italic and the font mono</strong>.
+4. The legend title to just <strong>bold and the font Times</strong>.</p>
+<div class="yellowbox">
+<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb349-1"><a href="ch-4.html#cb349-1" tabindex="-1"></a>ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length, <span class="at">y =</span> Sepal.Width)) <span class="sc">+</span></span>
+<span id="cb349-2"><a href="ch-4.html#cb349-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> Species)) <span class="sc">+</span></span>
+<span id="cb349-3"><a href="ch-4.html#cb349-3" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb349-4"><a href="ch-4.html#cb349-4" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Sepal Dimensions in Iris Dataset&quot;</span>,</span>
+<span id="cb349-5"><a href="ch-4.html#cb349-5" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Sepal Length (cm)&quot;</span>,</span>
+<span id="cb349-6"><a href="ch-4.html#cb349-6" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Sepal Width (cm)&quot;</span>,</span>
+<span id="cb349-7"><a href="ch-4.html#cb349-7" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">&quot;Iris Species&quot;</span></span>
+<span id="cb349-8"><a href="ch-4.html#cb349-8" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb349-9"><a href="ch-4.html#cb349-9" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb349-10"><a href="ch-4.html#cb349-10" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb349-11"><a href="ch-4.html#cb349-11" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>, <span class="at">face =</span> <span class="st">&quot;bold.italic&quot;</span>, <span class="at">family =</span> <span class="st">&#39;serif&#39;</span>),</span>
+<span id="cb349-12"><a href="ch-4.html#cb349-12" tabindex="-1"></a>    <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>, <span class="at">face =</span> <span class="st">&quot;bold&quot;</span>, <span class="at">family =</span> <span class="st">&#39;sans&#39;</span>),</span>
+<span id="cb349-13"><a href="ch-4.html#cb349-13" tabindex="-1"></a>    <span class="at">axis.title.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>, <span class="at">face =</span> <span class="st">&quot;italic&quot;</span>, <span class="at">family =</span> <span class="st">&#39;mono&#39;</span>),</span>
+<span id="cb349-14"><a href="ch-4.html#cb349-14" tabindex="-1"></a>    <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>, <span class="at">face =</span> <span class="st">&quot;bold&quot;</span>, <span class="at">family =</span> <span class="st">&#39;Times&#39;</span>)</span>
+<span id="cb349-15"><a href="ch-4.html#cb349-15" tabindex="-1"></a>  )</span></code></pre></div>
+</div>
+</div>
+<div id="changing-the-font-but-in-facets" class="section level3 hasAnchor" number="4.2.4">
+<h3><span class="header-section-number">4.2.4</span> Changing the Font but in Facets<a href="ch-4.html#changing-the-font-but-in-facets" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We can also change the font type or style in a facet as well as the background colour.</p>
+<p>I have changed the following:
+1. The background colour of the facet label = <strong><code>light-blue</code></strong>.
+2. The colour of the facet title text = <strong><code>darkgreen</code></strong>.
+3. The text box outline for the facet label = <strong><code>red</code></strong>.
+4. The facet label is now <strong><code>bold.italic</code></strong>.
+5. The font is now <strong><code>sans</code></strong> and size <strong><code>14</code></strong>.</p>
+<div class="yellowbox">
+<div class="sourceCode" id="cb350"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb350-1"><a href="ch-4.html#cb350-1" tabindex="-1"></a>ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(Sepal.Length, Sepal.Width, <span class="at">color =</span> Species)) <span class="sc">+</span></span>
+<span id="cb350-2"><a href="ch-4.html#cb350-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb350-3"><a href="ch-4.html#cb350-3" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> Species) <span class="sc">+</span></span>
+<span id="cb350-4"><a href="ch-4.html#cb350-4" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">strip.text =</span> <span class="fu">element_text</span>(</span>
+<span id="cb350-5"><a href="ch-4.html#cb350-5" tabindex="-1"></a>    <span class="at">family =</span> <span class="st">&quot;sans&quot;</span>, <span class="at">size =</span> <span class="dv">14</span>,  </span>
+<span id="cb350-6"><a href="ch-4.html#cb350-6" tabindex="-1"></a>    <span class="at">face =</span> <span class="st">&quot;bold.italic&quot;</span>, <span class="at">color =</span> <span class="st">&quot;darkgreen&quot;</span></span>
+<span id="cb350-7"><a href="ch-4.html#cb350-7" tabindex="-1"></a>  ),</span>
+<span id="cb350-8"><a href="ch-4.html#cb350-8" tabindex="-1"></a>  <span class="at">strip.background =</span> <span class="fu">element_rect</span>(</span>
+<span id="cb350-9"><a href="ch-4.html#cb350-9" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">&quot;light-blue&quot;</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">linewidth =</span> <span class="dv">1</span>)</span>
+<span id="cb350-10"><a href="ch-4.html#cb350-10" tabindex="-1"></a>  )</span></code></pre></div>
+</div>
+</div>
+<div id="sec:CombiningPlots" class="section level3 hasAnchor" number="4.2.5">
+<h3><span class="header-section-number">4.2.5</span> Combining plots<a href="ch-4.html#sec:CombiningPlots" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The patchwork package is the simplest package to use if you want to combine multiple graphs into one plot. Save each graph as an object (<strong><code>graph1 &lt;- ggplot(...) + ...</code></strong>) and then add each of the graphs together at the end (<strong><code>graph1 + graph2 + graph3 + graph4</code></strong>). You can gain more control over the plot by using <strong><code>|</code></strong> for plots that you want next to each other and <strong><code>/</code></strong> to separate plots that sit above and below each other. As some examples:</p>
+<p><strong><code>A + B + C + D</code></strong> and <strong><code>(A + B)/(C + D)</code></strong> and <strong><code>(A/C) | (B/D)</code></strong> will all produce the same plot layout:</p>
+<table>
+<tbody>
+<tr class="odd">
+<td align="center">A</td>
+<td align="center">B</td>
+</tr>
+<tr class="even">
+<td align="center">C</td>
+<td align="center">D</td>
+</tr>
+</tbody>
+</table>
+<p>However, <strong><code>A + B/C + D</code></strong> would give:</p>
+<table>
+<tbody>
+<tr class="odd">
+<td align="center">A</td>
+<td align="center">B</td>
+<td align="center">D</td>
+</tr>
+<tr class="even">
+<td align="center"></td>
+<td align="center">C</td>
+<td align="center"></td>
+</tr>
+</tbody>
+</table>
+<p>And <strong><code>A/(B + C + D)</code></strong> would give:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center"></th>
+<th align="center">A</th>
+<th align="center"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">B</td>
+<td align="center">C</td>
+<td align="center">D</td>
+</tr>
+</tbody>
+</table>
+<p>For more information on patchwork and further ways of combining plots, visit the website <a href="https://patchwork.data-imaginist.com/" class="uri">https://patchwork.data-imaginist.com/</a>.</p>
+<p>There are other packages that can help combine different plots, such as cowplot. Instead of adding your plots together, with cowplot you use the function <code>plot_grid(A,B,C,D)</code> which will give you the same output as the first patchwork example.</p>
+</div>
+<div id="saving-your-plot" class="section level3 hasAnchor" number="4.2.6">
+<h3><span class="header-section-number">4.2.6</span> Saving your plot<a href="ch-4.html#saving-your-plot" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Once you have created your perfect plot, you want to save it to use outside of R, such as in presentations and reports. The important function is <code>ggsave</code>. As a minimum, you need to have a file path to save the plot. This should point directly to the folder you want to save to and include the filename you want to save it as, and the file extension. The file extension can be any of the following: .eps, .ps, .tex, .pdf, .jpeg, .tiff, .png, .bmp, .svg.</p>
+<p><code>ggsave</code> automatically assumes that the last plot you ran code for is the one that you want to save. If this is not the case, and you have saved a specific graph to the environment, you can add an argument of <strong><code>ggsave("filepath/filename.png", plot = plotA)</code></strong>. Other arguments you can add include: width and height, units (can be any of in, cm, mm, or px), <strong><a href="list-of-abbreviations.html#acronyms_DPI">dots per inch (DPI)</a></strong>, and <strong><code>bg</code></strong> (if you want to change the background colour of the plot). There are also other arguments you can add, but these are used less often.</p>
+<div class="pinkbox">
+<p><strong>Saving a plot:</strong>
+1. Can you save one of your plots using <strong><code>ggsave</code></strong>?
+2. Can you save it in another format?
+3. What happens if you change the height, width, or <strong><a href="list-of-abbreviations.html#acronyms_DPI">DPI</a></strong>?</p>
+</div>
+</div>
+</div>
+<div id="perfect-palmer-penguins-plot" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> Perfect Palmer Penguins Plot<a href="ch-4.html#perfect-palmer-penguins-plot" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="pinkbox">
+<p><strong>Challenge</strong>
+We have created a plot using aspects of ggplot2 covered above.
+1. Can you recreate this plot?
+2. Can you improve on this plot?</p>
+</div>
+<p><img src="images/04-palmerpenguins.png" alt="" width="23%" style="display: block; margin: auto;" /></p>
+<p>Before you begin:
+1. install the palmer penguins package (<strong><code>install.packages("palmerpenguins")</code></strong>)
+2. load the palmer penguins package (<strong><code>library(palmerpenguins)</code></strong>)
+3. the colours used in this plot are <strong>“skyblue”</strong>, <strong>“darkturquoise”</strong>, and <strong>“purple”</strong>
+4. it is possible to remove data with <strong><a href="list-of-abbreviations.html#acronyms_NA">NA</a></strong> values from the legend using <strong><code>na.translate = FALSE</code></strong></p>
+<p>There isn’t just one answer to correctly recreate this graph, but it is possible to do it with just the ggplot2 skills acquired above.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:palmerspenguins-plot"></span>
+<img src="images/04-Palmerspenguins.png" alt="Example of plots created using `palmerspenguins`. Can you recreate this or improve on it?" width="100%" />
+<p class="caption">
+Figure 4.2: Example of plots created using <code>palmerspenguins</code>. Can you recreate this or improve on it?
+</p>
+</div>
+<pre><code>## Warning: Removed 11 rows containing missing values or values outside the scale range
+## (`geom_point()`).</code></pre>
+<p><img src="_main_files/figure-html/unnamed-chunk-126-1.png" alt="" width="672" /></p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="ch-3.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="ch-5.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["_main.pdf"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "section"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
