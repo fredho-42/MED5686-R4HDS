@@ -89,6 +89,8 @@ acronyms:
       longname: major adverse cardiovascular event
     - shortname: MW
       longname: mental well-being
+    - shortname: PW
+      longname: physical well-being
     - shortname: VIF
       longname: variance inflation factor
     - shortname: GAM

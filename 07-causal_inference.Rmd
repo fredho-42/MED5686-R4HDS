@@ -1,6 +1,8 @@
 # Causal Inference: Mediation and Instrumental Variables {#ch-7}
 
-In previous chapters, we focused on establishing associations between variables. However, in health data science, we often want to understand the *causal* mechanisms driving these associations. This chapter introduces two advanced causal inference techniques: **Mediation Analysis** (to understand *how* an exposure affects an outcome) and **Instrumental Variables** (to estimate causal effects in the presence of unmeasured confounding).
+In previous chapters, we focused on establishing associations between variables. However, in health data science, we often want to understand the *causal* mechanisms driving these associations. This chapter introduces two advanced causal inference techniques: **mediation analysis** (to understand *how* an exposure affects an outcome) and **instrumental variable variables** (to estimate causal effects in the presence of unmeasured confounding).
+
+The mediation analysis will be based on the `CMAverse` package which is not available from the **CRAN** (the official repository for R packages) but could be installed from **Github** (a commonly used developer maintained respository) using the following command. You may not have the `devtool` installed on your computer yet. If that's the case, please install it first. 
 
 ::: {.yellowbox}
 ```{r, eval=FALSE}
@@ -10,64 +12,31 @@ devtools::install_github("BS1125/CMAverse")
 
 ::: {.yellowbox}
 ```{r setup-ch7, message=FALSE, warning=FALSE}
-# Load required libraries for this chapter
 library(tidyverse)
 library(gtsummary)
 library(bda) 
 library(AER)
 library(CMAverse) 
-
-# Note: We will simulate the data structures used in the examples below for rendering purposes.
 ```
 :::
 
 ## Data Preparation for Causal Modeling
 
-When investigating causal pathways, the timing of measurements is critical. An exposure must precede a mediator, which in turn must precede the outcome. Therefore, longitudinal data is typically required.
+When investigating causal pathways, the timing of measurements is critical. An exposure must precede a mediator, which in turn must precede the outcome. Therefore, longitudinal data is typically required. You could, technically, use mediation analysis to analyse cross-sectional data, but the estimated 'effects' could reflect (partly) reverse cauation. 
 
-**Rationale & Code Explanation:** To prepare our data for regression and mediation, we often need to transform it from a "long" format (multiple rows per patient for different time points/waves) to a "wide" format (one row per patient, with variables denoting different time points, e.g., `bmi_1`, `bmi_5`). In the code below, we use `pivot_wider()` from the `tidyr` package to achieve this. We then select our variables of interest (age, sex, income, **\acr{BMI}**, and mental/physical wellbeing scores at different waves) and drop cases with missing data using `na.omit()`. 
+In the mediation analysis, we will still be focusing on the Understanding Society longitudinal data. The primary hypothesis was to examine whether **\acr{PW}** (mediator) could be a mechanism between **\acr{BMI}** (exposure) and **\acr{MW}** (outcome). 
 
 ::: {.yellowbox}
-```{r data-prep-cleaning, eval=FALSE}
-library(tidyverse)
-library(gtsummary)
-
+```{r data-prep-cleaning}
 # 1. Raw data import and reshaping
-dat <- read_tsv('../UKDA-8715-tab/tab/longitudinal_td.tab') %>% 
-  select(pidp, indscus_lw_9, strata, psu,             
-         wave, age_dv, sex_dv, fimngrs_dv, 
-         bmi_dv, sf12pcs_dv, sf12mcs_dv) %>% 
-  filter(wave %in% c(1, 5, 9)) %>%                    
-  pivot_wider(id_cols=c(pidp, indscus_lw_9, strata, psu),                 
-              names_from=wave, 
-              values_from=age_dv:sf12mcs_dv) |> 
-  select(-c(age_dv_5, age_dv_9, sex_dv_5, sex_dv_9, 
-            fimngrs_dv_5, fimngrs_dv_9, bmi_dv_5, bmi_dv_9)) |> 
-  na.omit()
-
-# 2. Data formatting
-dat <- dat %>% 
-  transmute(
-    age = age_dv_1, 
-    sex = factor(sex_dv_1, labels=c('Male', 'Female')),  
-    income = if_else(fimngrs_dv_1 > median(fimngrs_dv_1), 
-                     'Higher income', 'Lower income'), 
-    bmi = bmi_dv_1, 
-    pw1 = sf12pcs_dv_1, mw1 = sf12mcs_dv_1, # Physical/Mental wellbeing Wave 1
-    pw5 = sf12pcs_dv_5, mw5 = sf12mcs_dv_5, # Wave 5
-    pw9 = sf12pcs_dv_9, mw9 = sf12mcs_dv_9  # Wave 9
-  ) |> 
-  filter(bmi >= 18.5)
-
-# Optional: Save cleaned data
-# write_csv(dat, '../Data/W7_USoc.csv')
+dat <- read_csv('./data/06-understanding_soc.csv') 
 ```
 :::
 
-**Rationale:** Before running complex models, it is essential to inspect the descriptive statistics. The `tbl_summary()` function generates a clean summary table. We use the `statistic` argument to specify that we want the Mean and Standard Deviation (**\acr{SD}**) for all continuous variables, and the `digits` argument to round the results neatly.
+As usual, it is essential to inspect the descriptive statistics before conducting more complex models. We use the `statistic` argument to specify that we want the mean and **\acr{SD}** for all continuous variables, and the `digits` argument to round the results neatly.
 
 ::: {.yellowbox}
-```{r descriptive-stats, eval=FALSE}
+```{r descriptive-stats}
 # Generate descriptive statistics table
 tbl_summary(
   dat, 
@@ -86,24 +55,24 @@ Mediation analysis attempts to unpack the **Total Effect** of an exposure on an 
 
 ### The Base Model (Total Effect)
 
-**Rationale:** Before looking for a mediator, we establish the baseline association. Here, we model mental wellbeing at Wave 9 (`mw9`) based on baseline **\acr{BMI}** (`bmi`), adjusting for demographic confounders and baseline wellbeing.
+Before looking for a mediator, we establish the baseline association. Here, we model mental wellbeing at Wave 9 (`mw9`) based on baseline **\acr{BMI}** (`bmi`), adjusting for sociodemographic confounders and baseline wellbeing.
 
 ::: {.yellowbox}
-```{r rq1-base-model, eval=FALSE}
+```{r rq1-base-model}
 # Base model predicting Wave 9 mental wellbeing
 m0 <- lm(mw9 ~ bmi + age + sex + income + mw1 + pw1, data=dat)
 tbl_regression(m0)
 ```
 :::
 
-### Regression Adjustment for Mediation
+### Difference Method for Mediation
 
-**Rationale:** The simplest way to check for mediation is the "difference method". We add our candidate mediator (Physical Wellbeing at Wave 5, `pw5`) into the regression model. If physical wellbeing mediates the relationship between **\acr{BMI}** and mental wellbeing, the coefficient for **\acr{BMI}** should drop noticeably in the new model compared to the base model. 
+The simplest way to check for mediation is the **"difference method"**. It is simply done by adding the candidate mediator (\acr{PW} at Wave 5, `pw5`) into the regression model. If \acr{PW} mediates the relationship between **\acr{BMI}** and \acr{MW}, the coefficient for **\acr{BMI}** should attenuate noticeably in the new model compared with the base model. 
 
-**Code Explanation:** We fit a second linear model (`m1`) that includes `pw5`. We then use `tbl_merge()` from the `gtsummary` package to put both models side-by-side for easy visual comparison. Minimal differences between the **\acr{BMI}** coefficients across the two models suggest minimal mediation.
+The codes below fit a second linear model (`m1`) that includes `pw5`. We then use `gtsummary::tbl_merge()` to put both models side-by-side for easy visual comparison. Minimal differences between the **\acr{BMI}** coefficients across the two models suggest minimal mediation.
 
 ::: {.yellowbox}
-```{r rq2-regression-adj, eval=FALSE}
+```{r rq2-regression-adj}
 # Adjusted model including the mediator (pw5)
 m1 <- lm(mw9 ~ bmi + age + sex + income + pw5 + mw1 + pw1, data=dat)
 
@@ -115,35 +84,43 @@ tbl_merge(
 ```
 :::
 
-### The Sobel Test
+### Sobel Test
 
-**Rationale:** The Sobel test is a traditional statistical test to determine if the indirect effect is significantly different from zero. 
-
-**Code Explanation:** We use `mediation.test(mediator, exposure, outcome)` from the `bda` package. *Warning:* This test is rudimentary and does not adjust for any confounders. It is strictly not recommended for observational health data unless you are absolutely certain no confounding exists.
+The Sobel test is a traditional statistical test to determine if the indirect effect is significantly different from zero. The codes below use `bda::mediation.test(mediator, exposure, outcome)` to conduct the Sobel test. *Warning:* This test is rudimentary and does not adjust for any confounders. It is not recommended for observational health data unless you are absolutely certain no confounding exists.
 
 ::: {.yellowbox}
-```{r sobel-test, eval=FALSE}
-library(bda)
-# Sobel test (Unadjusted)
+```{r sobel-test}
 with(dat, mediation.test(pw5, bmi, mw9))
 ```
 :::
 
-### The Parametric G-Formula
+### Parametric G-Formula
 
-Modern causal inference relies on more robust methods, such as the parametric G-formula, which can handle complex confounding scenarios (including interactions and non-linearities). In R, we use the `cmest()` function from the `CMAverse` package.
+Sobel test is unadjusted so rarely applicable. The difference method also has several limitations: 
+  1. Only applicable for linear or count regression. Linear and Poisson models are called 'collapsible' meaning that the coefficient of a variable would not change when an additional, unrelated, variable is added in. Logistic and Cox regressions are 'non-collapsible', meaning that coefficients would 'naturally' change whenever an additional variable is added in, even if that additional variable is unrelated to the exposure. 
+  2. These regression models do not handle **exposure-induced mediator-outcome confounder**. See figure below. E is exposure; O is outcome; A is mediator of interest. B is also a mediator between E and O, but confounds the relationship between M and O. Regression difference methods cannot address the influence of B. 
+
+```{r dag1, echo=FALSE, out.width="50%", fig.align='center'}
+knitr::include_graphics("images/07-dag1.png")
+```
+
+Modern causal inference relies on more robust methods, such as the parametric g-formula (also known as g-computation), which can handle complex confounding scenarios (including interactions between the exposure and the meditor). In R, we use the `cmest()` function from the `CMAverse` package.
 
 #### Without Exposure-Induced Confounders
 
-**Rationale:** We define our causal pathways explicitly. The total effect (TE) is calculated by comparing an 'active' **\acr{BMI}** (`a = 26.69`, the sample mean) to a 'reference' **\acr{BMI}** (`astar = 25`). 
+The `cmest()` function is quite complex in that it does not use the formula for models, and a larger number of input is required to get it to work. Below breaks down the input: 
 
-**Code Explanation:** * `basec`: Lists the baseline confounders.
+* `model` specify the models to be run. We will need gformula here as it can address exposure-induced mediator-outcome confounder. 
 * `mreg` and `yreg`: Specify the regression types for the mediator and outcome models (e.g., 'linear' or 'logistic').
-* `mval`: Indicates a reference value for the mediator.
-* `EMint=FALSE`: Specifies that we are not evaluating exposure-mediator interaction in this step.
+* `exposure`, `mediator` and `outcome` are self-explanatory - just the variable names for these causal roles.
+* `basec` is the baseline confounders. 
+* `a` is the intervention value and `astar` is the reference value. While the exposure variable is numeric, cmest needs these two to caulate the total, direct and indirect effect. The total effect for this code below is, therefore, comparing 26.69 (mean in this sample) with the overweight cut-off (25). 
+* `mval` is the reference value for the mediator, similar to what `astar` does. 
+* `mreg` and `yreg` indicate the regression you want to use for the simulation. It usually depends on the variable type of the mediator and the outcome. 
+* `EMint=FALSE`: Specifies that we are not evaluating exposure-mediator interaction. 
 
 ::: {.yellowbox}
-```{r gformula-no-confounder, eval=FALSE}
+```{r gformula-no-confounder}
 library(CMAverse)
 # G-formula mediation analysis
 mm1 <- cmest(
@@ -165,15 +142,20 @@ summary(mm1)
 ```
 :::
 
+The results are consistent with the difference method - no mediation. It is not surprising because we have not done anything different from the difference method. 
+
 #### With Exposure-Induced Confounders
 
-**Rationale:** In longitudinal data, an exposure (**\acr{BMI}** at Wave 1) might cause a change in a confounding variable (Mental Wellbeing at Wave 5), which then affects both the mediator and the final outcome. Traditional regression adjustment utterly fails in this scenario, but the G-formula can handle it.
+Suppose if we think \acr{MW} at wave 5 could confound the relationship between \acr{PW} at wave 5 and \acr{MW} at wave 10: 
 
-**Code Explanation:** We add the `postc` argument to specify the intermediate (post-exposure) confounder (`mw5`). We also must tell R how to model this intermediate variable using the `postcreg` argument (here, as a 'linear' regression).
+```{r dag2, echo=FALSE, out.width="50%", fig.align='center'}
+knitr::include_graphics("images/07-dag2.png")
+```
+
+This can be modelled by adding one more argument to the `cmest()` function - the `postc`. It is to specify the intermediate (post-exposure) confounder (`mw5`). We also must tell the function how to model this intermediate variable using the `postcreg` argument (here, as a 'linear' regression).
 
 ::: {.yellowbox}
-```{r gformula-confounder, eval=FALSE}
-# G-formula handling exposure-induced confounding (mw5)
+```{r gformula-confounder}
 mm2 <- cmest(
   data = dat, 
   model = 'gformula', 
@@ -195,7 +177,7 @@ summary(mm2)
 ```
 :::
 
-*Interpretation Check:* If the Indirect Effect (IE) becomes significant and the mediation proportion jumps (e.g., to 34%) only after adjusting for `postc`, it implies that ignoring intermediate confounding severely underestimated the mediating role of physical wellbeing.
+The indirect effect becomes significant and was estimated to mediate about 1/3 of the total effect. This contradicts with the previous results, and which one is more accurate would depend on how likely \acr{MW} at wave 5 is a confounder. 
 
 ## Instrumental Variables (IV)
 
@@ -205,12 +187,12 @@ In a Randomized Controlled Trial (RCT) with poor adherence, the randomized `grou
 
 ### Intention-to-Treat (ITT) vs. Per-Protocol (PP)
 
-**Rationale:** 1. **ITT Analysis:** We analyze patients based purely on the group they were randomized to, regardless of whether they actually attended the exercise sessions. This is statistically safe from confounding but usually underestimates the true biological effect of the intervention.
+1. **ITT Analysis:** We analyze patients based purely on the group they were randomized to, regardless of whether they actually attended the exercise sessions. This is statistically safe from confounding but usually underestimates the true biological effect of the intervention.
 2. **Per Protocol (PP) Analysis:** We analyze patients based on their actual attendance. While this looks at the "true" intervention, it is heavily confounded (e.g., highly motivated people might attend more *and* have naturally lower stress).
 
 ::: {.yellowbox}
-```{r itt-and-pp-analysis, eval=FALSE}
-dat_iv <- read_csv('../Data/W7_IV.csv')
+```{r itt-and-pp-analysis}
+dat_iv <- read_csv('./data/07-iv.csv')
 
 # 1. Intention-to-Treat (Conservative, unconfounded)
 summary(lm(stress ~ group, data=dat_iv))
@@ -220,15 +202,18 @@ summary(lm(stress ~ attendance, data=dat_iv))
 ```
 :::
 
+You could see from the codes above the PP analysis esimated the intervention to be twice as effect than in the ITT analysis. But how true is that? 
+
+
 ### IV Analysis using 2-Stage Least Squares
 
-**Rationale:** IV analysis extracts the variation in `attendance` that is purely driven by the randomization `group` (the instrument), effectively purging the confounding noise from the model. 
+IV analysis extracts the variation in `attendance` that is purely driven by the randomization `group` (the instrument), effectively purging the confounding noise from the model. 
 
-**Code Explanation:** We use the `ivreg()` function from the `AER` package. The formula `stress ~ attendance | group` is read as: model the outcome (`stress`) against the exposure (`attendance`), using the variable after the pipe (`group`) as the instrument. 
+We use the `ivreg()` function from the `AER` package. The formula `stress ~ attendance | group` is read as: model the outcome (`stress`) against the exposure (`attendance`), using the variable after the pipe (`group`) as the instrument. 
 We also test the strength of the instrument using `anova()`. An F-statistic > 10 generally indicates a strong instrument. Because `group` is a randomized allocation, it safely meets the exclusion criteria.
 
 ::: {.yellowbox}
-```{r iv-analysis, eval=FALSE}
+```{r iv-analysis}
 library(AER)
 
 # Fit the Instrumental Variable regression
@@ -239,3 +224,5 @@ summary(iv_model)
 anova(glm(attendance ~ group, data=dat_iv), test='F')
 ```
 :::
+
+Indeed, the IV analysis found a result between the ITT and PP - the true effect of intervention is strong than the ITT (because not everyone complied fully) but not as strong as the PP (because compliance is confounded). 
