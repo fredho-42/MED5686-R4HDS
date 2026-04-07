@@ -206,7 +206,7 @@
 
 \title{R for Health Data Science}
 \author{Heather Waddell \and Alexandra Richards \and Clarisse de Vries \and Jocelyn Friday \and Frederick Ho}
-\date{2026-03-18}
+\date{2026-04-07}
 
 \begin{document}
 \maketitle
@@ -219,7 +219,7 @@
 \chapter*{About This Ebook}\label{about-this-ebook}
 \addcontentsline{toc}{chapter}{About This Ebook}
 
-\includegraphics[width=3.125in,height=\textheight,keepaspectratio]{images/00-GlaLogo.png}
+\includegraphics[width=3.125in,height=\textheight,keepaspectratio]{_main_files/images/00-GlaLogo.png}
 
 This is a companion ebook for the MED5686 - R for Health Data Science course in School of Health and Wellbeing, University of Glasgow.
 
@@ -1154,10 +1154,10 @@ The above sections provide a few tips on how to improve the readability of your 
 
 \begin{verbatim}
 ## -- Attaching core tidyverse packages ------------------------ tidyverse 2.0.0 --
-## v dplyr     1.1.4     v readr     2.1.6
+## v dplyr     1.2.1     v readr     2.2.0
 ## v forcats   1.0.1     v stringr   1.6.0
 ## v ggplot2   4.0.2     v tibble    3.3.1
-## v lubridate 1.9.4     v tidyr     1.3.2
+## v lubridate 1.9.5     v tidyr     1.3.2
 ## v purrr     1.2.1     
 ## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
 ## x dplyr::filter() masks stats::filter()
@@ -1173,9 +1173,9 @@ The above sections provide a few tips on how to improve the readability of your 
 \end{verbatim}
 
 \begin{verbatim}
-##           used  (Mb) gc trigger  (Mb) max used  (Mb)
-## Ncells 2279404 121.8    4157530 222.1  4157530 222.1
-## Vcells 4002148  30.6    8388608  64.0  6671981  51.0
+##           used  (Mb) gc trigger (Mb) max used (Mb)
+## Ncells 2279264 121.8    4155598  222  4155598  222
+## Vcells 4002273  30.6    8388608   64  6674120   51
 \end{verbatim}
 
 At the heart of almost all of R, nearly everything in R is an \textbf{object} of some form or fashion. These can be almost anything, from a single number or word to more complex things such as functions (as seen in Section \ref{sec:functions}), data sets, plots (coming in Chapter \ref{ch-4}), and analysis results (coming in Chapter \ref{ch-5}).
@@ -3779,9 +3779,9 @@ Remember you only need to install package once in a computer. And after they're 
 \end{Shaded}
 
 \begin{verbatim}
-##           used  (Mb) gc trigger  (Mb) max used  (Mb)
-## Ncells 2418252 129.2    4157530 222.1  4157530 222.1
-## Vcells 4311053  32.9   10146329  77.5  8388608  64.0
+##           used  (Mb) gc trigger  (Mb) max used (Mb)
+## Ncells 2417048 129.1    4155598 222.0  4155598  222
+## Vcells 4308609  32.9   10146329  77.5  8388583   64
 \end{verbatim}
 
 \section{Basic plotting}\label{basic-plotting}
@@ -3828,7 +3828,7 @@ Code example 1:
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/unnamed-chunk-97-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/unnamed-chunk-97-1.pdf}}
 
 Code example 2:
 
@@ -3856,7 +3856,7 @@ Now we have a canvas for our plot, but there are no data on it. We use \textbf{g
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/unnamed-chunk-99-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/unnamed-chunk-99-1.pdf}}
 
 We can see that there are two groupings in this plot. Since the dataset contains three species of iris, it would be helpful to determine if these groupings are between some of the species or if it's a coincidence. A nice way to do that is by colouring the points according to the species. This would be another aesthetic variable which can either be called in the first call to ggplot or as an argument passed to \textbf{\texttt{aes}} within \texttt{geom\_point()}, we have used the latter below:
 
@@ -3867,7 +3867,7 @@ We can see that there are two groupings in this plot. Since the dataset contains
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/unnamed-chunk-100-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/unnamed-chunk-100-1.pdf}}
 
 \textbf{NOTE: The difference between aesthetics and other ways of formatting}
 
@@ -3880,7 +3880,7 @@ Above, we have defined a secondary aesthetic, specific to \texttt{geom\_point()}
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/unnamed-chunk-101-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/unnamed-chunk-101-1.pdf}}
 
 We can see that all points have turned orange, regardless of the underlying species data in this case.
 
@@ -3902,7 +3902,7 @@ We could decide that we do not want filled circles as our points. There are 25 d
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/unnamed-chunk-102-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/unnamed-chunk-102-1.pdf}}
 
 It is also possible to make the shape change depending on data within the dataset as an aesthetic or to use any single letter or character from your keyboard instead of one of the preset shapes (try these as an exercise). Finally, the size of each point is not fixed and can be changed in a similar way. As a default, the points are size 1.5, but it is possible to change that number to any positive number. Below, we show an example where we have increased the point size to 3.
 
@@ -3933,7 +3933,7 @@ Example 1
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/unnamed-chunk-104-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/unnamed-chunk-104-1.pdf}}
 
 Example 2
 
@@ -3945,7 +3945,7 @@ Example 2
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/unnamed-chunk-105-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/unnamed-chunk-105-1.pdf}}
 
 \textbf{Facet options:}
 1. What happens if you set \textbf{\texttt{scales\ =\ "free\_x"}} or \textbf{\texttt{scales\ =\ "free\_y"}} or \textbf{\texttt{scales\ =\ "free"}}?
@@ -3965,7 +3965,7 @@ All plots up to this point were created using ggplot's default theme. You can ch
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/unnamed-chunk-106-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/unnamed-chunk-106-1.pdf}}
 
 Below is the second plot, which shows the black and white theme for ggplot2 graphs. The plot now has a white background with grid markers.
 
@@ -3977,7 +3977,7 @@ Below is the second plot, which shows the black and white theme for ggplot2 grap
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/unnamed-chunk-107-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/unnamed-chunk-107-1.pdf}}
 
 Below is the third plot, which illustrates the classic theme for ggplot2 graphs. The plot now has a white background and no grid markers.
 
@@ -3989,7 +3989,7 @@ Below is the third plot, which illustrates the classic theme for ggplot2 graphs.
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/unnamed-chunk-108-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/unnamed-chunk-108-1.pdf}}
 
 Below is the fourth plot, which shows the dark theme for ggplot2 graphs.
 
@@ -4001,7 +4001,7 @@ Below is the fourth plot, which shows the dark theme for ggplot2 graphs.
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/unnamed-chunk-109-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/unnamed-chunk-109-1.pdf}}
 
 Below is the fifth plot, which shows all of the themes we have covered so far - this includes the default, bw, classic and dark. These were plotted together using another R package that we will discuss further on.
 
@@ -4026,7 +4026,7 @@ Below is the fifth plot, which shows all of the themes we have covered so far - 
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/unnamed-chunk-110-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/unnamed-chunk-110-1.pdf}}
 
 Below is a plot that highlights how you can manually change the panel background, plot background and other elements, including the line colour (major and minor), and the axes text colour.
 
@@ -4046,7 +4046,7 @@ Below is a plot that highlights how you can manually change the panel background
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/unnamed-chunk-111-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/unnamed-chunk-111-1.pdf}}
 
 \textbf{Background and theme options:}
 1. Look up other themes. What is your favourite theme which you might use by default?
@@ -4073,7 +4073,7 @@ You can also use additional functions to make further edits. Here we will demons
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/unnamed-chunk-112-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/unnamed-chunk-112-1.pdf}}
 
 \textbf{Axes options:}
 1. Can you shrink the x-axis so that only data between 5 and 7cm are shown?
@@ -4104,7 +4104,7 @@ Look at the plot below
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/unnamed-chunk-113-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/unnamed-chunk-113-1.pdf}}
 
 \subsubsection{Box plots}\label{box-plots}
 
@@ -4121,7 +4121,7 @@ Box plots are great for visualising the spread of data and identifying outliers 
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/unnamed-chunk-114-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/unnamed-chunk-114-1.pdf}}
 
 \textbf{Layout in box plots:}
 1. Can you make the lines in the box plot turn the same colour as the box fill? Why is this not the best of ideas?
@@ -4140,7 +4140,7 @@ These are ideal for showing relationships between two continuous variables.
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/unnamed-chunk-115-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/unnamed-chunk-115-1.pdf}}
 
 \subsubsection{Bar Charts}\label{bar-charts}
 
@@ -4161,7 +4161,7 @@ Bar charts are used for comparing quantities across discrete categories.
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/unnamed-chunk-116-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/unnamed-chunk-116-1.pdf}}
 
 \subsubsection{Bar Charts with Error Bars}\label{bar-charts-with-error-bars}
 
@@ -4201,7 +4201,7 @@ For example, when plotting the mean Sepal Length by species in the iris dataset,
 ## font width unknown for character 0x07 in encoding cp1252
 \end{verbatim}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/unnamed-chunk-118-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/unnamed-chunk-118-1.pdf}}
 
 \subsubsection{Faceted Plots}\label{sec:facetedPlots}
 
@@ -4219,7 +4219,7 @@ Here, we can break the data into subsets and plot each subset in its own panel f
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/unnamed-chunk-119-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/unnamed-chunk-119-1.pdf}}
 
 \subsubsection{Viridis Colour Palettes}\label{viridis-colour-palettes}
 
@@ -4466,7 +4466,7 @@ There isn't just one answer to correctly recreate this graph, but it is possible
 ## (`geom_point()`).
 \end{verbatim}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/unnamed-chunk-126-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/unnamed-chunk-126-1.pdf}}
 
 \chapter{Hypothesis testing and regression modelling}\label{ch-5}
 
@@ -4492,9 +4492,9 @@ Before starting this chapter, make sure that you have the following R packages i
 \end{Shaded}
 
 \begin{verbatim}
-##           used  (Mb) gc trigger  (Mb) max used  (Mb)
-## Ncells 2783975 148.7    4157530 222.1  4157530 222.1
-## Vcells 4925432  37.6   10146329  77.5  8388608  64.0
+##           used  (Mb) gc trigger  (Mb) max used (Mb)
+## Ncells 2782749 148.7    4155598 222.0  4155598  222
+## Vcells 4922966  37.6   10146329  77.5  8388583   64
 \end{verbatim}
 
 One primary aim of statistics is to make inferences, so that we can determine whether the association between the independent variable and the dependent variable (i.e., outcome) is true or could be due to chance. The independent variable may be an ``exposure'' (thought of as a potential cause), a ``predictor'' (which may or may not be causal), or a non-causal marker. Hypothesis testing is a common statistical method used to make such inferences.
@@ -4875,7 +4875,7 @@ Or use simulation:
 ##  2000 replicates)
 ## 
 ## data:  Gender and BMI_cat
-## p-value = 0.6507
+## p-value = 0.6382
 ## alternative hypothesis: two.sided
 \end{verbatim}
 
@@ -5126,7 +5126,7 @@ In general linear models, diagnostics can be done easily by plotting the model o
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/unnamed-chunk-149-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/unnamed-chunk-149-1.pdf}}
 
 \section{Generalised linear models}\label{generalised-linear-models}
 
@@ -5232,7 +5232,7 @@ Poisson regression can be used for count outcomes using \texttt{family\ =\ "pois
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/unnamed-chunk-153-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/unnamed-chunk-153-1.pdf}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5481,7 +5481,7 @@ Instead of the table, one can also visualise the \hyperref[acronyms_KM]{KM}, a K
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/plot-km-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/plot-km-1.pdf}}
 
 The plot showed that the longest follow-up was just over 6 years (as shown in the x-axis), and that by the end of the study there were still over 80\% of the participants to be disease-free.
 
@@ -5529,7 +5529,7 @@ You can also plot the survival curves or, alternatively, Nelson-Aalan estimator 
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/plot-km-groups-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/plot-km-groups-1.pdf}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5540,7 +5540,7 @@ You can also plot the survival curves or, alternatively, Nelson-Aalan estimator 
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/plot-km-groups-2.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/plot-km-groups-2.pdf}}
 
 Note that hazard is very similar to incidence rate, so cumulative hazard can be thought of as the cumulative incidence rate. It is not equal to the probability of having the disease. It is actually similar to the \textbf{cumulative probability} of having the disease, and can be greater than 1 (probabilities are bounded by 0 and 1).
 
@@ -5662,7 +5662,7 @@ To formally examine this assumption, one can look at the Schoenfeld residuals wi
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/schoenfeld-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/schoenfeld-1.pdf}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6236,7 +6236,7 @@ The \texttt{fracplot()} function plots the estimated curve. \texttt{partial\_onl
 ## $bmi
 \end{verbatim}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/mod-fp-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/mod-fp-1.pdf}}
 
 The fractional polynomial curves suggest a sharp drop in MW in underweight and obesity range.
 
@@ -6282,11 +6282,13 @@ Abbreviation: CI = Confidence Interval\\
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/mod-spline-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/mod-spline-1.pdf}}
 
 \chapter{Causal Inference: Mediation and Instrumental Variables}\label{ch-7}
 
-In previous chapters, we focused on establishing associations between variables. However, in health data science, we often want to understand the \emph{causal} mechanisms driving these associations. This chapter introduces two advanced causal inference techniques: \textbf{Mediation Analysis} (to understand \emph{how} an exposure affects an outcome) and \textbf{Instrumental Variables} (to estimate causal effects in the presence of unmeasured confounding).
+In previous chapters, we focused on establishing associations between variables. However, in health data science, we often want to understand the \emph{causal} mechanisms driving these associations. This chapter introduces two advanced causal inference techniques: \textbf{mediation analysis} (to understand \emph{how} an exposure affects an outcome) and \textbf{instrumental variable variables} (to estimate causal effects in the presence of unmeasured confounding).
+
+The mediation analysis will be based on the \texttt{CMAverse} package which is not available from the \textbf{CRAN} (the official repository for R packages) but could be installed from \textbf{Github} (a commonly used developer maintained respository) using the following command. You may not have the \texttt{devtool} installed on your computer yet. If that's the case, please install it first.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6296,61 +6298,39 @@ In previous chapters, we focused on establishing associations between variables.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# Load required libraries for this chapter}
 \FunctionTok{library}\NormalTok{(tidyverse)}
 \FunctionTok{library}\NormalTok{(gtsummary)}
 \FunctionTok{library}\NormalTok{(bda) }
 \FunctionTok{library}\NormalTok{(AER)}
 \FunctionTok{library}\NormalTok{(CMAverse) }
-
-\CommentTok{\# Note: We will simulate the data structures used in the examples below for rendering purposes.}
 \end{Highlighting}
 \end{Shaded}
 
 \section{Data Preparation for Causal Modeling}\label{data-preparation-for-causal-modeling}
 
-When investigating causal pathways, the timing of measurements is critical. An exposure must precede a mediator, which in turn must precede the outcome. Therefore, longitudinal data is typically required.
+When investigating causal pathways, the timing of measurements is critical. An exposure must precede a mediator, which in turn must precede the outcome. Therefore, longitudinal data is typically required. You could, technically, use mediation analysis to analyse cross-sectional data, but the estimated `effects' could reflect (partly) reverse cauation.
 
-\textbf{Rationale \& Code Explanation:} To prepare our data for regression and mediation, we often need to transform it from a ``long'' format (multiple rows per patient for different time points/waves) to a ``wide'' format (one row per patient, with variables denoting different time points, e.g., \texttt{bmi\_1}, \texttt{bmi\_5}). In the code below, we use \texttt{pivot\_wider()} from the \texttt{tidyr} package to achieve this. We then select our variables of interest (age, sex, income, \textbf{\hyperref[acronyms_BMI]{BMI}}, and mental/physical wellbeing scores at different waves) and drop cases with missing data using \texttt{na.omit()}.
+In the mediation analysis, we will still be focusing on the Understanding Society longitudinal data. The primary hypothesis was to examine whether \textbf{\hyperref[acronyms_PW]{physical well-being (PW)}} (mediator) could be a mechanism between \textbf{\hyperref[acronyms_BMI]{BMI}} (exposure) and \textbf{\hyperref[acronyms_MW]{MW}} (outcome).
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{library}\NormalTok{(tidyverse)}
-\FunctionTok{library}\NormalTok{(gtsummary)}
-
 \CommentTok{\# 1. Raw data import and reshaping}
-\NormalTok{dat }\OtherTok{\textless{}{-}} \FunctionTok{read\_tsv}\NormalTok{(}\StringTok{\textquotesingle{}../UKDA{-}8715{-}tab/tab/longitudinal\_td.tab\textquotesingle{}}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
-  \FunctionTok{select}\NormalTok{(pidp, indscus\_lw\_9, strata, psu,             }
-\NormalTok{         wave, age\_dv, sex\_dv, fimngrs\_dv, }
-\NormalTok{         bmi\_dv, sf12pcs\_dv, sf12mcs\_dv) }\SpecialCharTok{\%\textgreater{}\%} 
-  \FunctionTok{filter}\NormalTok{(wave }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{9}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}                    
-  \FunctionTok{pivot\_wider}\NormalTok{(}\AttributeTok{id\_cols=}\FunctionTok{c}\NormalTok{(pidp, indscus\_lw\_9, strata, psu),                 }
-              \AttributeTok{names\_from=}\NormalTok{wave, }
-              \AttributeTok{values\_from=}\NormalTok{age\_dv}\SpecialCharTok{:}\NormalTok{sf12mcs\_dv) }\SpecialCharTok{|\textgreater{}} 
-  \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\FunctionTok{c}\NormalTok{(age\_dv\_5, age\_dv\_9, sex\_dv\_5, sex\_dv\_9, }
-\NormalTok{            fimngrs\_dv\_5, fimngrs\_dv\_9, bmi\_dv\_5, bmi\_dv\_9)) }\SpecialCharTok{|\textgreater{}} 
-  \FunctionTok{na.omit}\NormalTok{()}
-
-\CommentTok{\# 2. Data formatting}
-\NormalTok{dat }\OtherTok{\textless{}{-}}\NormalTok{ dat }\SpecialCharTok{\%\textgreater{}\%} 
-  \FunctionTok{transmute}\NormalTok{(}
-    \AttributeTok{age =}\NormalTok{ age\_dv\_1, }
-    \AttributeTok{sex =} \FunctionTok{factor}\NormalTok{(sex\_dv\_1, }\AttributeTok{labels=}\FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}Male\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}Female\textquotesingle{}}\NormalTok{)),  }
-    \AttributeTok{income =} \FunctionTok{if\_else}\NormalTok{(fimngrs\_dv\_1 }\SpecialCharTok{\textgreater{}} \FunctionTok{median}\NormalTok{(fimngrs\_dv\_1), }
-                     \StringTok{\textquotesingle{}Higher income\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}Lower income\textquotesingle{}}\NormalTok{), }
-    \AttributeTok{bmi =}\NormalTok{ bmi\_dv\_1, }
-    \AttributeTok{pw1 =}\NormalTok{ sf12pcs\_dv\_1, }\AttributeTok{mw1 =}\NormalTok{ sf12mcs\_dv\_1, }\CommentTok{\# Physical/Mental wellbeing Wave 1}
-    \AttributeTok{pw5 =}\NormalTok{ sf12pcs\_dv\_5, }\AttributeTok{mw5 =}\NormalTok{ sf12mcs\_dv\_5, }\CommentTok{\# Wave 5}
-    \AttributeTok{pw9 =}\NormalTok{ sf12pcs\_dv\_9, }\AttributeTok{mw9 =}\NormalTok{ sf12mcs\_dv\_9  }\CommentTok{\# Wave 9}
-\NormalTok{  ) }\SpecialCharTok{|\textgreater{}} 
-  \FunctionTok{filter}\NormalTok{(bmi }\SpecialCharTok{\textgreater{}=} \FloatTok{18.5}\NormalTok{)}
-
-\CommentTok{\# Optional: Save cleaned data}
-\CommentTok{\# write\_csv(dat, \textquotesingle{}../Data/W7\_USoc.csv\textquotesingle{})}
+\NormalTok{dat }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{\textquotesingle{}./data/06{-}understanding\_soc.csv\textquotesingle{}}\NormalTok{) }
 \end{Highlighting}
 \end{Shaded}
 
-\textbf{Rationale:} Before running complex models, it is essential to inspect the descriptive statistics. The \texttt{tbl\_summary()} function generates a clean summary table. We use the \texttt{statistic} argument to specify that we want the Mean and Standard Deviation (\textbf{\hyperref[acronyms_SD]{SD}}) for all continuous variables, and the \texttt{digits} argument to round the results neatly.
+\begin{verbatim}
+## Rows: 11447 Columns: 10
+## -- Column specification --------------------------------------------------------
+## Delimiter: ","
+## chr (2): sex, income
+## dbl (8): age, bmi, pw1, mw1, pw5, mw5, pw9, mw9
+## 
+## i Use `spec()` to retrieve the full column specification for this data.
+## i Specify the column types or set `show_col_types = FALSE` to quiet this message.
+\end{verbatim}
+
+As usual, it is essential to inspect the descriptive statistics before conducting more complex models. We use the \texttt{statistic} argument to specify that we want the mean and \textbf{\hyperref[acronyms_SD]{SD}} for all continuous variables, and the \texttt{digits} argument to round the results neatly.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6364,6 +6344,34 @@ When investigating causal pathways, the timing of measurements is critical. An e
 \end{Highlighting}
 \end{Shaded}
 
+\begin{table}[t]
+\fontsize{12.0pt}{14.0pt}\selectfont
+\begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}lc}
+\toprule
+\textbf{Characteristic} & \textbf{N = 11,447}\textsuperscript{\textit{1}} \\ 
+\midrule\addlinespace[2.5pt]
+age & 49.1 (14.9) \\ 
+sex &  \\ 
+    Female & 6,532 (57.1\%) \\ 
+    Male & 4,915 (42.9\%) \\ 
+income &  \\ 
+    Higher income & 5,739 (50.1\%) \\ 
+    Lower income & 5,708 (49.9\%) \\ 
+bmi & 26.7 (5.0) \\ 
+pw1 & 50.6 (10.2) \\ 
+mw1 & 51.3 (9.2) \\ 
+pw5 & 49.6 (10.9) \\ 
+mw5 & 49.9 (9.5) \\ 
+pw9 & 48.4 (11.4) \\ 
+mw9 & 49.7 (10.0) \\ 
+\bottomrule
+\end{tabular*}
+\begin{minipage}{\linewidth}
+\vspace{.05em}
+\textsuperscript{\textit{1}}Mean (SD); n (\%)\\
+\end{minipage}
+\end{table}
+
 \section{Mediation Analysis}\label{mediation-analysis}
 
 Mediation analysis attempts to unpack the \textbf{Total Effect} of an exposure on an outcome into two parts:
@@ -6372,7 +6380,7 @@ Mediation analysis attempts to unpack the \textbf{Total Effect} of an exposure o
 
 \subsection{The Base Model (Total Effect)}\label{the-base-model-total-effect}
 
-\textbf{Rationale:} Before looking for a mediator, we establish the baseline association. Here, we model mental wellbeing at Wave 9 (\texttt{mw9}) based on baseline \textbf{\hyperref[acronyms_BMI]{BMI}} (\texttt{bmi}), adjusting for demographic confounders and baseline wellbeing.
+Before looking for a mediator, we establish the baseline association. Here, we model mental wellbeing at Wave 9 (\texttt{mw9}) based on baseline \textbf{\hyperref[acronyms_BMI]{BMI}} (\texttt{bmi}), adjusting for sociodemographic confounders and baseline wellbeing.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6382,11 +6390,35 @@ Mediation analysis attempts to unpack the \textbf{Total Effect} of an exposure o
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Regression Adjustment for Mediation}\label{regression-adjustment-for-mediation}
+\begin{table}[t]
+\fontsize{12.0pt}{14.0pt}\selectfont
+\begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}lccc}
+\toprule
+\textbf{Characteristic} & \textbf{Beta} & \textbf{95\% CI} & \textbf{p-value} \\ 
+\midrule\addlinespace[2.5pt]
+bmi & -0.04 & -0.08, -0.01 & 0.010 \\ 
+age & 0.15 & 0.13, 0.16 & <0.001 \\ 
+sex &  &  &  \\ 
+    Female & — & — &  \\ 
+    Male & 0.47 & 0.13, 0.81 & 0.006 \\ 
+income &  &  &  \\ 
+    Higher income & — & — &  \\ 
+    Lower income & -0.78 & -1.1, -0.44 & <0.001 \\ 
+mw1 & 0.42 & 0.40, 0.43 & <0.001 \\ 
+pw1 & 0.16 & 0.14, 0.18 & <0.001 \\ 
+\bottomrule
+\end{tabular*}
+\begin{minipage}{\linewidth}
+\vspace{.05em}
+Abbreviation: CI = Confidence Interval\\
+\end{minipage}
+\end{table}
 
-\textbf{Rationale:} The simplest way to check for mediation is the ``difference method''. We add our candidate mediator (Physical Wellbeing at Wave 5, \texttt{pw5}) into the regression model. If physical wellbeing mediates the relationship between \textbf{\hyperref[acronyms_BMI]{BMI}} and mental wellbeing, the coefficient for \textbf{\hyperref[acronyms_BMI]{BMI}} should drop noticeably in the new model compared to the base model.
+\subsection{Difference Method for Mediation}\label{difference-method-for-mediation}
 
-\textbf{Code Explanation:} We fit a second linear model (\texttt{m1}) that includes \texttt{pw5}. We then use \texttt{tbl\_merge()} from the \texttt{gtsummary} package to put both models side-by-side for easy visual comparison. Minimal differences between the \textbf{\hyperref[acronyms_BMI]{BMI}} coefficients across the two models suggest minimal mediation.
+The simplest way to check for mediation is the \textbf{``difference method''}. It is simply done by adding the candidate mediator (\hyperref[acronyms_PW]{PW} at Wave 5, \texttt{pw5}) into the regression model. If \hyperref[acronyms_PW]{PW} mediates the relationship between \textbf{\hyperref[acronyms_BMI]{BMI}} and \hyperref[acronyms_MW]{MW}, the coefficient for \textbf{\hyperref[acronyms_BMI]{BMI}} should attenuate noticeably in the new model compared with the base model.
+
+The codes below fit a second linear model (\texttt{m1}) that includes \texttt{pw5}. We then use \texttt{gtsummary::tbl\_merge()} to put both models side-by-side for easy visual comparison. Minimal differences between the \textbf{\hyperref[acronyms_BMI]{BMI}} coefficients across the two models suggest minimal mediation.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6401,32 +6433,89 @@ Mediation analysis attempts to unpack the \textbf{Total Effect} of an exposure o
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{The Sobel Test}\label{the-sobel-test}
+\begin{verbatim}
+## The number rows in the tables to be merged do not match, which may result in
+## rows appearing out of order.
+## i See `tbl_merge()` (`?gtsummary::tbl_merge()`) help file for details. Use
+##   `quiet=TRUE` to silence message.
+\end{verbatim}
 
-\textbf{Rationale:} The Sobel test is a traditional statistical test to determine if the indirect effect is significantly different from zero.
+\begin{table}[t]
+\fontsize{12.0pt}{14.0pt}\selectfont
+\begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}lcccccc}
+\toprule
+ & \multicolumn{3}{c}{{Not adjusted for PW}} & \multicolumn{3}{c}{{Adjusted for PW}} \\ 
+\cmidrule(lr){2-4} \cmidrule(lr){5-7}
+\textbf{Characteristic} & \textbf{Beta} & \textbf{95\% CI} & \textbf{p-value} & \textbf{Beta} & \textbf{95\% CI} & \textbf{p-value} \\ 
+\midrule\addlinespace[2.5pt]
+bmi & -0.04 & -0.08, -0.01 & 0.010 & -0.04 & -0.08, -0.01 & 0.014 \\ 
+age & 0.15 & 0.13, 0.16 & <0.001 & 0.15 & 0.14, 0.16 & <0.001 \\ 
+sex &  &  &  &  &  &  \\ 
+    Female & — & — &  & — & — &  \\ 
+    Male & 0.47 & 0.13, 0.81 & 0.006 & 0.48 & 0.14, 0.82 & 0.006 \\ 
+income &  &  &  &  &  &  \\ 
+    Higher income & — & — &  & — & — &  \\ 
+    Lower income & -0.78 & -1.1, -0.44 & <0.001 & -0.77 & -1.1, -0.43 & <0.001 \\ 
+mw1 & 0.42 & 0.40, 0.43 & <0.001 & 0.41 & 0.40, 0.43 & <0.001 \\ 
+pw1 & 0.16 & 0.14, 0.18 & <0.001 & 0.15 & 0.13, 0.17 & <0.001 \\ 
+pw5 &  &  &  & 0.01 & -0.01, 0.03 & 0.3 \\ 
+\bottomrule
+\end{tabular*}
+\begin{minipage}{\linewidth}
+\vspace{.05em}
+Abbreviation: CI = Confidence Interval\\
+\end{minipage}
+\end{table}
 
-\textbf{Code Explanation:} We use \texttt{mediation.test(mediator,\ exposure,\ outcome)} from the \texttt{bda} package. \emph{Warning:} This test is rudimentary and does not adjust for any confounders. It is strictly not recommended for observational health data unless you are absolutely certain no confounding exists.
+\subsection{Sobel Test}\label{sobel-test}
+
+The Sobel test is a traditional statistical test to determine if the indirect effect is significantly different from zero. The codes below use \texttt{bda::mediation.test(mediator,\ exposure,\ outcome)} to conduct the Sobel test. \emph{Warning:} This test is rudimentary and does not adjust for any confounders. It is not recommended for observational health data unless you are absolutely certain no confounding exists.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{library}\NormalTok{(bda)}
-\CommentTok{\# Sobel test (Unadjusted)}
 \FunctionTok{with}\NormalTok{(dat, }\FunctionTok{mediation.test}\NormalTok{(pw5, bmi, mw9))}
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{The Parametric G-Formula}\label{the-parametric-g-formula}
+\begin{verbatim}
+##                 Sobel        Aroian       Goodman
+## z.value -7.584483e+00 -7.579314e+00 -7.589662e+00
+## p.value  3.338162e-14  3.473873e-14  3.207406e-14
+\end{verbatim}
 
-Modern causal inference relies on more robust methods, such as the parametric G-formula, which can handle complex confounding scenarios (including interactions and non-linearities). In R, we use the \texttt{cmest()} function from the \texttt{CMAverse} package.
+\subsection{Parametric G-Formula}\label{parametric-g-formula}
+
+Sobel test is unadjusted so rarely applicable. The difference method also has several limitations:
+1. Only applicable for linear or count regression. Linear and Poisson models are called `collapsible' meaning that the coefficient of a variable would not change when an additional, unrelated, variable is added in. Logistic and Cox regressions are `non-collapsible', meaning that coefficients would `naturally' change whenever an additional variable is added in, even if that additional variable is unrelated to the exposure.
+2. These regression models do not handle \textbf{exposure-induced mediator-outcome confounder}. See figure below. E is exposure; O is outcome; A is mediator of interest. B is also a mediator between E and O, but confounds the relationship between M and O. Regression difference methods cannot address the influence of B.
+
+\begin{center}\includegraphics[width=0.5\linewidth]{images/07-dag1} \end{center}
+
+Modern causal inference relies on more robust methods, such as the parametric g-formula (also known as g-computation), which can handle complex confounding scenarios (including interactions between the exposure and the meditor). In R, we use the \texttt{cmest()} function from the \texttt{CMAverse} package.
 
 \subsubsection{Without Exposure-Induced Confounders}\label{without-exposure-induced-confounders}
 
-\textbf{Rationale:} We define our causal pathways explicitly. The total effect (TE) is calculated by comparing an `active' \textbf{\hyperref[acronyms_BMI]{BMI}} (\texttt{a\ =\ 26.69}, the sample mean) to a `reference' \textbf{\hyperref[acronyms_BMI]{BMI}} (\texttt{astar\ =\ 25}).
+The \texttt{cmest()} function is quite complex in that it does not use the formula for models, and a larger number of input is required to get it to work. Below breaks down the input:
 
-\textbf{Code Explanation:} * \texttt{basec}: Lists the baseline confounders.
-* \texttt{mreg} and \texttt{yreg}: Specify the regression types for the mediator and outcome models (e.g., `linear' or `logistic').
-* \texttt{mval}: Indicates a reference value for the mediator.
-* \texttt{EMint=FALSE}: Specifies that we are not evaluating exposure-mediator interaction in this step.
+\begin{itemize}
+\tightlist
+\item
+  \texttt{model} specify the models to be run. We will need gformula here as it can address exposure-induced mediator-outcome confounder.
+\item
+  \texttt{mreg} and \texttt{yreg}: Specify the regression types for the mediator and outcome models (e.g., `linear' or `logistic').
+\item
+  \texttt{exposure}, \texttt{mediator} and \texttt{outcome} are self-explanatory - just the variable names for these causal roles.
+\item
+  \texttt{basec} is the baseline confounders.
+\item
+  \texttt{a} is the intervention value and \texttt{astar} is the reference value. While the exposure variable is numeric, cmest needs these two to caulate the total, direct and indirect effect. The total effect for this code below is, therefore, comparing 26.69 (mean in this sample) with the overweight cut-off (25).
+\item
+  \texttt{mval} is the reference value for the mediator, similar to what \texttt{astar} does.
+\item
+  \texttt{mreg} and \texttt{yreg} indicate the regression you want to use for the simulation. It usually depends on the variable type of the mediator and the outcome.
+\item
+  \texttt{EMint=FALSE}: Specifies that we are not evaluating exposure-mediator interaction.
+\end{itemize}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6446,20 +6535,120 @@ Modern causal inference relies on more robust methods, such as the parametric G-
   \AttributeTok{yreg =} \StringTok{\textquotesingle{}linear\textquotesingle{}}\NormalTok{, }
   \AttributeTok{EMint =} \ConstantTok{FALSE}
 \NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
 
+\begin{verbatim}
+##   |                                                                              |                                                                      |   0%  |                                                                              |=                                                                     |   1%  |                                                                              |=                                                                     |   2%  |                                                                              |==                                                                    |   2%  |                                                                              |==                                                                    |   3%  |                                                                              |==                                                                    |   4%  |                                                                              |===                                                                   |   4%  |                                                                              |====                                                                  |   5%  |                                                                              |====                                                                  |   6%  |                                                                              |=====                                                                 |   6%  |                                                                              |=====                                                                 |   7%  |                                                                              |=====                                                                 |   8%  |                                                                              |======                                                                |   8%  |                                                                              |======                                                                |   9%  |                                                                              |=======                                                               |  10%  |                                                                              |========                                                              |  11%  |                                                                              |========                                                              |  12%  |                                                                              |=========                                                             |  12%  |                                                                              |=========                                                             |  13%  |                                                                              |=========                                                             |  14%  |                                                                              |==========                                                            |  14%  |                                                                              |==========                                                            |  15%  |                                                                              |===========                                                           |  16%  |                                                                              |============                                                          |  16%  |                                                                              |============                                                          |  17%  |                                                                              |============                                                          |  18%  |                                                                              |=============                                                         |  18%  |                                                                              |=============                                                         |  19%  |                                                                              |==============                                                        |  20%  |                                                                              |===============                                                       |  21%  |                                                                              |===============                                                       |  22%  |                                                                              |================                                                      |  22%  |                                                                              |================                                                      |  23%  |                                                                              |================                                                      |  24%  |                                                                              |=================                                                     |  24%  |                                                                              |==================                                                    |  25%  |                                                                              |==================                                                    |  26%  |                                                                              |===================                                                   |  26%  |                                                                              |===================                                                   |  27%  |                                                                              |===================                                                   |  28%  |                                                                              |====================                                                  |  28%  |                                                                              |====================                                                  |  29%  |                                                                              |=====================                                                 |  30%  |                                                                              |======================                                                |  31%  |                                                                              |======================                                                |  32%  |                                                                              |=======================                                               |  32%  |                                                                              |=======================                                               |  33%  |                                                                              |=======================                                               |  34%  |                                                                              |========================                                              |  34%  |                                                                              |========================                                              |  35%  |                                                                              |=========================                                             |  36%  |                                                                              |==========================                                            |  36%  |                                                                              |==========================                                            |  37%  |                                                                              |==========================                                            |  38%  |                                                                              |===========================                                           |  38%  |                                                                              |===========================                                           |  39%  |                                                                              |============================                                          |  40%  |                                                                              |=============================                                         |  41%  |                                                                              |=============================                                         |  42%  |                                                                              |==============================                                        |  42%  |                                                                              |==============================                                        |  43%  |                                                                              |==============================                                        |  44%  |                                                                              |===============================                                       |  44%  |                                                                              |================================                                      |  45%  |                                                                              |================================                                      |  46%  |                                                                              |=================================                                     |  46%  |                                                                              |=================================                                     |  47%  |                                                                              |=================================                                     |  48%  |                                                                              |==================================                                    |  48%  |                                                                              |==================================                                    |  49%  |                                                                              |===================================                                   |  50%  |                                                                              |====================================                                  |  51%  |                                                                              |====================================                                  |  52%  |                                                                              |=====================================                                 |  52%  |                                                                              |=====================================                                 |  53%  |                                                                              |=====================================                                 |  54%  |                                                                              |======================================                                |  54%  |                                                                              |======================================                                |  55%  |                                                                              |=======================================                               |  56%  |                                                                              |========================================                              |  56%  |                                                                              |========================================                              |  57%  |                                                                              |========================================                              |  58%  |                                                                              |=========================================                             |  58%  |                                                                              |=========================================                             |  59%  |                                                                              |==========================================                            |  60%  |                                                                              |===========================================                           |  61%  |                                                                              |===========================================                           |  62%  |                                                                              |============================================                          |  62%  |                                                                              |============================================                          |  63%  |                                                                              |============================================                          |  64%  |                                                                              |=============================================                         |  64%  |                                                                              |==============================================                        |  65%  |                                                                              |==============================================                        |  66%  |                                                                              |===============================================                       |  66%  |                                                                              |===============================================                       |  67%  |                                                                              |===============================================                       |  68%  |                                                                              |================================================                      |  68%  |                                                                              |================================================                      |  69%  |                                                                              |=================================================                     |  70%  |                                                                              |==================================================                    |  71%  |                                                                              |==================================================                    |  72%  |                                                                              |===================================================                   |  72%  |                                                                              |===================================================                   |  73%  |                                                                              |===================================================                   |  74%  |                                                                              |====================================================                  |  74%  |                                                                              |====================================================                  |  75%  |                                                                              |=====================================================                 |  76%  |                                                                              |======================================================                |  76%  |                                                                              |======================================================                |  77%  |                                                                              |======================================================                |  78%  |                                                                              |=======================================================               |  78%  |                                                                              |=======================================================               |  79%  |                                                                              |========================================================              |  80%  |                                                                              |=========================================================             |  81%  |                                                                              |=========================================================             |  82%  |                                                                              |==========================================================            |  82%  |                                                                              |==========================================================            |  83%  |                                                                              |==========================================================            |  84%  |                                                                              |===========================================================           |  84%  |                                                                              |============================================================          |  85%  |                                                                              |============================================================          |  86%  |                                                                              |=============================================================         |  86%  |                                                                              |=============================================================         |  87%  |                                                                              |=============================================================         |  88%  |                                                                              |==============================================================        |  88%  |                                                                              |==============================================================        |  89%  |                                                                              |===============================================================       |  90%  |                                                                              |================================================================      |  91%  |                                                                              |================================================================      |  92%  |                                                                              |=================================================================     |  92%  |                                                                              |=================================================================     |  93%  |                                                                              |=================================================================     |  94%  |                                                                              |==================================================================    |  94%  |                                                                              |==================================================================    |  95%  |                                                                              |===================================================================   |  96%  |                                                                              |====================================================================  |  96%  |                                                                              |====================================================================  |  97%  |                                                                              |====================================================================  |  98%  |                                                                              |===================================================================== |  98%  |                                                                              |===================================================================== |  99%  |                                                                              |======================================================================| 100%
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \FunctionTok{summary}\NormalTok{(mm1)}
 \end{Highlighting}
 \end{Shaded}
 
+\begin{verbatim}
+## Causal Mediation Analysis
+## 
+## # Outcome regression:
+## 
+## Call:
+## glm(formula = mw9 ~ bmi + pw5 + age + sex + income + mw1 + pw1, 
+##     family = gaussian(), data = getCall(x$reg.output$yreg)$data, 
+##     weights = getCall(x$reg.output$yreg)$weights)
+## 
+## Coefficients:
+##                     Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)        14.191383   0.962287  14.748  < 2e-16 ***
+## bmi                -0.042081   0.017165  -2.452  0.01424 *  
+## pw5                 0.010308   0.010184   1.012  0.31145    
+## age                 0.146857   0.005951  24.679  < 2e-16 ***
+## sexMale             0.475746   0.173281   2.746  0.00605 ** 
+## incomeLower income -0.769377   0.175231  -4.391 1.14e-05 ***
+## mw1                 0.414963   0.009293  44.654  < 2e-16 ***
+## pw1                 0.153454   0.010648  14.412  < 2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for gaussian family taken to be 77.79097)
+## 
+##     Null deviance: 1149883  on 11446  degrees of freedom
+## Residual deviance:  889851  on 11439  degrees of freedom
+## AIC: 82336
+## 
+## Number of Fisher Scoring iterations: 2
+## 
+## 
+## # Mediator regressions: 
+## 
+## Call:
+## glm(formula = pw5 ~ bmi + age + sex + income + mw1 + pw1, family = gaussian(), 
+##     data = getCall(x$reg.output$mreg[[1L]])$data, weights = getCall(x$reg.output$mreg[[1L]])$weights)
+## 
+## Coefficients:
+##                     Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)        22.455678   0.858155  26.167   <2e-16 ***
+## bmi                -0.161136   0.015687 -10.272   <2e-16 ***
+## age                -0.130348   0.005326 -24.476   <2e-16 ***
+## sexMale            -0.192978   0.159077  -1.213    0.225    
+## incomeLower income -1.469886   0.160290  -9.170   <2e-16 ***
+## mw1                 0.157503   0.008404  18.742   <2e-16 ***
+## pw1                 0.604168   0.007978  75.728   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for gaussian family taken to be 65.5689)
+## 
+##     Null deviance: 1371759  on 11446  degrees of freedom
+## Residual deviance:  750108  on 11440  degrees of freedom
+## AIC: 80378
+## 
+## Number of Fisher Scoring iterations: 2
+## 
+## 
+## # Effect decomposition on the mean difference scale via the g-formula approach
+##  
+## Direct counterfactual imputation estimation with 
+##  bootstrap standard errors, percentile confidence intervals and p-values 
+##  
+##       Estimate Std.error   95% CIL 95% CIU P.val  
+## cde  -0.071117  0.032166 -0.129036  -0.001  0.04 *
+## pnde -0.071117  0.032166 -0.129036  -0.001  0.04 *
+## tnde -0.071117  0.032166 -0.129036  -0.001  0.04 *
+## pnie -0.002807  0.003196 -0.008816   0.003  0.42  
+## tnie -0.002807  0.003196 -0.008816   0.003  0.42  
+## te   -0.073924  0.031856 -0.129855  -0.007  0.03 *
+## pm    0.037973  0.262579 -0.038727   0.355  0.43  
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (cde: controlled direct effect; pnde: pure natural direct effect; tnde: total natural direct effect; pnie: pure natural indirect effect; tnie: total natural indirect effect; te: total effect; pm: overall proportion mediated)
+## 
+## Relevant variable values: 
+## $a
+## [1] 26.69
+## 
+## $astar
+## [1] 25
+## 
+## $mval
+## $mval[[1]]
+## [1] 50
+\end{verbatim}
+
+The results are consistent with the difference method - no mediation. It is not surprising because we have not done anything different from the difference method.
+
 \subsubsection{With Exposure-Induced Confounders}\label{with-exposure-induced-confounders}
 
-\textbf{Rationale:} In longitudinal data, an exposure (\textbf{\hyperref[acronyms_BMI]{BMI}} at Wave 1) might cause a change in a confounding variable (Mental Wellbeing at Wave 5), which then affects both the mediator and the final outcome. Traditional regression adjustment utterly fails in this scenario, but the G-formula can handle it.
+Suppose if we think \hyperref[acronyms_MW]{MW} at wave 5 could confound the relationship between \hyperref[acronyms_PW]{PW} at wave 5 and \hyperref[acronyms_MW]{MW} at wave 10:
 
-\textbf{Code Explanation:} We add the \texttt{postc} argument to specify the intermediate (post-exposure) confounder (\texttt{mw5}). We also must tell R how to model this intermediate variable using the \texttt{postcreg} argument (here, as a `linear' regression).
+\begin{center}\includegraphics[width=0.5\linewidth]{images/07-dag2} \end{center}
+
+This can be modelled by adding one more argument to the \texttt{cmest()} function - the \texttt{postc}. It is to specify the intermediate (post-exposure) confounder (\texttt{mw5}). We also must tell the function how to model this intermediate variable using the \texttt{postcreg} argument (here, as a `linear' regression).
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# G{-}formula handling exposure{-}induced confounding (mw5)}
 \NormalTok{mm2 }\OtherTok{\textless{}{-}} \FunctionTok{cmest}\NormalTok{(}
   \AttributeTok{data =}\NormalTok{ dat, }
   \AttributeTok{model =} \StringTok{\textquotesingle{}gformula\textquotesingle{}}\NormalTok{, }
@@ -6476,12 +6665,139 @@ Modern causal inference relies on more robust methods, such as the parametric G-
   \AttributeTok{yreg =} \StringTok{\textquotesingle{}linear\textquotesingle{}}\NormalTok{, }
   \AttributeTok{EMint =} \ConstantTok{FALSE}
 \NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
 
+\begin{verbatim}
+##   |                                                                              |                                                                      |   0%  |                                                                              |=                                                                     |   1%  |                                                                              |=                                                                     |   2%  |                                                                              |==                                                                    |   2%  |                                                                              |==                                                                    |   3%  |                                                                              |==                                                                    |   4%  |                                                                              |===                                                                   |   4%  |                                                                              |====                                                                  |   5%  |                                                                              |====                                                                  |   6%  |                                                                              |=====                                                                 |   6%  |                                                                              |=====                                                                 |   7%  |                                                                              |=====                                                                 |   8%  |                                                                              |======                                                                |   8%  |                                                                              |======                                                                |   9%  |                                                                              |=======                                                               |  10%  |                                                                              |========                                                              |  11%  |                                                                              |========                                                              |  12%  |                                                                              |=========                                                             |  12%  |                                                                              |=========                                                             |  13%  |                                                                              |=========                                                             |  14%  |                                                                              |==========                                                            |  14%  |                                                                              |==========                                                            |  15%  |                                                                              |===========                                                           |  16%  |                                                                              |============                                                          |  16%  |                                                                              |============                                                          |  17%  |                                                                              |============                                                          |  18%  |                                                                              |=============                                                         |  18%  |                                                                              |=============                                                         |  19%  |                                                                              |==============                                                        |  20%  |                                                                              |===============                                                       |  21%  |                                                                              |===============                                                       |  22%  |                                                                              |================                                                      |  22%  |                                                                              |================                                                      |  23%  |                                                                              |================                                                      |  24%  |                                                                              |=================                                                     |  24%  |                                                                              |==================                                                    |  25%  |                                                                              |==================                                                    |  26%  |                                                                              |===================                                                   |  26%  |                                                                              |===================                                                   |  27%  |                                                                              |===================                                                   |  28%  |                                                                              |====================                                                  |  28%  |                                                                              |====================                                                  |  29%  |                                                                              |=====================                                                 |  30%  |                                                                              |======================                                                |  31%  |                                                                              |======================                                                |  32%  |                                                                              |=======================                                               |  32%  |                                                                              |=======================                                               |  33%  |                                                                              |=======================                                               |  34%  |                                                                              |========================                                              |  34%  |                                                                              |========================                                              |  35%  |                                                                              |=========================                                             |  36%  |                                                                              |==========================                                            |  36%  |                                                                              |==========================                                            |  37%  |                                                                              |==========================                                            |  38%  |                                                                              |===========================                                           |  38%  |                                                                              |===========================                                           |  39%  |                                                                              |============================                                          |  40%  |                                                                              |=============================                                         |  41%  |                                                                              |=============================                                         |  42%  |                                                                              |==============================                                        |  42%  |                                                                              |==============================                                        |  43%  |                                                                              |==============================                                        |  44%  |                                                                              |===============================                                       |  44%  |                                                                              |================================                                      |  45%  |                                                                              |================================                                      |  46%  |                                                                              |=================================                                     |  46%  |                                                                              |=================================                                     |  47%  |                                                                              |=================================                                     |  48%  |                                                                              |==================================                                    |  48%  |                                                                              |==================================                                    |  49%  |                                                                              |===================================                                   |  50%  |                                                                              |====================================                                  |  51%  |                                                                              |====================================                                  |  52%  |                                                                              |=====================================                                 |  52%  |                                                                              |=====================================                                 |  53%  |                                                                              |=====================================                                 |  54%  |                                                                              |======================================                                |  54%  |                                                                              |======================================                                |  55%  |                                                                              |=======================================                               |  56%  |                                                                              |========================================                              |  56%  |                                                                              |========================================                              |  57%  |                                                                              |========================================                              |  58%  |                                                                              |=========================================                             |  58%  |                                                                              |=========================================                             |  59%  |                                                                              |==========================================                            |  60%  |                                                                              |===========================================                           |  61%  |                                                                              |===========================================                           |  62%  |                                                                              |============================================                          |  62%  |                                                                              |============================================                          |  63%  |                                                                              |============================================                          |  64%  |                                                                              |=============================================                         |  64%  |                                                                              |==============================================                        |  65%  |                                                                              |==============================================                        |  66%  |                                                                              |===============================================                       |  66%  |                                                                              |===============================================                       |  67%  |                                                                              |===============================================                       |  68%  |                                                                              |================================================                      |  68%  |                                                                              |================================================                      |  69%  |                                                                              |=================================================                     |  70%  |                                                                              |==================================================                    |  71%  |                                                                              |==================================================                    |  72%  |                                                                              |===================================================                   |  72%  |                                                                              |===================================================                   |  73%  |                                                                              |===================================================                   |  74%  |                                                                              |====================================================                  |  74%  |                                                                              |====================================================                  |  75%  |                                                                              |=====================================================                 |  76%  |                                                                              |======================================================                |  76%  |                                                                              |======================================================                |  77%  |                                                                              |======================================================                |  78%  |                                                                              |=======================================================               |  78%  |                                                                              |=======================================================               |  79%  |                                                                              |========================================================              |  80%  |                                                                              |=========================================================             |  81%  |                                                                              |=========================================================             |  82%  |                                                                              |==========================================================            |  82%  |                                                                              |==========================================================            |  83%  |                                                                              |==========================================================            |  84%  |                                                                              |===========================================================           |  84%  |                                                                              |============================================================          |  85%  |                                                                              |============================================================          |  86%  |                                                                              |=============================================================         |  86%  |                                                                              |=============================================================         |  87%  |                                                                              |=============================================================         |  88%  |                                                                              |==============================================================        |  88%  |                                                                              |==============================================================        |  89%  |                                                                              |===============================================================       |  90%  |                                                                              |================================================================      |  91%  |                                                                              |================================================================      |  92%  |                                                                              |=================================================================     |  92%  |                                                                              |=================================================================     |  93%  |                                                                              |=================================================================     |  94%  |                                                                              |==================================================================    |  94%  |                                                                              |==================================================================    |  95%  |                                                                              |===================================================================   |  96%  |                                                                              |====================================================================  |  96%  |                                                                              |====================================================================  |  97%  |                                                                              |====================================================================  |  98%  |                                                                              |===================================================================== |  98%  |                                                                              |===================================================================== |  99%  |                                                                              |======================================================================| 100%
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \FunctionTok{summary}\NormalTok{(mm2)}
 \end{Highlighting}
 \end{Shaded}
 
-\emph{Interpretation Check:} If the Indirect Effect (IE) becomes significant and the mediation proportion jumps (e.g., to 34\%) only after adjusting for \texttt{postc}, it implies that ignoring intermediate confounding severely underestimated the mediating role of physical wellbeing.
+\begin{verbatim}
+## Causal Mediation Analysis
+## 
+## # Outcome regression:
+## 
+## Call:
+## glm(formula = mw9 ~ bmi + pw5 + age + sex + income + mw1 + pw1 + 
+##     mw5, family = gaussian(), data = getCall(x$reg.output$yreg)$data, 
+##     weights = getCall(x$reg.output$yreg)$weights)
+## 
+## Coefficients:
+##                     Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)         6.676152   0.910379   7.333 2.40e-13 ***
+## bmi                -0.041437   0.015935  -2.600  0.00932 ** 
+## pw5                 0.091005   0.009640   9.441  < 2e-16 ***
+## age                 0.111515   0.005585  19.966  < 2e-16 ***
+## sexMale             0.212510   0.160979   1.320  0.18683    
+## incomeLower income -0.545260   0.162756  -3.350  0.00081 ***
+## mw1                 0.227582   0.009672  23.529  < 2e-16 ***
+## pw1                 0.049742   0.010177   4.888 1.03e-06 ***
+## mw5                 0.403018   0.009407  42.842  < 2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for gaussian family taken to be 67.0399)
+## 
+##     Null deviance: 1149883  on 11446  degrees of freedom
+## Residual deviance:  766802  on 11438  degrees of freedom
+## AIC: 80634
+## 
+## Number of Fisher Scoring iterations: 2
+## 
+## 
+## # Mediator regressions: 
+## 
+## Call:
+## glm(formula = pw5 ~ bmi + age + sex + income + mw1 + pw1 + mw5, 
+##     family = gaussian(), data = getCall(x$reg.output$mreg[[1L]])$data, 
+##     weights = getCall(x$reg.output$mreg[[1L]])$weights)
+## 
+## Coefficients:
+##                     Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)        25.154112   0.851122  29.554   <2e-16 ***
+## bmi                -0.155289   0.015388 -10.092   <2e-16 ***
+## age                -0.108649   0.005321 -20.417   <2e-16 ***
+## sexMale            -0.061059   0.156140  -0.391    0.696    
+## incomeLower income -1.519804   0.157224  -9.666   <2e-16 ***
+## mw1                 0.240148   0.009109  26.364   <2e-16 ***
+## pw1                 0.630171   0.007919  79.574   <2e-16 ***
+## mw5                -0.190688   0.008948 -21.310   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for gaussian family taken to be 63.07086)
+## 
+##     Null deviance: 1371759  on 11446  degrees of freedom
+## Residual deviance:  721468  on 11439  degrees of freedom
+## AIC: 79935
+## 
+## Number of Fisher Scoring iterations: 2
+## 
+## 
+## # Regressions for mediator-outcome confounders affected by the exposure: 
+## 
+## Call:
+## glm(formula = mw5 ~ bmi + age + sex + income + mw1 + pw1, family = gaussian(), 
+##     data = getCall(x$reg.output$postcreg[[1L]])$data, weights = getCall(x$reg.output$postcreg[[1L]])$weights)
+## 
+## Coefficients:
+##                     Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)        14.151030   0.879369  16.092  < 2e-16 ***
+## bmi                 0.030666   0.016075   1.908   0.0565 .  
+## age                 0.113794   0.005457  20.852  < 2e-16 ***
+## sexMale             0.691803   0.163009   4.244 2.21e-05 ***
+## incomeLower income -0.261777   0.164252  -1.594   0.1110    
+## mw1                 0.433408   0.008611  50.330  < 2e-16 ***
+## pw1                 0.136364   0.008175  16.680  < 2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for gaussian family taken to be 68.85075)
+## 
+##     Null deviance: 1030481  on 11446  degrees of freedom
+## Residual deviance:  787653  on 11440  degrees of freedom
+## AIC: 80937
+## 
+## Number of Fisher Scoring iterations: 2
+## 
+## 
+## # Effect decomposition on the mean difference scale via the g-formula approach
+##  
+## Direct counterfactual imputation estimation with 
+##  bootstrap standard errors, percentile confidence intervals and p-values 
+##  
+##        Estimate Std.error   95% CIL 95% CIU  P.val    
+## cde   -0.049141  0.029919 -0.114869   0.005   0.08 .  
+## rpnde -0.049141  0.029919 -0.114869   0.005   0.08 .  
+## rtnde -0.049141  0.029919 -0.114869   0.005   0.08 .  
+## rpnie -0.024783  0.003927 -0.032706  -0.017 <2e-16 ***
+## rtnie -0.024783  0.003927 -0.032706  -0.017 <2e-16 ***
+## te    -0.073924  0.030192 -0.140045  -0.020   0.01 ** 
+## pm     0.335244  0.315159  0.169412   1.247   0.01 ** 
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (cde: controlled direct effect; rpnde: randomized analogue of pure natural direct effect; rtnde: randomized analogue of total natural direct effect; rpnie: randomized analogue of pure natural indirect effect; rtnie: randomized analogue of total natural indirect effect; te: total effect; rpm: randomized analogue of overall proportion mediated)
+## 
+## Relevant variable values: 
+## $a
+## [1] 26.69
+## 
+## $astar
+## [1] 25
+## 
+## $mval
+## $mval[[1]]
+## [1] 50
+\end{verbatim}
+
+The indirect effect becomes significant and was estimated to mediate about 1/3 of the total effect. This contradicts with the previous results, and which one is more accurate would depend on how likely \hyperref[acronyms_MW]{MW} at wave 5 is a confounder.
 
 \section{Instrumental Variables (IV)}\label{instrumental-variables-iv}
 
@@ -6491,26 +6807,95 @@ In a Randomized Controlled Trial (RCT) with poor adherence, the randomized \text
 
 \subsection{Intention-to-Treat (ITT) vs.~Per-Protocol (PP)}\label{intention-to-treat-itt-vs.-per-protocol-pp}
 
-\textbf{Rationale:} 1. \textbf{ITT Analysis:} We analyze patients based purely on the group they were randomized to, regardless of whether they actually attended the exercise sessions. This is statistically safe from confounding but usually underestimates the true biological effect of the intervention.
-2. \textbf{Per Protocol (PP) Analysis:} We analyze patients based on their actual attendance. While this looks at the ``true'' intervention, it is heavily confounded (e.g., highly motivated people might attend more \emph{and} have naturally lower stress).
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{ITT Analysis:} We analyze patients based purely on the group they were randomized to, regardless of whether they actually attended the exercise sessions. This is statistically safe from confounding but usually underestimates the true biological effect of the intervention.
+\item
+  \textbf{Per Protocol (PP) Analysis:} We analyze patients based on their actual attendance. While this looks at the ``true'' intervention, it is heavily confounded (e.g., highly motivated people might attend more \emph{and} have naturally lower stress).
+\end{enumerate}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{dat\_iv }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{\textquotesingle{}../Data/W7\_IV.csv\textquotesingle{}}\NormalTok{)}
+\NormalTok{dat\_iv }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{\textquotesingle{}./data/07{-}iv.csv\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
 
+\begin{verbatim}
+## Rows: 347 Columns: 4
+## -- Column specification --------------------------------------------------------
+## Delimiter: ","
+## chr (1): sex
+## dbl (3): group, attendance, stress
+## 
+## i Use `spec()` to retrieve the full column specification for this data.
+## i Specify the column types or set `show_col_types = FALSE` to quiet this message.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \CommentTok{\# 1. Intention{-}to{-}Treat (Conservative, unconfounded)}
 \FunctionTok{summary}\NormalTok{(}\FunctionTok{lm}\NormalTok{(stress }\SpecialCharTok{\textasciitilde{}}\NormalTok{ group, }\AttributeTok{data=}\NormalTok{dat\_iv))}
+\end{Highlighting}
+\end{Shaded}
 
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = stress ~ group, data = dat_iv)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -36.115 -10.413   0.885  10.289  31.289 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)   49.711      1.052  47.249  < 2e-16 ***
+## group         -6.596      1.486  -4.439 1.22e-05 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 13.84 on 345 degrees of freedom
+## Multiple R-squared:  0.05404,    Adjusted R-squared:  0.0513 
+## F-statistic: 19.71 on 1 and 345 DF,  p-value: 1.215e-05
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \CommentTok{\# 2. Per Protocol (Confounded by adherence behaviors)}
 \FunctionTok{summary}\NormalTok{(}\FunctionTok{lm}\NormalTok{(stress }\SpecialCharTok{\textasciitilde{}}\NormalTok{ attendance, }\AttributeTok{data=}\NormalTok{dat\_iv))}
 \end{Highlighting}
 \end{Shaded}
 
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = stress ~ attendance, data = dat_iv)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -33.781  -9.747   0.219  10.481  30.219 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)  50.7812     0.9989  50.838  < 2e-16 ***
+## attendance  -11.0679     1.7432  -6.349 6.82e-10 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 13.46 on 345 degrees of freedom
+## Multiple R-squared:  0.1046, Adjusted R-squared:  0.102 
+## F-statistic: 40.31 on 1 and 345 DF,  p-value: 6.818e-10
+\end{verbatim}
+
+You could see from the codes above the PP analysis esimated the intervention to be twice as effect than in the ITT analysis. But how true is that?
+
 \subsection{IV Analysis using 2-Stage Least Squares}\label{iv-analysis-using-2-stage-least-squares}
 
-\textbf{Rationale:} IV analysis extracts the variation in \texttt{attendance} that is purely driven by the randomization \texttt{group} (the instrument), effectively purging the confounding noise from the model.
+IV analysis extracts the variation in \texttt{attendance} that is purely driven by the randomization \texttt{group} (the instrument), effectively purging the confounding noise from the model.
 
-\textbf{Code Explanation:} We use the \texttt{ivreg()} function from the \texttt{AER} package. The formula \texttt{stress\ \textasciitilde{}\ attendance\ \textbar{}\ group} is read as: model the outcome (\texttt{stress}) against the exposure (\texttt{attendance}), using the variable after the pipe (\texttt{group}) as the instrument.
+We use the \texttt{ivreg()} function from the \texttt{AER} package. The formula \texttt{stress\ \textasciitilde{}\ attendance\ \textbar{}\ group} is read as: model the outcome (\texttt{stress}) against the exposure (\texttt{attendance}), using the variable after the pipe (\texttt{group}) as the instrument.
 We also test the strength of the instrument using \texttt{anova()}. An F-statistic \textgreater{} 10 generally indicates a strong instrument. Because \texttt{group} is a randomized allocation, it safely meets the exclusion criteria.
 
 \begin{Shaded}
@@ -6520,11 +6905,55 @@ We also test the strength of the instrument using \texttt{anova()}. An F-statist
 \CommentTok{\# Fit the Instrumental Variable regression}
 \NormalTok{iv\_model }\OtherTok{\textless{}{-}} \FunctionTok{ivreg}\NormalTok{(stress }\SpecialCharTok{\textasciitilde{}}\NormalTok{ attendance }\SpecialCharTok{|}\NormalTok{ group, }\AttributeTok{data=}\NormalTok{dat\_iv)}
 \FunctionTok{summary}\NormalTok{(iv\_model)}
+\end{Highlighting}
+\end{Shaded}
 
+\begin{verbatim}
+## 
+## Call:
+## ivreg(formula = stress ~ attendance | group, data = dat_iv)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -35.046  -9.711   0.289  10.289  31.289 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)   49.711      1.027  48.397  < 2e-16 ***
+## attendance    -8.362      1.839  -4.547 7.53e-06 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 13.51 on 345 degrees of freedom
+## Multiple R-Squared: 0.09837, Adjusted R-squared: 0.09576 
+## Wald test: 20.68 on 1 and 345 DF,  p-value: 7.532e-06
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \CommentTok{\# Check instrument strength (F{-}statistic)}
 \FunctionTok{anova}\NormalTok{(}\FunctionTok{glm}\NormalTok{(attendance }\SpecialCharTok{\textasciitilde{}}\NormalTok{ group, }\AttributeTok{data=}\NormalTok{dat\_iv), }\AttributeTok{test=}\StringTok{\textquotesingle{}F\textquotesingle{}}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
+
+\begin{verbatim}
+## Analysis of Deviance Table
+## 
+## Model: gaussian, link: identity
+## 
+## Response: attendance
+## 
+## Terms added sequentially (first to last)
+## 
+## 
+##       Df Deviance Resid. Df Resid. Dev      F    Pr(>F)    
+## NULL                    346     59.651                     
+## group  1   53.975       345      5.676 3280.9 < 2.2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+
+Indeed, the IV analysis found a result between the ITT and PP - the true effect of intervention is strong than the ITT (because not everyone complied fully) but not as strong as the PP (because compliance is confounded).
 
 \chapter*{List of abbreviations}\label{list-of-abbreviations}
 \addcontentsline{toc}{chapter}{List of abbreviations}
@@ -6601,6 +7030,8 @@ not a number
 odds ratio
 \item[\protect\phantomsection\label{acronyms_PDF}{PDF}]
 portable document format
+\item[\protect\phantomsection\label{acronyms_PW}{PW}]
+physical well-being
 \item[\protect\phantomsection\label{acronyms_RERI}{RERI}]
 relative excess risk due to additive interaction
 \item[\protect\phantomsection\label{acronyms_SD}{SD}]

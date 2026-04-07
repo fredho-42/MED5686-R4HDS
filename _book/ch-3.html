@@ -30,7 +30,7 @@ in School of Health and Wellbeing, University of Glasgow.</p>" />
 <meta name="author" content="Frederick Ho" />
 
 
-<meta name="date" content="2026-03-18" />
+<meta name="date" content="2026-04-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -365,9 +365,9 @@ div.csl-indent {
 <li class="chapter" data-level="7.2" data-path="ch-7.html"><a href="ch-7.html#mediation-analysis"><i class="fa fa-check"></i><b>7.2</b> Mediation Analysis</a>
 <ul>
 <li class="chapter" data-level="7.2.1" data-path="ch-7.html"><a href="ch-7.html#the-base-model-total-effect"><i class="fa fa-check"></i><b>7.2.1</b> The Base Model (Total Effect)</a></li>
-<li class="chapter" data-level="7.2.2" data-path="ch-7.html"><a href="ch-7.html#regression-adjustment-for-mediation"><i class="fa fa-check"></i><b>7.2.2</b> Regression Adjustment for Mediation</a></li>
-<li class="chapter" data-level="7.2.3" data-path="ch-7.html"><a href="ch-7.html#the-sobel-test"><i class="fa fa-check"></i><b>7.2.3</b> The Sobel Test</a></li>
-<li class="chapter" data-level="7.2.4" data-path="ch-7.html"><a href="ch-7.html#the-parametric-g-formula"><i class="fa fa-check"></i><b>7.2.4</b> The Parametric G-Formula</a></li>
+<li class="chapter" data-level="7.2.2" data-path="ch-7.html"><a href="ch-7.html#difference-method-for-mediation"><i class="fa fa-check"></i><b>7.2.2</b> Difference Method for Mediation</a></li>
+<li class="chapter" data-level="7.2.3" data-path="ch-7.html"><a href="ch-7.html#sobel-test"><i class="fa fa-check"></i><b>7.2.3</b> Sobel Test</a></li>
+<li class="chapter" data-level="7.2.4" data-path="ch-7.html"><a href="ch-7.html#parametric-g-formula"><i class="fa fa-check"></i><b>7.2.4</b> Parametric G-Formula</a></li>
 </ul></li>
 <li class="chapter" data-level="7.3" data-path="ch-7.html"><a href="ch-7.html#instrumental-variables-iv"><i class="fa fa-check"></i><b>7.3</b> Instrumental Variables (IV)</a>
 <ul>
@@ -397,10 +397,10 @@ div.csl-indent {
 <div id="ch-3" class="section level1 hasAnchor" number="3">
 <h1><span class="header-section-number">Chapter 3</span> Data Types &amp; Manipulation<a href="ch-3.html#ch-3" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <pre><code>## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-## ✔ dplyr     1.1.4     ✔ readr     2.1.6
+## ✔ dplyr     1.2.1     ✔ readr     2.2.0
 ## ✔ forcats   1.0.1     ✔ stringr   1.6.0
 ## ✔ ggplot2   4.0.2     ✔ tibble    3.3.1
-## ✔ lubridate 1.9.4     ✔ tidyr     1.3.2
+## ✔ lubridate 1.9.5     ✔ tidyr     1.3.2
 ## ✔ purrr     1.2.1     
 ## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 ## ✖ dplyr::filter() masks stats::filter()
@@ -414,8 +414,8 @@ div.csl-indent {
 ## 
 ##     hms</code></pre>
 <pre><code>##           used  (Mb) gc trigger  (Mb) max used  (Mb)
-## Ncells 2307472 123.3    4433328 236.8  3930301 210.0
-## Vcells 4031161  30.8    8388608  64.0  5942092  45.4</code></pre>
+## Ncells 2307325 123.3    4414565 235.8  4023628 214.9
+## Vcells 4031210  30.8    8388608  64.0  5956323  45.5</code></pre>
 <p>At the heart of almost all of R, nearly everything in R is an <strong>object</strong> of some form or fashion. These can be almost anything, from a single number or word to more complex things such as functions (as seen in Section <a href="ch-2.html#sec:functions">2.5</a>), data sets, plots (coming in Chapter <a href="ch-4.html#ch-4">4</a>), and analysis results (coming in Chapter <a href="ch-5.html#ch-5">5</a>).</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:object-hierarchy"></span>
 <img src="images/03-ObjectDiagram.png" alt="A rough diagram of the object hierarchy of what will be covered in this chapter. Most things in R descend and inherit functionality from the main Object class, and as such are related. Examples of each object type have been presented in parentheses where possible. The information in the grey boxes either has been or will be covered in other chapters, and this does not include topics such as user-defined classes and objects." width="95%" />
