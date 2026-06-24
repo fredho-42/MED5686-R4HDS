@@ -206,7 +206,7 @@
 
 \title{R for Health Data Science}
 \author{Heather Waddell \and Alexandra Richards \and Clarisse de Vries \and Jocelyn Friday \and Frederick Ho}
-\date{2026-04-07}
+\date{2026-06-24}
 
 \begin{document}
 \maketitle
@@ -1173,9 +1173,9 @@ The above sections provide a few tips on how to improve the readability of your 
 \end{verbatim}
 
 \begin{verbatim}
-##           used  (Mb) gc trigger (Mb) max used (Mb)
-## Ncells 2279264 121.8    4155598  222  4155598  222
-## Vcells 4002273  30.6    8388608   64  6674120   51
+##           used  (Mb) gc trigger  (Mb) max used  (Mb)
+## Ncells 2279257 121.8    4159312 222.2  4159312 222.2
+## Vcells 4002264  30.6    8388608  64.0  6668938  50.9
 \end{verbatim}
 
 At the heart of almost all of R, nearly everything in R is an \textbf{object} of some form or fashion. These can be almost anything, from a single number or word to more complex things such as functions (as seen in Section \ref{sec:functions}), data sets, plots (coming in Chapter \ref{ch-4}), and analysis results (coming in Chapter \ref{ch-5}).
@@ -3779,9 +3779,9 @@ Remember you only need to install package once in a computer. And after they're 
 \end{Shaded}
 
 \begin{verbatim}
-##           used  (Mb) gc trigger  (Mb) max used (Mb)
-## Ncells 2417048 129.1    4155598 222.0  4155598  222
-## Vcells 4308609  32.9   10146329  77.5  8388583   64
+##           used  (Mb) gc trigger  (Mb) max used  (Mb)
+## Ncells 2417028 129.1    4159312 222.2  4159312 222.2
+## Vcells 4308614  32.9   10146329  77.5  8388570  64.0
 \end{verbatim}
 
 \section{Basic plotting}\label{basic-plotting}
@@ -4492,9 +4492,9 @@ Before starting this chapter, make sure that you have the following R packages i
 \end{Shaded}
 
 \begin{verbatim}
-##           used  (Mb) gc trigger  (Mb) max used (Mb)
-## Ncells 2782749 148.7    4155598 222.0  4155598  222
-## Vcells 4922966  37.6   10146329  77.5  8388583   64
+##           used  (Mb) gc trigger  (Mb) max used  (Mb)
+## Ncells 2782741 148.7    4159312 222.2  4159312 222.2
+## Vcells 4922991  37.6   10146329  77.5  8388570  64.0
 \end{verbatim}
 
 One primary aim of statistics is to make inferences, so that we can determine whether the association between the independent variable and the dependent variable (i.e., outcome) is true or could be due to chance. The independent variable may be an ``exposure'' (thought of as a potential cause), a ``predictor'' (which may or may not be causal), or a non-causal marker. Hypothesis testing is a common statistical method used to make such inferences.
@@ -4875,7 +4875,7 @@ Or use simulation:
 ##  2000 replicates)
 ## 
 ## data:  Gender and BMI_cat
-## p-value = 0.6382
+## p-value = 0.6752
 ## alternative hypothesis: two.sided
 \end{verbatim}
 
@@ -6612,14 +6612,14 @@ The \texttt{cmest()} function is quite complex in that it does not use the formu
 ## Direct counterfactual imputation estimation with 
 ##  bootstrap standard errors, percentile confidence intervals and p-values 
 ##  
-##       Estimate Std.error   95% CIL 95% CIU P.val  
-## cde  -0.071117  0.032166 -0.129036  -0.001  0.04 *
-## pnde -0.071117  0.032166 -0.129036  -0.001  0.04 *
-## tnde -0.071117  0.032166 -0.129036  -0.001  0.04 *
-## pnie -0.002807  0.003196 -0.008816   0.003  0.42  
-## tnie -0.002807  0.003196 -0.008816   0.003  0.42  
-## te   -0.073924  0.031856 -0.129855  -0.007  0.03 *
-## pm    0.037973  0.262579 -0.038727   0.355  0.43  
+##       Estimate Std.error   95% CIL 95% CIU P.val   
+## cde  -0.071117  0.029301 -0.126304  -0.013  0.01 **
+## pnde -0.071117  0.029301 -0.126304  -0.013  0.01 **
+## tnde -0.071117  0.029301 -0.126304  -0.013  0.01 **
+## pnie -0.002807  0.003062 -0.008994   0.003  0.27   
+## tnie -0.002807  0.003062 -0.008994   0.003  0.27   
+## te   -0.073924  0.029439 -0.132419  -0.016  0.01 **
+## pm    0.037973  0.107013 -0.055456   0.240  0.28   
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
@@ -6772,14 +6772,14 @@ This can be modelled by adding one more argument to the \texttt{cmest()} functio
 ## Direct counterfactual imputation estimation with 
 ##  bootstrap standard errors, percentile confidence intervals and p-values 
 ##  
-##        Estimate Std.error   95% CIL 95% CIU  P.val    
-## cde   -0.049141  0.029919 -0.114869   0.005   0.08 .  
-## rpnde -0.049141  0.029919 -0.114869   0.005   0.08 .  
-## rtnde -0.049141  0.029919 -0.114869   0.005   0.08 .  
-## rpnie -0.024783  0.003927 -0.032706  -0.017 <2e-16 ***
-## rtnie -0.024783  0.003927 -0.032706  -0.017 <2e-16 ***
-## te    -0.073924  0.030192 -0.140045  -0.020   0.01 ** 
-## pm     0.335244  0.315159  0.169412   1.247   0.01 ** 
+##       Estimate Std.error  95% CIL 95% CIU  P.val    
+## cde   -0.04914   0.02835 -0.10575   0.007   0.10 .  
+## rpnde -0.04914   0.02835 -0.10575   0.007   0.10 .  
+## rtnde -0.04914   0.02835 -0.10575   0.007   0.10 .  
+## rpnie -0.02478   0.00406 -0.03293  -0.017 <2e-16 ***
+## rtnie -0.02478   0.00406 -0.03293  -0.017 <2e-16 ***
+## te    -0.07392   0.02834 -0.13388  -0.018   0.01 ** 
+## pm     0.33524   0.66716  0.17316   1.150   0.01 ** 
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
