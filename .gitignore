@@ -7,7 +7,6 @@
 # Bookdown & RMarkdown temporary/cache folders
 _bookdown_files/
 _main_files/
-libs/
 
 # LaTeX temporary and byproduct files
 *.log
